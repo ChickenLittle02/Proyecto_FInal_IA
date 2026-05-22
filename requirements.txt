@@ -1,0 +1,4 @@
+# Dependencias mínimas para el proyecto
+# Agrega aquí el proveedor LLM que planees usar.
+
+python>=3.10
