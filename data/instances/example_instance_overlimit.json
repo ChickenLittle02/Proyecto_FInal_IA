@@ -1,0 +1,55 @@
+{
+  "max_duration": 30.0,
+  "fragments": [
+    {
+      "id": "1",
+      "text": "Introducción a la selección de fragmentos y objetivo del video.",
+      "duration": 8.0,
+      "start_time": 0.0,
+      "end_time": 8.0,
+      "metadata": {
+        "topic": "introducción"
+      }
+    },
+    {
+      "id": "2",
+      "text": "Definición del problema formal: variables, restricciones y objetivos.",
+      "duration": 10.0,
+      "start_time": 8.0,
+      "end_time": 18.0,
+      "metadata": {
+        "topic": "modelado"
+      }
+    },
+    {
+      "id": "3",
+      "text": "Cómo evaluar relevancia de cada fragmento con criterios pedagógicos.",
+      "duration": 9.0,
+      "start_time": 18.0,
+      "end_time": 27.0,
+      "metadata": {
+        "topic": "relevancia"
+      }
+    },
+    {
+      "id": "4",
+      "text": "Ejemplo de coherencia entre fragmentos sucesivos en un resumen.",
+      "duration": 7.0,
+      "start_time": 27.0,
+      "end_time": 34.0,
+      "metadata": {
+        "topic": "coherencia"
+      }
+    },
+    {
+      "id": "5",
+      "text": "Conclusión y cierre con recomendaciones para un resumen efectivo.",
+      "duration": 11.0,
+      "start_time": 34.0,
+      "end_time": 45.0,
+      "metadata": {
+        "topic": "conclusión"
+      }
+    }
+  ]
+}
