@@ -1,0 +1,2148 @@
+1
+00:00:02,420 --> 00:00:16,279
+[Aplausos]
+
+2
+00:00:14,639 --> 00:00:19,000
+Les traigo la pregunta que todos están
+
+3
+00:00:16,279 --> 00:00:20,640
+haciendo en este momento la Inteligencia
+
+4
+00:00:19,000 --> 00:00:23,480
+artificial te va a quitar tu trabajo sí
+
+5
+00:00:20,640 --> 00:00:26,800
+o no vamos a responder a esa pregunta el
+
+6
+00:00:23,480 --> 00:00:28,320
+día de hoy Yo soy Juan lombana uno de
+
+7
+00:00:26,800 --> 00:00:30,599
+los mejores digital marketers en el
+
+8
+00:00:28,320 --> 00:00:32,880
+mundo según Google trabajar a Google a
+
+9
+00:00:30,599 --> 00:00:35,719
+mis 19 años fui el empleado más joven de
+
+10
+00:00:32,880 --> 00:00:38,239
+Google en todo latinoamérica salí
+
+11
+00:00:35,719 --> 00:00:40,399
+emprendí para enseñar marketing digital
+
+12
+00:00:38,239 --> 00:00:42,200
+y para que más negocios puedan aprender
+
+13
+00:00:40,399 --> 00:00:44,280
+a vender en línea a través de mi empresa
+
+14
+00:00:42,200 --> 00:00:45,399
+mercatitlán la gente de Google me
+
+15
+00:00:44,280 --> 00:00:47,120
+reconoció como uno de los mejores
+
+16
+00:00:45,399 --> 00:00:49,800
+digital marketers en el mundo después de
+
+17
+00:00:47,120 --> 00:00:52,239
+esto la revista Forbes como una de las
+
+18
+00:00:49,800 --> 00:00:53,960
+30 promesas de los negocios tengo el
+
+19
+00:00:52,239 --> 00:00:55,760
+libro de marketing más vendido en todo
+
+20
+00:00:53,960 --> 00:01:01,920
+Amazon y uno de los podcast de negocios
+
+21
+00:00:55,760 --> 00:01:01,920
+más escuchados en habla hispana y mi
+
+22
+00:01:02,600 --> 00:01:08,119
+1.63 claro no hay que contar todo No
+
+23
+00:01:05,479 --> 00:01:11,119
+solo lo bonito hay que contar todo toda
+
+24
+00:01:08,119 --> 00:01:13,200
+toda toda la historia y hoy precisamente
+
+25
+00:01:11,119 --> 00:01:15,280
+vamos a hablar de Inteligencia
+
+26
+00:01:13,200 --> 00:01:18,799
+artificial y de si esta Inteligencia
+
+27
+00:01:15,280 --> 00:01:20,759
+artificial nos va o no nos va a quitar
+
+28
+00:01:18,799 --> 00:01:23,159
+el trabajo la Inteligencia artificial
+
+29
+00:01:20,759 --> 00:01:26,479
+nos va a quitar nuestro trabajo Sí
+
+30
+00:01:23,159 --> 00:01:30,439
+gracias por venir a esta
+
+31
+00:01:26,479 --> 00:01:32,920
+plática según el economic Forum 205 se
+
+32
+00:01:30,439 --> 00:01:35,560
+van a haber perdido 75 millones de
+
+33
+00:01:32,920 --> 00:01:39,280
+trabajos gracias a Inteligencia
+
+34
+00:01:35,560 --> 00:01:41,720
+artificial esto es una locura 75
+
+35
+00:01:39,280 --> 00:01:44,040
+millones de trabajos para 2025 pero la
+
+36
+00:01:41,720 --> 00:01:46,000
+historia definitivamente no acaba ahí
+
+37
+00:01:44,040 --> 00:01:47,719
+porque podemos hacer algo al respecto Y
+
+38
+00:01:46,000 --> 00:01:50,920
+eso Precisamente es lo que les vengo a
+
+39
+00:01:47,719 --> 00:01:50,920
+platicar el día de
+
+40
+00:01:51,000 --> 00:01:55,040
+hoy Qué es la Inteligencia artificial
+
+41
+00:01:53,719 --> 00:01:56,360
+porque creo que hoy en día todo el mundo
+
+42
+00:01:55,040 --> 00:01:57,399
+Ya habla de Inteligencia artificial y
+
+43
+00:01:56,360 --> 00:01:59,119
+todo el mundo piensa que todo tiene
+
+44
+00:01:57,399 --> 00:02:01,119
+Inteligencia artificial antes es una
+
+45
+00:01:59,119 --> 00:02:03,039
+palabra que las las tías ya están
+
+46
+00:02:01,119 --> 00:02:04,640
+diciendo todo el tiempo no Entonces qué
+
+47
+00:02:03,039 --> 00:02:06,240
+realmente es y queé no es la
+
+48
+00:02:04,640 --> 00:02:08,360
+Inteligencia artificial Yo sé que muchas
+
+49
+00:02:06,240 --> 00:02:09,840
+veces es difícil este tipo de conceptos
+
+50
+00:02:08,360 --> 00:02:11,200
+porque Pues precisamente No apenas le
+
+51
+00:02:09,840 --> 00:02:12,640
+acabas de explicar a tu abuelita que es
+
+52
+00:02:11,200 --> 00:02:16,080
+la nube Y por qué sus fotos no se
+
+53
+00:02:12,640 --> 00:02:17,560
+guardan en la en el cielo pero ahora
+
+54
+00:02:16,080 --> 00:02:19,040
+ahora vamos a tener que aprender el
+
+55
+00:02:17,560 --> 00:02:21,400
+nuevo concepto y el nuevo concepto que
+
+56
+00:02:19,040 --> 00:02:22,720
+es Inteligencia artificial nosotros como
+
+57
+00:02:21,400 --> 00:02:25,840
+humanos somos bien inteligentísimo
+
+58
+00:02:22,720 --> 00:02:27,959
+verdad que sí exacto no la verdad es que
+
+59
+00:02:25,840 --> 00:02:29,920
+no no somos tan inteligentes somos
+
+60
+00:02:27,959 --> 00:02:31,640
+bastante predecibles y nuestras acciones
+
+61
+00:02:29,920 --> 00:02:33,160
+se repiten una y otra y otra vez como
+
+62
+00:02:31,640 --> 00:02:34,800
+por ejemplo tu amiga que regresa y
+
+63
+00:02:33,160 --> 00:02:36,800
+regresa y regresa con el tóxico no es
+
+64
+00:02:34,800 --> 00:02:38,879
+fácil no O sea se sabe entonces
+
+65
+00:02:36,800 --> 00:02:41,000
+básicamente la Inteligencia artificial
+
+66
+00:02:38,879 --> 00:02:43,159
+es estas acciones que ya sabemos que van
+
+67
+00:02:41,000 --> 00:02:44,959
+a suceder como que el Cruz Azul pierda
+
+68
+00:02:43,159 --> 00:02:47,040
+se van a
+
+69
+00:02:44,959 --> 00:02:48,560
+programar porque no somos tan
+
+70
+00:02:47,040 --> 00:02:50,680
+inteligentes como pensamos que somos
+
+71
+00:02:48,560 --> 00:02:52,599
+inteligentes los seres humanos y
+
+72
+00:02:50,680 --> 00:02:54,280
+entonces nuestro cerebro puede colocarse
+
+73
+00:02:52,599 --> 00:02:58,360
+de cierta manera en un
+
+74
+00:02:54,280 --> 00:03:00,760
+algoritmo y ese algoritmo funcionar muy
+
+75
+00:02:58,360 --> 00:03:01,800
+similar muy similar a la inteligencia
+
+76
+00:03:00,760 --> 00:03:04,200
+humana Y esa es la Inteligencia
+
+77
+00:03:01,800 --> 00:03:05,599
+artificial en realidad un algoritmo que
+
+78
+00:03:04,200 --> 00:03:07,040
+funciona muy similar a la inteligencia
+
+79
+00:03:05,599 --> 00:03:08,480
+humana Ahora hay dos tipos de
+
+80
+00:03:07,040 --> 00:03:10,840
+Inteligencia artificial la Inteligencia
+
+81
+00:03:08,480 --> 00:03:13,440
+artificial estrecha que es la que
+
+82
+00:03:10,840 --> 00:03:15,879
+tenemos ahorita qu si chat gpt qu si
+
+83
+00:03:13,440 --> 00:03:17,480
+meid Journey un montón de casos de uso
+
+84
+00:03:15,879 --> 00:03:19,200
+de Inteligencia artificial en la banca
+
+85
+00:03:17,480 --> 00:03:21,440
+por ejemplo con Inteligencia artificial
+
+86
+00:03:19,200 --> 00:03:24,000
+podemos predecir qué tal va el
+
+87
+00:03:21,440 --> 00:03:26,360
+mercado en la medicina con Inteligencia
+
+88
+00:03:24,000 --> 00:03:27,720
+artificial le tomas fotos a lunares y te
+
+89
+00:03:26,360 --> 00:03:30,360
+dice con una gran exactitud Si es
+
+90
+00:03:27,720 --> 00:03:32,319
+cancerígeno o no
+
+91
+00:03:30,360 --> 00:03:34,720
+Siri tiene Inteligencia artificial
+
+92
+00:03:32,319 --> 00:03:38,159
+también parece que no mucha
+
+93
+00:03:34,720 --> 00:03:39,400
+pero pero sí tiene y todo estos son
+
+94
+00:03:38,159 --> 00:03:41,879
+casos aislados de Inteligencia
+
+95
+00:03:39,400 --> 00:03:44,400
+artificial estrecha ahora el verdadero
+
+96
+00:03:41,879 --> 00:03:47,799
+problema y la que nos preocupa a todos
+
+97
+00:03:44,400 --> 00:03:50,120
+es la Inteligencia artificial general o
+
+98
+00:03:47,799 --> 00:03:52,879
+agi porque la Inteligencia artificial
+
+99
+00:03:50,120 --> 00:03:55,920
+general lo que va a hacer es todas esas
+
+100
+00:03:52,879 --> 00:03:58,120
+cosas pero dentro de la misma
+
+101
+00:03:55,920 --> 00:04:00,239
+Inteligencia artificial como los humanos
+
+102
+00:03:58,120 --> 00:04:02,319
+los humanos hacemos varias cosas sabes
+
+103
+00:04:00,239 --> 00:04:04,760
+manejar pero también sabes partir un
+
+104
+00:04:02,319 --> 00:04:07,200
+limón pero también sabes escribir una
+
+105
+00:04:04,760 --> 00:04:09,640
+nota de agradecimiento eso exactamente
+
+106
+00:04:07,200 --> 00:04:10,959
+es la agi porque hoy en día la
+
+107
+00:04:09,640 --> 00:04:12,760
+Inteligencia artificial que tenemos no
+
+108
+00:04:10,959 --> 00:04:14,400
+cubre esto la Inteligencia artificial
+
+109
+00:04:12,760 --> 00:04:16,320
+que tiene tesla es buenísima para
+
+110
+00:04:14,400 --> 00:04:18,199
+manejar pero no sabe escribir una nota
+
+111
+00:04:16,320 --> 00:04:19,720
+de agradecimiento la Inteligencia
+
+112
+00:04:18,199 --> 00:04:21,320
+artificial que tiene chat gpt es
+
+113
+00:04:19,720 --> 00:04:23,160
+maravillosa para escribir una nota de
+
+114
+00:04:21,320 --> 00:04:26,240
+agradecimiento
+
+115
+00:04:23,160 --> 00:04:30,039
+pero no puede por ejemplo
+
+116
+00:04:26,240 --> 00:04:31,759
+eh tocar notas musicales entonces A cuál
+
+117
+00:04:30,039 --> 00:04:33,160
+le tenemos miedo no a la que tenemos
+
+118
+00:04:31,759 --> 00:04:34,840
+ahorita sino a la que podríamos tener en
+
+119
+00:04:33,160 --> 00:04:35,560
+el futuro y que probablemente suceda que
+
+120
+00:04:34,840 --> 00:04:38,360
+es la
+
+121
+00:04:35,560 --> 00:04:41,000
+agi Inteligencia artificial
+
+122
+00:04:38,360 --> 00:04:43,880
+general qué tanto miedo le tenemos
+
+123
+00:04:41,000 --> 00:04:46,560
+bastante Y por eso todos los periódicos
+
+124
+00:04:43,880 --> 00:04:48,479
+ahorita y todos los blogs y todo
+
+125
+00:04:46,560 --> 00:04:51,960
+internet básicamente es esto
+
+126
+00:04:48,479 --> 00:04:55,039
+no Step Hopkins está preocupado elon
+
+127
+00:04:51,960 --> 00:04:56,440
+mosk está preocupado renuncia El padrino
+
+128
+00:04:55,039 --> 00:04:58,639
+de la Inteligencia artificial de Google
+
+129
+00:04:56,440 --> 00:05:00,479
+porque está preocupado todos estamos
+
+130
+00:04:58,639 --> 00:05:01,759
+preocupados quién es está preocupado tú
+
+131
+00:05:00,479 --> 00:05:03,560
+estás preocupado yo también estoy
+
+132
+00:05:01,759 --> 00:05:05,880
+preocupado todos estamos
+
+133
+00:05:03,560 --> 00:05:07,639
+preocupados pero lo más bonito de esta
+
+134
+00:05:05,880 --> 00:05:10,280
+preocupación y
+
+135
+00:05:07,639 --> 00:05:11,880
+es el mejor artículo de todos este que
+
+136
+00:05:10,280 --> 00:05:14,440
+ven aquí
+
+137
+00:05:11,880 --> 00:05:16,800
+alguien de aquí alcanza a leer En qué
+
+138
+00:05:14,440 --> 00:05:21,360
+año se
+
+139
+00:05:16,800 --> 00:05:25,360
+publicó 1929 New York
+
+140
+00:05:21,360 --> 00:05:26,560
+Times las máquinas van a reemplazar al
+
+141
+00:05:25,360 --> 00:05:27,880
+hombre
+
+142
+00:05:26,560 --> 00:05:31,400
+[Música]
+
+143
+00:05:27,880 --> 00:05:34,840
+1929 desde ahí traemos la ansiedad desde
+
+144
+00:05:31,400 --> 00:05:36,840
+ahí estamos preocupados ya pasó Just un
+
+145
+00:05:34,840 --> 00:05:39,400
+poco sí y un poco
+
+146
+00:05:36,840 --> 00:05:42,639
+no Y eso es precisamente de lo que voy a
+
+147
+00:05:39,400 --> 00:05:43,840
+hablar el día de hoy Desde 1929 cuando
+
+148
+00:05:42,639 --> 00:05:45,560
+llega una nueva tecnología lo primero
+
+149
+00:05:43,840 --> 00:05:48,120
+que hacemos es eso tener
+
+150
+00:05:45,560 --> 00:05:49,319
+hype todo puede hacer es increíble esta
+
+151
+00:05:48,120 --> 00:05:50,680
+cosa es una maravilla puede hacer
+
+152
+00:05:49,319 --> 00:05:53,800
+perfectamente todo mi trabajo de manera
+
+153
+00:05:50,680 --> 00:05:55,600
+rapidísima espera un momento puede hacer
+
+154
+00:05:53,800 --> 00:05:59,120
+todo mi trabajo de manera
+
+155
+00:05:55,600 --> 00:06:01,240
+rapidísima sin cobrar y entonces nos
+
+156
+00:05:59,120 --> 00:06:03,000
+empieza a dar miedo y después El péndulo
+
+157
+00:06:01,240 --> 00:06:05,479
+se regula y entendemos la tecnología y
+
+158
+00:06:03,000 --> 00:06:07,160
+por eso estamos aquí ahora entendiendo
+
+159
+00:06:05,479 --> 00:06:09,400
+la
+
+160
+00:06:07,160 --> 00:06:10,440
+tecnología ahora Claro que tiene muchas
+
+161
+00:06:09,400 --> 00:06:11,919
+preocupaciones la Inteligencia
+
+162
+00:06:10,440 --> 00:06:14,599
+artificial y hay cosas éticas que se
+
+163
+00:06:11,919 --> 00:06:16,280
+tienen que resolver Pero ya qué pasa si
+
+164
+00:06:14,599 --> 00:06:17,840
+hay un coche autónomo dos coches
+
+165
+00:06:16,280 --> 00:06:20,440
+autónomos tres coches autónomos y todos
+
+166
+00:06:17,840 --> 00:06:21,800
+los coches de la calle son autónomos y
+
+167
+00:06:20,440 --> 00:06:23,919
+de repente tiene que haber un accidente
+
+168
+00:06:21,800 --> 00:06:25,120
+Sí o sí tu coche tiene que chocar no hay
+
+169
+00:06:23,919 --> 00:06:27,759
+manera de evitar el accidente ya lo
+
+170
+00:06:25,120 --> 00:06:29,560
+calculó matemáticamente y solamente
+
+171
+00:06:27,759 --> 00:06:31,319
+tiene dos opciones tu coche chocar la
+
+172
+00:06:29,560 --> 00:06:33,199
+derecha y chocar o chocar a la izquierda
+
+173
+00:06:31,319 --> 00:06:34,160
+si choca a la derecha va a matar a una
+
+174
+00:06:33,199 --> 00:06:36,520
+familia de
+
+175
+00:06:34,160 --> 00:06:38,240
+cuatro si choca a la izquierda va a
+
+176
+00:06:36,520 --> 00:06:40,880
+matar al mejor doctor de la ciudad no
+
+177
+00:06:38,240 --> 00:06:43,880
+hay otra opción Cómo un algoritmo toma
+
+178
+00:06:40,880 --> 00:06:45,120
+esa decisión quién aquí mata a la
+
+179
+00:06:43,880 --> 00:06:46,800
+familia de cuatro levanten la mano por
+
+180
+00:06:45,120 --> 00:06:48,960
+favor y los que estén viéndonos después
+
+181
+00:06:46,800 --> 00:06:52,479
+Comenten Quién mata a la familia cuatro
+
+182
+00:06:48,960 --> 00:06:55,840
+malditos asesinos Quién mata a Okay muy
+
+183
+00:06:52,479 --> 00:06:58,280
+bien Quién mata al doctor Quién mata
+
+184
+00:06:55,840 --> 00:07:00,000
+asesinos también quién muy bien Matan al
+
+185
+00:06:58,280 --> 00:07:01,879
+doctor perfecto
+
+186
+00:07:00,000 --> 00:07:03,520
+maravilloso si a nosotros nos cuesta
+
+187
+00:07:01,879 --> 00:07:05,840
+tomar esa decisión imagínense un
+
+188
+00:07:03,520 --> 00:07:07,120
+algoritmo y cuando la tenga que tomar y
+
+189
+00:07:05,840 --> 00:07:09,280
+no solamente eso sino tenemos muchas
+
+190
+00:07:07,120 --> 00:07:11,720
+cuestiones
+
+191
+00:07:09,280 --> 00:07:13,199
+también de cómo se va a organizar el
+
+192
+00:07:11,720 --> 00:07:14,879
+mundo el mundo se va a desorganizar con
+
+193
+00:07:13,199 --> 00:07:16,280
+la Inteligencia artificial Qué pasa si
+
+194
+00:07:14,879 --> 00:07:18,039
+alimentas con una Inteligencia
+
+195
+00:07:16,280 --> 00:07:20,160
+artificial todas las a todas las
+
+196
+00:07:18,039 --> 00:07:21,720
+canciones de Michael Jackson las subes a
+
+197
+00:07:20,160 --> 00:07:24,639
+una Inteligencia artificial que puede
+
+198
+00:07:21,720 --> 00:07:26,319
+imitar su voz y entonces con esa voz
+
+199
+00:07:24,639 --> 00:07:29,080
+puedes escribir una canción que cante
+
+200
+00:07:26,319 --> 00:07:30,400
+Michael Jackson Pero podemos ir más
+
+201
+00:07:29,080 --> 00:07:31,639
+lejos pues puede subir una letra de Juan
+
+202
+00:07:30,400 --> 00:07:34,360
+Gabriel Por ejemplo y que Michael
+
+203
+00:07:31,639 --> 00:07:36,599
+Jackson la cante ahora si esa canción
+
+204
+00:07:34,360 --> 00:07:38,840
+está en Spotify Quién gana dinero el que
+
+205
+00:07:36,599 --> 00:07:40,759
+hizo la Inteligencia artificial Michael
+
+206
+00:07:38,840 --> 00:07:43,280
+Jackson que entrenó la voz o Juan
+
+207
+00:07:40,759 --> 00:07:47,199
+Gabriel que es el que hizo la
+
+208
+00:07:43,280 --> 00:07:47,199
+canción No lo sé pero está
+
+209
+00:07:48,280 --> 00:07:52,159
+buenísima escuchen Michael Jackson con
+
+210
+00:07:50,879 --> 00:07:54,919
+querida con ustedes Claro que sí quiero
+
+211
+00:07:52,159 --> 00:07:58,319
+sus manos
+
+212
+00:07:54,919 --> 00:08:00,879
+más una vez más
+
+213
+00:07:58,319 --> 00:08:02,360
+excelente
+
+214
+00:08:00,879 --> 00:08:05,280
+hay varios dilemas que tenemos que
+
+215
+00:08:02,360 --> 00:08:07,280
+resolver todavía y estamos preocupados
+
+216
+00:08:05,280 --> 00:08:08,759
+pero para preocupar hay que entender
+
+217
+00:08:07,280 --> 00:08:10,440
+porque si no nada más te da miedo y ya
+
+218
+00:08:08,759 --> 00:08:12,400
+Entonces vamos a preocuparnos y vamos a
+
+219
+00:08:10,440 --> 00:08:13,879
+ocupar Cómo funciona la Inteligencia
+
+220
+00:08:12,400 --> 00:08:16,159
+artificial básicamente es como una
+
+221
+00:08:13,879 --> 00:08:18,599
+fábrica en donde los datos son la
+
+222
+00:08:16,159 --> 00:08:19,879
+materia prima entre más datos le metamos
+
+223
+00:08:18,599 --> 00:08:22,400
+a la Inteligencia artificial mejor es
+
+224
+00:08:19,879 --> 00:08:23,759
+esta Inteligencia artificial se acuerdan
+
+225
+00:08:22,400 --> 00:08:25,159
+que llevamos años oyendo hablar de es
+
+226
+00:08:23,759 --> 00:08:26,879
+que los datos son el petróleo es que los
+
+227
+00:08:25,159 --> 00:08:30,039
+datos son el nuevo oro y nadie entendía
+
+228
+00:08:26,879 --> 00:08:31,879
+Por qué como que se colecciona no y
+
+229
+00:08:30,039 --> 00:08:33,479
+ahora lo entendemos Claro entre más
+
+230
+00:08:31,879 --> 00:08:35,320
+datos más alimentamos esta Inteligencia
+
+231
+00:08:33,479 --> 00:08:38,519
+artificial mejor está entrenada y mejor
+
+232
+00:08:35,320 --> 00:08:41,560
+responde La Biblia tiene 773.000
+
+233
+00:08:38,519 --> 00:08:45,600
+palabras chat gpt en su última versión
+
+234
+00:08:41,560 --> 00:08:49,160
+4 tiene 300,000 millones de palabras el
+
+235
+00:08:45,600 --> 00:08:50,839
+entrenamiento chat gpt es inmenso y por
+
+236
+00:08:49,160 --> 00:08:53,640
+eso produce esos resultados increíbles
+
+237
+00:08:50,839 --> 00:08:56,600
+en donde todos estamos neta puede hacer
+
+238
+00:08:53,640 --> 00:08:58,200
+eso datos una gran cantidad de datos
+
+239
+00:08:56,600 --> 00:08:59,920
+pero después de los datos vienen los
+
+240
+00:08:58,200 --> 00:09:01,000
+algoritmos me encanta la palabra
+
+241
+00:08:59,920 --> 00:09:03,079
+algoritmos
+
+242
+00:09:01,000 --> 00:09:05,680
+porque todo el mundo la dice todo el
+
+243
+00:09:03,079 --> 00:09:08,480
+tiempo una vez Qué significa No no es
+
+244
+00:09:05,680 --> 00:09:11,560
+que el las tías No no es que lo del
+
+245
+00:09:08,480 --> 00:09:14,120
+viste lo lo del Instagram del algoritmo
+
+246
+00:09:11,560 --> 00:09:15,880
+no y luego tú haces algo en internet y
+
+247
+00:09:14,120 --> 00:09:17,440
+no es que el algo está picudo el
+
+248
+00:09:15,880 --> 00:09:23,120
+algoritmo por eso me dieron lo de los
+
+249
+00:09:17,440 --> 00:09:23,120
+likes por el Sí y Oy qué es el
+
+250
+00:09:23,320 --> 00:09:27,079
+algoritmo Pues es lo
+
+251
+00:09:28,120 --> 00:09:32,760
+de
+
+252
+00:09:30,200 --> 00:09:35,760
+que que decide no
+
+253
+00:09:32,760 --> 00:09:38,079
+quién sí por el algoritmo ya sabes No
+
+254
+00:09:35,760 --> 00:09:41,160
+nadie sabe ni yo sé que es Entonces no
+
+255
+00:09:38,079 --> 00:09:43,360
+no el algoritmo básicamente es es como
+
+256
+00:09:41,160 --> 00:09:45,000
+la maquinaria son un set de reglas un
+
+257
+00:09:43,360 --> 00:09:48,560
+set de instrucciones un set de procesos
+
+258
+00:09:45,000 --> 00:09:50,200
+matemáticos que deciden cosas Qué cosas
+
+259
+00:09:48,560 --> 00:09:52,440
+deciden Pues según lo que le pongas a
+
+260
+00:09:50,200 --> 00:09:54,000
+decidir según el algoritmo es el
+
+261
+00:09:52,440 --> 00:09:55,680
+problema que resuelve por ejemplo un
+
+262
+00:09:54,000 --> 00:09:58,200
+algoritmo de clasificación manda tus
+
+263
+00:09:55,680 --> 00:10:00,560
+correos malos a spam un algoritmo de
+
+264
+00:09:58,200 --> 00:10:02,560
+regresión te dice cuánto vas a hacer en
+
+265
+00:10:00,560 --> 00:10:04,399
+el coche a tu trabajo entonces según el
+
+266
+00:10:02,560 --> 00:10:06,279
+sapo es la pedrada según el algoritmo es
+
+267
+00:10:04,399 --> 00:10:07,680
+el proceso que resuelve y todos los
+
+268
+00:10:06,279 --> 00:10:09,360
+procesos de Machine learning tienen
+
+269
+00:10:07,680 --> 00:10:11,160
+algoritmos Y entonces ahí está la
+
+270
+00:10:09,360 --> 00:10:12,519
+siguiente palabra que ah como nos gusta
+
+271
+00:10:11,160 --> 00:10:16,760
+el Machine
+
+272
+00:10:12,519 --> 00:10:19,720
+learning que es aprendizaje bien Machine
+
+273
+00:10:16,760 --> 00:10:22,120
+no así yo me aprendí la tabla del Siete
+
+274
+00:10:19,720 --> 00:10:24,720
+no es el Machine learning no
+
+275
+00:10:22,120 --> 00:10:27,040
+entonces el Machine learning básicamente
+
+276
+00:10:24,720 --> 00:10:29,560
+es decirle a la computadora Cuál es el
+
+277
+00:10:27,040 --> 00:10:33,120
+resultado que tú estás esperando sin
+
+278
+00:10:29,560 --> 00:10:35,200
+decirle cómo llegar esto es básicamente
+
+279
+00:10:33,120 --> 00:10:37,519
+como tener una relación en pareja no O
+
+280
+00:10:35,200 --> 00:10:39,760
+sea sí O sea tiene que haber un poco
+
+281
+00:10:37,519 --> 00:10:41,279
+como de osmosis no O sea tú le dices Yo
+
+282
+00:10:39,760 --> 00:10:42,800
+quiero estar ahí no te voy a decir cómo
+
+283
+00:10:41,279 --> 00:10:45,560
+llegar tienes que aprender
+
+284
+00:10:42,800 --> 00:10:48,440
+automáticamente quién más aprende así
+
+285
+00:10:45,560 --> 00:10:50,600
+nosotros los humanos cuando tú le das a
+
+286
+00:10:48,440 --> 00:10:52,079
+un niñito esta jueguito de la cajita en
+
+287
+00:10:50,600 --> 00:10:53,839
+donde meten el Triángulo y meten el
+
+288
+00:10:52,079 --> 00:10:56,560
+círculo y tal no le dices verdad Mira
+
+289
+00:10:53,839 --> 00:11:00,959
+miito te voy a decir aquí Estos son
+
+290
+00:10:56,560 --> 00:11:03,560
+vértices sí los cuentas Y si tiene lo no
+
+291
+00:11:00,959 --> 00:11:05,680
+verdad se le echas ahí Y qué hace el
+
+292
+00:11:03,560 --> 00:11:08,600
+niño mete el círculo en el cuadrado no
+
+293
+00:11:05,680 --> 00:11:11,680
+jala se da cuenta tú lo ves dices Ay
+
+294
+00:11:08,600 --> 00:11:15,600
+sabía que iba a salir como su
+
+295
+00:11:11,680 --> 00:11:18,880
+papá mete el círculo en el Triángulo no
+
+296
+00:11:15,600 --> 00:11:21,399
+jala tú lo vuelves a ver mal y luego
+
+297
+00:11:18,880 --> 00:11:24,360
+mete el círculo en el círculo jala entra
+
+298
+00:11:21,399 --> 00:11:27,200
+sonríes y le das un beso muy bien mi
+
+299
+00:11:24,360 --> 00:11:29,279
+amor Y entonces eso exactamente Es lo
+
+300
+00:11:27,200 --> 00:11:32,079
+mismo que sucede en el Machine learning
+
+301
+00:11:29,279 --> 00:11:33,880
+prueba y error prueba y error hasta que
+
+302
+00:11:32,079 --> 00:11:36,120
+encuentran Cuál es el resultado al que
+
+303
+00:11:33,880 --> 00:11:39,000
+quieres llegar y determinan el proceso
+
+304
+00:11:36,120 --> 00:11:41,399
+para llegar ahí Y entonces por eso este
+
+305
+00:11:39,000 --> 00:11:43,200
+tipo de redes se llaman redes neuronales
+
+306
+00:11:41,399 --> 00:11:44,600
+porque están pensadas como las neuronas
+
+307
+00:11:43,200 --> 00:11:46,440
+de nuestro cerebro como se comunican
+
+308
+00:11:44,600 --> 00:11:49,920
+nuestras
+
+309
+00:11:46,440 --> 00:11:53,680
+neuronas de manera una conectada con
+
+310
+00:11:49,920 --> 00:11:55,079
+otra y paralelamente pensando en un
+
+311
+00:11:53,680 --> 00:11:56,320
+algoritmo lineal de la manera en la que
+
+312
+00:11:55,079 --> 00:11:58,360
+llevamos usando las computadoras todo
+
+313
+00:11:56,320 --> 00:12:00,120
+este tiempo tú tenías que programar cada
+
+314
+00:11:58,360 --> 00:12:01,600
+cosa cada cada cosa que iba haciendo la
+
+315
+00:12:00,120 --> 00:12:05,040
+computadora Entonces si tienes que
+
+316
+00:12:01,600 --> 00:12:07,600
+programar un juego de gato en la compu
+
+317
+00:12:05,040 --> 00:12:09,560
+tenías que escribir cada paso posible si
+
+318
+00:12:07,600 --> 00:12:11,800
+la persona lanza un círculo aquí Bueno
+
+319
+00:12:09,560 --> 00:12:14,000
+tira el círculo acá tú tienes que tirar
+
+320
+00:12:11,800 --> 00:12:15,720
+el touche aquí pero si tu contrincante
+
+321
+00:12:14,000 --> 00:12:17,959
+tira el círculo aquí tú tienes que tirar
+
+322
+00:12:15,720 --> 00:12:19,720
+el touche acá pero si la persona que
+
+323
+00:12:17,959 --> 00:12:22,360
+saca tira el círculo acá tú tienes que
+
+324
+00:12:19,720 --> 00:12:24,160
+tirar el touche por acá y entonces pues
+
+325
+00:12:22,360 --> 00:12:26,160
+esto se empieza complicar Porque si la
+
+326
+00:12:24,160 --> 00:12:27,639
+persona com su segundo movimiento es un
+
+327
+00:12:26,160 --> 00:12:29,199
+círculo acá tu segundo movimiento tiene
+
+328
+00:12:27,639 --> 00:12:30,480
+que ser un tach acá y si la persona seg
+
+329
+00:12:29,199 --> 00:12:32,399
+movimiento es un círculo acá tú tienes
+
+330
+00:12:30,480 --> 00:12:34,320
+que poner un tou acá y así sucesivamente
+
+331
+00:12:32,399 --> 00:12:36,279
+Entonces era un relajo imagínate cuánto
+
+332
+00:12:34,320 --> 00:12:38,760
+tardabas en programar las instrucciones
+
+333
+00:12:36,279 --> 00:12:41,120
+en una computadora para que jugara gato
+
+334
+00:12:38,760 --> 00:12:42,279
+que es algo relativamente sencillo un
+
+335
+00:12:41,120 --> 00:12:45,720
+juego muy
+
+336
+00:12:42,279 --> 00:12:47,480
+fácil por eso no funcionaba tambi ahora
+
+337
+00:12:45,720 --> 00:12:50,399
+con Inteligencia artificial y con redes
+
+338
+00:12:47,480 --> 00:12:52,120
+norales Qué sucede puedes hacer un un
+
+339
+00:12:50,399 --> 00:12:53,800
+procesamiento y un cálculo paralelo de
+
+340
+00:12:52,120 --> 00:12:57,440
+todas las posibilidades de todos los
+
+341
+00:12:53,800 --> 00:13:00,440
+movimientos cuando tu contrincante
+
+342
+00:12:57,440 --> 00:13:03,160
+tira la Inteligencia artificial va a
+
+343
+00:13:00,440 --> 00:13:06,800
+hacer un cálculo alrededor de todos los
+
+344
+00:13:03,160 --> 00:13:08,760
+nodos o las neuronas de todos los
+
+345
+00:13:06,800 --> 00:13:10,480
+diferentes movimientos que podría tener
+
+346
+00:13:08,760 --> 00:13:11,600
+y de ahí va a hacer un cálculo de todos
+
+347
+00:13:10,480 --> 00:13:13,000
+los diferentes movimientos que podría
+
+348
+00:13:11,600 --> 00:13:14,079
+tener el contrincante y de ahí va a ha
+
+349
+00:13:13,000 --> 00:13:15,600
+ser un cálculo de todos los diferentes
+
+350
+00:13:14,079 --> 00:13:17,160
+movimientos que podría tener y luego un
+
+351
+00:13:15,600 --> 00:13:19,639
+cálculo del contrincante otra vez hasta
+
+352
+00:13:17,160 --> 00:13:22,240
+llegar al final del gato y determinar
+
+353
+00:13:19,639 --> 00:13:24,639
+Cuál es la probabilidad de ganar esa
+
+354
+00:13:22,240 --> 00:13:26,519
+partida de gato Si hubiera puesto en el
+
+355
+00:13:24,639 --> 00:13:29,000
+segundo movimiento el Tche en la esquina
+
+356
+00:13:26,519 --> 00:13:30,600
+superior derecha y si determina que es
+
+357
+00:13:29,000 --> 00:13:34,000
+la probabilidad más grande va a poner el
+
+358
+00:13:30,600 --> 00:13:35,920
+touch ahí se echa para atrás y coloca la
+
+359
+00:13:34,000 --> 00:13:37,360
+ficha entonces de esta manera estás
+
+360
+00:13:35,920 --> 00:13:39,639
+procesando paralelamente todos los
+
+361
+00:13:37,360 --> 00:13:41,680
+posibles resultados calculando la
+
+362
+00:13:39,639 --> 00:13:43,480
+matemática para ver en cuál de los de
+
+363
+00:13:41,680 --> 00:13:45,360
+todos saldrías más favorable y jugando
+
+364
+00:13:43,480 --> 00:13:47,720
+de esa manera no le enseñaste a jugar
+
+365
+00:13:45,360 --> 00:13:49,760
+gato a la computadora solo le enseñaste
+
+366
+00:13:47,720 --> 00:13:51,920
+que querías ganar Le enseñaste cómo se
+
+367
+00:13:49,760 --> 00:13:53,839
+ve eso hace todas las opciones prueba y
+
+368
+00:13:51,920 --> 00:13:56,639
+error una y otra vez millones de veces
+
+369
+00:13:53,839 --> 00:13:58,040
+al día Cuántas veces el niño puede meter
+
+370
+00:13:56,639 --> 00:14:00,399
+el círculo en el cuadrado hasta darse
+
+371
+00:13:58,040 --> 00:14:01,759
+cuenta que no
+
+372
+00:14:00,399 --> 00:14:03,040
+pero la computadora puede hacerlo
+
+373
+00:14:01,759 --> 00:14:04,120
+millones y millones y millones y
+
+374
+00:14:03,040 --> 00:14:05,839
+millones de veces al día y puede
+
+375
+00:14:04,120 --> 00:14:07,639
+entrenarse jugando millones de partidas
+
+376
+00:14:05,839 --> 00:14:10,199
+de gato Al Día de manera paralela
+
+377
+00:14:07,639 --> 00:14:15,000
+entonces aprende mucho más rápido y eso
+
+378
+00:14:10,199 --> 00:14:16,959
+es lo que nos está dando miedo que está
+
+379
+00:14:15,000 --> 00:14:19,360
+aprendiendo mucho más rápido que
+
+380
+00:14:16,959 --> 00:14:22,000
+nosotros sin que nosotros le expliquemos
+
+381
+00:14:19,360 --> 00:14:24,160
+Cómo hacer las cosas y simplemente
+
+382
+00:14:22,000 --> 00:14:26,120
+diciéndole quiero esta respuesta quiero
+
+383
+00:14:24,160 --> 00:14:28,160
+este resultado quiero que esto se vea
+
+384
+00:14:26,120 --> 00:14:30,720
+así Quiero ganar la partida de gato y
+
+385
+00:14:28,160 --> 00:14:32,480
+entonces aquí viene la pregunta otra vez
+
+386
+00:14:30,720 --> 00:14:36,639
+la Inteligencia artificial nos va a
+
+387
+00:14:32,480 --> 00:14:40,839
+quitar el trabajo y La respuesta es
+
+388
+00:14:36,639 --> 00:14:42,320
+Sí cómo Juan esta es la t en la que más
+
+389
+00:14:40,839 --> 00:14:44,480
+he llorado en mi vida y ni siquiera
+
+390
+00:14:42,320 --> 00:14:48,639
+tiene que ver con emociones
+
+391
+00:14:44,480 --> 00:14:48,639
+no sí sí nos lo va a
+
+392
+00:14:48,759 --> 00:14:54,199
+quitar para 2025 ya les dije el World
+
+393
+00:14:52,560 --> 00:14:58,440
+economic Forum dijo que se van a perder
+
+394
+00:14:54,199 --> 00:15:00,720
+75 millones de empleos pero para 2025 se
+
+395
+00:14:58,440 --> 00:15:02,759
+va van a haber creado 133 millones de
+
+396
+00:15:00,720 --> 00:15:05,560
+empleos nuevos gracias a Inteligencia
+
+397
+00:15:02,759 --> 00:15:07,680
+artificial y esto pasa todo el tiempo no
+
+398
+00:15:05,560 --> 00:15:09,399
+Si antes de Facebook y antes de las
+
+399
+00:15:07,680 --> 00:15:11,519
+redes sociales yo les digo no es que va
+
+400
+00:15:09,399 --> 00:15:15,040
+a haber un trabajo un trabajo que se
+
+401
+00:15:11,519 --> 00:15:17,399
+llame Community manager en el que le van
+
+402
+00:15:15,040 --> 00:15:20,040
+a pagar muchísimo Un cuate que no se
+
+403
+00:15:17,399 --> 00:15:21,399
+baña y va a estar ahí picando botones en
+
+404
+00:15:20,040 --> 00:15:23,480
+la compu ustedes me dicen Oye Juan no
+
+405
+00:15:21,399 --> 00:15:26,720
+estés inventando y ahora pues miren Ahí
+
+406
+00:15:23,480 --> 00:15:30,079
+está no ahí está no tu tu sobrino el que
+
+407
+00:15:26,720 --> 00:15:31,759
+no se baña y entonces s todos tenemos un
+
+408
+00:15:30,079 --> 00:15:35,480
+sobrino que no se baña no que a tú eres
+
+409
+00:15:31,759 --> 00:15:36,639
+con manager Bueno entonces es el sobrin
+
+410
+00:15:35,480 --> 00:15:40,440
+manager
+
+411
+00:15:36,639 --> 00:15:41,800
+no entonces este es el punto No es muy
+
+412
+00:15:40,440 --> 00:15:43,800
+fácil ver los trabajos que se van a
+
+413
+00:15:41,800 --> 00:15:45,959
+perder no es muy fácil ver que la
+
+414
+00:15:43,800 --> 00:15:47,319
+persona que te Sella el ticket de salida
+
+415
+00:15:45,959 --> 00:15:48,680
+del estacionamiento se va a perder su
+
+416
+00:15:47,319 --> 00:15:50,440
+trabajo es muy sencillo no que las
+
+417
+00:15:48,680 --> 00:15:52,160
+máquinas lo van a reemplazar pero que es
+
+418
+00:15:50,440 --> 00:15:53,560
+muy difícil ver los trabajos que van a
+
+419
+00:15:52,160 --> 00:15:55,880
+llegar porque no los vemos porque no
+
+420
+00:15:53,560 --> 00:15:58,000
+están ahí todavía porque no se ven muy
+
+421
+00:15:55,880 --> 00:15:59,880
+claramente ahora cuál es el problema
+
+422
+00:15:58,000 --> 00:16:01,360
+aquí Esto no es la primera vez que pasa
+
+423
+00:15:59,880 --> 00:16:04,000
+en la humanidad ha pasado millones de
+
+424
+00:16:01,360 --> 00:16:06,319
+veces los coches por ejemplo antes los
+
+425
+00:16:04,000 --> 00:16:06,319
+coches se
+
+426
+00:16:27,519 --> 00:16:31,160
+ensamblabilidad
+
+427
+00:16:29,519 --> 00:16:33,480
+Por qué Porque claro a lo mejor
+
+428
+00:16:31,160 --> 00:16:36,120
+despidieron al que pegaba la ventana
+
+429
+00:16:33,480 --> 00:16:37,920
+pero contrataron a 40 ingenieros para
+
+430
+00:16:36,120 --> 00:16:40,800
+poder hacer un asiento que se haga
+
+431
+00:16:37,920 --> 00:16:43,399
+calientito para tus pompitas Porque así
+
+432
+00:16:40,800 --> 00:16:45,079
+es el ser humano siempre estamos echados
+
+433
+00:16:43,399 --> 00:16:47,720
+para adante siempre estamos innovando y
+
+434
+00:16:45,079 --> 00:16:50,319
+siempre creemos otra cosa entonces se
+
+435
+00:16:47,720 --> 00:16:53,279
+despiden unos trabajos y se crean otros
+
+436
+00:16:50,319 --> 00:16:56,040
+Exactamente lo mismo ahora la verdadera
+
+437
+00:16:53,279 --> 00:16:58,480
+pregunta aquí es a la persona que
+
+438
+00:16:56,040 --> 00:17:01,399
+despidieron que pegaba ventanas la
+
+439
+00:16:58,480 --> 00:17:05,559
+recontratar para ser ingeniero de
+
+440
+00:17:01,399 --> 00:17:07,600
+pompis no O no forzosamente Y esa es
+
+441
+00:17:05,559 --> 00:17:09,679
+nuestra chamba Y eso es precisamente con
+
+442
+00:17:07,600 --> 00:17:10,839
+lo que les quiero dejar el día de hoy
+
+443
+00:17:09,679 --> 00:17:14,039
+con
+
+444
+00:17:10,839 --> 00:17:16,120
+que nosotros es nuestra obligación
+
+445
+00:17:14,039 --> 00:17:17,640
+saltar al siguiente trabajo porque
+
+446
+00:17:16,120 --> 00:17:19,559
+probablemente el nuestro ya se vaya a
+
+447
+00:17:17,640 --> 00:17:21,160
+destruir o se vaya a transformar de
+
+448
+00:17:19,559 --> 00:17:23,039
+cierta manera Y entonces aquí tenemos la
+
+449
+00:17:21,160 --> 00:17:24,360
+lista de los mejores empleos o los
+
+450
+00:17:23,039 --> 00:17:25,880
+empleos que tienen más crecimiento en el
+
+451
+00:17:24,360 --> 00:17:27,559
+mundo especialista en Inteligencia
+
+452
+00:17:25,880 --> 00:17:29,760
+artificial ingeniería en fintech
+
+453
+00:17:27,559 --> 00:17:31,640
+analista para segur informática
+
+454
+00:17:29,760 --> 00:17:34,160
+especialista en sustentabilidad business
+
+455
+00:17:31,640 --> 00:17:36,799
+intelligence No todos son tecnología
+
+456
+00:17:34,160 --> 00:17:38,559
+casi todos y entonces llega tu sobrinito
+
+457
+00:17:36,799 --> 00:17:40,080
+Javier y le dices Y tú qué quieres ser
+
+458
+00:17:38,559 --> 00:17:42,799
+de grande Javier y Javier te dice
+
+459
+00:17:40,080 --> 00:17:46,640
+ingeniero tío No seas estúpido
+
+460
+00:17:42,799 --> 00:17:49,080
+Javier por favor No hagas esto es que me
+
+461
+00:17:46,640 --> 00:17:53,600
+encanta la ingeniería la haces en las
+
+462
+00:17:49,080 --> 00:17:55,640
+tardes no O sea tienes que hacer Tienes
+
+463
+00:17:53,600 --> 00:17:57,640
+tienes que enfocarte tienes que
+
+464
+00:17:55,640 --> 00:17:59,159
+enfocarte en los trabajos que están
+
+465
+00:17:57,640 --> 00:18:01,799
+creciendo en este este
+
+466
+00:17:59,159 --> 00:18:04,360
+momento yo soy
+
+467
+00:18:01,799 --> 00:18:06,679
+ingeniero y entonces Juan todos Ahora
+
+468
+00:18:04,360 --> 00:18:09,840
+vamos a tener que ser
+
+469
+00:18:06,679 --> 00:18:11,039
+programadores de qué me hablas No Y eso
+
+470
+00:18:09,840 --> 00:18:12,919
+es lo curioso de la Inteligencia
+
+471
+00:18:11,039 --> 00:18:14,799
+artificial los trabajos están creciendo
+
+472
+00:18:12,919 --> 00:18:16,360
+en Inteligencia artificial en todos los
+
+473
+00:18:14,799 --> 00:18:17,960
+sectores agrónomos que saben de
+
+474
+00:18:16,360 --> 00:18:19,360
+Inteligencia artificial abogados que
+
+475
+00:18:17,960 --> 00:18:22,039
+saben de Inteligencia artificial
+
+476
+00:18:19,360 --> 00:18:25,120
+artistas que saben de Inteligencia
+
+477
+00:18:22,039 --> 00:18:26,480
+artificial No importa que no seas un
+
+478
+00:18:25,120 --> 00:18:27,760
+programador o alguien super técnico
+
+479
+00:18:26,480 --> 00:18:30,679
+simplemente importa que uses tus
+
+480
+00:18:27,760 --> 00:18:32,039
+habilidades y las pongas en conjunto con
+
+481
+00:18:30,679 --> 00:18:34,120
+la Inteligencia
+
+482
+00:18:32,039 --> 00:18:35,520
+artificial y es que el verdadero
+
+483
+00:18:34,120 --> 00:18:38,200
+problema no es que la Inteligencia
+
+484
+00:18:35,520 --> 00:18:39,520
+artificial te va a quitar tu trabajo Es
+
+485
+00:18:38,200 --> 00:18:41,000
+que alguien que sabe Inteligencia
+
+486
+00:18:39,520 --> 00:18:42,799
+artificial te va a quitar tu trabajo y
+
+487
+00:18:41,000 --> 00:18:46,720
+eso sí va a
+
+488
+00:18:42,799 --> 00:18:48,240
+pasar eso sí va a pasar no es un robot
+
+489
+00:18:46,720 --> 00:18:50,480
+que te va a reemplazar te va a
+
+490
+00:18:48,240 --> 00:18:51,720
+reemplazar a alguien más preparado te va
+
+491
+00:18:50,480 --> 00:18:53,480
+a reemplazar a alguien que sí sabe
+
+492
+00:18:51,720 --> 00:18:56,360
+usarla y te va a reemplazar un abogado
+
+493
+00:18:53,480 --> 00:18:59,280
+que también sebe usar chat gpt
+
+494
+00:18:56,360 --> 00:19:01,840
+bcg hizo un análisis
+
+495
+00:18:59,280 --> 00:19:03,559
+en el cual le dieron Inteligencia
+
+496
+00:19:01,840 --> 00:19:07,240
+artificial a algunos de sus
+
+497
+00:19:03,559 --> 00:19:08,679
+consultores y a otros no y midieron
+
+498
+00:19:07,240 --> 00:19:10,320
+básicamente qué tanto hacían los que
+
+499
+00:19:08,679 --> 00:19:11,559
+tenían Inteligencia artificial en sus
+
+500
+00:19:10,320 --> 00:19:12,919
+procesos en el día a día como
+
+501
+00:19:11,559 --> 00:19:14,960
+consultores nada que ver con
+
+502
+00:19:12,919 --> 00:19:16,960
+programadores Bueno pues los que tenían
+
+503
+00:19:14,960 --> 00:19:19,840
+Inteligencia artificial hicieron 12.2
+
+504
+00:19:16,960 --> 00:19:23,440
+por más más tareas más
+
+505
+00:19:19,840 --> 00:19:26,440
+prioridades 25% más rápido tú dices Sí
+
+506
+00:19:23,440 --> 00:19:28,919
+Juan pero más chafa no 40% de más
+
+507
+00:19:26,440 --> 00:19:31,679
+calidad más velocidad
+
+508
+00:19:28,919 --> 00:19:33,880
+más prioridades más calidad a los que
+
+509
+00:19:31,679 --> 00:19:36,919
+tenían Inteligencia
+
+510
+00:19:33,880 --> 00:19:38,400
+artificial Entonces si tú la usas
+
+511
+00:19:36,919 --> 00:19:40,080
+Precisamente es lo que va a suceder con
+
+512
+00:19:38,400 --> 00:19:41,640
+tu trabajo A lo mejor una parte de tu
+
+513
+00:19:40,080 --> 00:19:42,880
+trabajo se va a transformar otra No a lo
+
+514
+00:19:41,640 --> 00:19:44,640
+mejor te van a despedir pero vas a
+
+515
+00:19:42,880 --> 00:19:46,640
+encontrar trabajo más rápido pero
+
+516
+00:19:44,640 --> 00:19:48,880
+tenemos que empezar a decir la verdad a
+
+517
+00:19:46,640 --> 00:19:50,640
+decir el Humano no es tan inteligente
+
+518
+00:19:48,880 --> 00:19:52,200
+todo se puede colocar en una computadora
+
+519
+00:19:50,640 --> 00:19:54,200
+mi trabajo está en peligro y es mi
+
+520
+00:19:52,200 --> 00:19:56,000
+responsabilidad saltar a ese trabajo
+
+521
+00:19:54,200 --> 00:19:57,720
+nuevo que se va a crear pero a partir de
+
+522
+00:19:56,000 --> 00:20:00,039
+este momento tienes que dejar de ser un
+
+523
+00:19:57,720 --> 00:20:02,480
+espectador hoy fuiste espectador Estás
+
+524
+00:20:00,039 --> 00:20:04,440
+aquí me encanta Muchas gracias a partir
+
+525
+00:20:02,480 --> 00:20:06,240
+de hoy tienes que dejar de ser un
+
+526
+00:20:04,440 --> 00:20:08,720
+espectador de la Inteligencia artificial
+
+527
+00:20:06,240 --> 00:20:10,520
+y te tienes que convertir en alguien que
+
+528
+00:20:08,720 --> 00:20:12,400
+la USA en alguien que aprende en alguien
+
+529
+00:20:10,520 --> 00:20:14,600
+que sabe no importa en el rubro en el
+
+530
+00:20:12,400 --> 00:20:18,039
+que te encuentres Muchísimas gracias por
+
+531
+00:20:14,600 --> 00:20:20,320
+estar aquí el día de Ho venga que no
+
+532
+00:20:18,039 --> 00:20:21,510
+Claro que sí muchísimas Muchísimas
+
+533
+00:20:20,320 --> 00:20:22,170
+[Música]
+
+534
+00:20:21,510 --> 00:20:25,729
+[Aplausos]
+
+535
+00:20:22,170 --> 00:20:25,729
+[Música]
+
+536
+00:20:27,159 --> 00:20:30,159
+gracias
+
+537
+00:20:31,039 --> 00:20:34,039
+y
+

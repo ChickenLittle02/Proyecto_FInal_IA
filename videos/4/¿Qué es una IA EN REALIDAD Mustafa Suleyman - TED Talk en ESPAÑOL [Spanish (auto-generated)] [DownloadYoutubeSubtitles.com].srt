@@ -1,0 +1,1640 @@
+1
+00:00:00,040 --> 00:00:03,240
+hace poco vi esa Ted Talk de mustafa
+
+2
+00:00:01,959 --> 00:00:05,240
+Suleiman sobre la Inteligencia
+
+3
+00:00:03,240 --> 00:00:07,240
+artificial y pensé en que le podría
+
+4
+00:00:05,240 --> 00:00:09,120
+gustar a mi audiencia por eso lo mandé
+
+5
+00:00:07,240 --> 00:00:10,759
+por la comunidad Privada de discord que
+
+6
+00:00:09,120 --> 00:00:12,759
+tenemos con la gente que está suscrita a
+
+7
+00:00:10,759 --> 00:00:14,679
+la señal pro y me di cuenta de que
+
+8
+00:00:12,759 --> 00:00:16,600
+muchas personas no podrían apreciarla
+
+9
+00:00:14,679 --> 00:00:18,480
+porque no saben inglés por eso te he
+
+10
+00:00:16,600 --> 00:00:20,240
+traducido las mejores partes y te las he
+
+11
+00:00:18,480 --> 00:00:21,920
+recopilado aquí quiero contarles lo que
+
+12
+00:00:20,240 --> 00:00:23,800
+veo venir he tenido la suerte de
+
+13
+00:00:21,920 --> 00:00:26,320
+trabajar en Inteligencia artificial
+
+14
+00:00:23,800 --> 00:00:29,000
+durante casi 15
+
+15
+00:00:26,320 --> 00:00:32,119
+años cuando comencé describirlo como
+
+16
+00:00:29,000 --> 00:00:34,000
+marginal sería quedarse corto Los
+
+17
+00:00:32,119 --> 00:00:35,960
+investigadores decían no no solo estamos
+
+18
+00:00:34,000 --> 00:00:37,440
+trabajando en aprendizaje automático
+
+19
+00:00:35,960 --> 00:00:40,559
+porque trabajar en Inteligencia
+
+20
+00:00:37,440 --> 00:00:44,000
+artificial se veía como algo demasiado
+
+21
+00:00:40,559 --> 00:00:46,480
+atrevido en 2010 solo la mención de la
+
+22
+00:00:44,000 --> 00:00:48,640
+frase inteligencia general artificial te
+
+23
+00:00:46,480 --> 00:00:51,440
+haría recibir miradas realmente extrañas
+
+24
+00:00:48,640 --> 00:00:53,359
+e incluso una actitud fría de verdad
+
+25
+00:00:51,440 --> 00:00:56,160
+estas construyendo inteligencia general
+
+26
+00:00:53,359 --> 00:00:57,760
+artificial dirían las personas no es eso
+
+27
+00:00:56,160 --> 00:01:00,160
+algo sacado de la ciencia ficción la
+
+28
+00:00:57,760 --> 00:01:01,840
+gente pensaba que estaba a 50 años o a
+
+29
+00:01:00,160 --> 00:01:03,680
+100 años de distancia si es que era
+
+30
+00:01:01,840 --> 00:01:05,519
+posible hablar de Inteligencia
+
+31
+00:01:03,680 --> 00:01:07,759
+artificial era Supongo un poco
+
+32
+00:01:05,519 --> 00:01:10,479
+embarazoso en general la gente pensaba
+
+33
+00:01:07,759 --> 00:01:12,920
+que éramos raros Supongo que de alguna
+
+34
+00:01:10,479 --> 00:01:14,920
+manera lo éramos no pasó mucho tiempo
+
+35
+00:01:12,920 --> 00:01:17,159
+antes de que la Inteligencia artificial
+
+36
+00:01:14,920 --> 00:01:19,640
+comenzara a superar a los humanos en
+
+37
+00:01:17,159 --> 00:01:22,119
+toda una gama de tareas que la gente
+
+38
+00:01:19,640 --> 00:01:24,520
+pensaba que estaban fuera de su alcance
+
+39
+00:01:22,119 --> 00:01:27,000
+entender imágenes Traducir idiomas
+
+40
+00:01:24,520 --> 00:01:29,280
+transcribir discursos jugar al Go y al
+
+41
+00:01:27,000 --> 00:01:31,360
+ajedrez e incluso diagnosticar
+
+42
+00:01:29,280 --> 00:01:32,759
+enfermedades la gente comenzó a darse
+
+43
+00:01:31,360 --> 00:01:35,280
+cuenta del hecho de que la Inteligencia
+
+44
+00:01:32,759 --> 00:01:36,920
+artificial iba a tener un impacto enorme
+
+45
+00:01:35,280 --> 00:01:38,600
+Y con razón nos empezaron a hacer
+
+46
+00:01:36,920 --> 00:01:41,000
+preguntas difíciles a los tecnólogos
+
+47
+00:01:38,600 --> 00:01:42,640
+como yo es cierto que la Inteligencia
+
+48
+00:01:41,000 --> 00:01:44,680
+artificial va a resolver la crisis
+
+49
+00:01:42,640 --> 00:01:47,640
+climática har que la educación
+
+50
+00:01:44,680 --> 00:01:49,119
+personalizada esté disponible para todos
+
+51
+00:01:47,640 --> 00:01:51,079
+significa que todos obtendremos una
+
+52
+00:01:49,119 --> 00:01:54,040
+renta básica universal y ya no Tendremos
+
+53
+00:01:51,079 --> 00:01:56,240
+que trabajar debería tener miedo Qué
+
+54
+00:01:54,040 --> 00:01:59,000
+significa para las armas y la guerra y
+
+55
+00:01:56,240 --> 00:02:00,399
+por supuesto ganará china estamos en una
+
+56
+00:01:59,000 --> 00:02:02,280
+carrera
+
+57
+00:02:00,399 --> 00:02:05,280
+Nos dirigimos hacia un apocalipsis de
+
+58
+00:02:02,280 --> 00:02:07,360
+desinformación masiva todas buenas
+
+59
+00:02:05,280 --> 00:02:09,959
+preguntas pero en realidad fue una
+
+60
+00:02:07,360 --> 00:02:13,400
+pregunta más simple y mucho más
+
+61
+00:02:09,959 --> 00:02:15,519
+fundamental la que me dejó perplejo una
+
+62
+00:02:13,400 --> 00:02:17,599
+que realmente va al corazón de mi
+
+63
+00:02:15,519 --> 00:02:20,560
+trabajo Cada
+
+64
+00:02:17,599 --> 00:02:23,280
+día una Mañana durante el desayuno mi
+
+65
+00:02:20,560 --> 00:02:25,640
+sobrino de 6 años caspian estaba jugando
+
+66
+00:02:23,280 --> 00:02:28,400
+con pi la Inteligencia artificial que
+
+67
+00:02:25,640 --> 00:02:30,400
+creé en mi última empresa inflection con
+
+68
+00:02:28,400 --> 00:02:32,720
+la boca llena de huevos ru
+
+69
+00:02:30,400 --> 00:02:35,239
+me miró directamente a la cara y dijo
+
+70
+00:02:32,720 --> 00:02:37,400
+pero mustafa Qué es una Inteligencia
+
+71
+00:02:35,239 --> 00:02:40,519
+artificial realmente es un niño tan
+
+72
+00:02:37,400 --> 00:02:42,239
+sincero curioso y optimista había estado
+
+73
+00:02:40,519 --> 00:02:44,959
+hablando con pi sobre lo Genial que
+
+74
+00:02:42,239 --> 00:02:47,599
+sería si un día en el futuro pudiera
+
+75
+00:02:44,959 --> 00:02:49,959
+visitar dinosaurios en el zoológico Y
+
+76
+00:02:47,599 --> 00:02:52,840
+cómo podría hacer cantidades infinitas
+
+77
+00:02:49,959 --> 00:02:56,159
+de chocolate en casa Y por qué pi aún no
+
+78
+00:02:52,840 --> 00:02:57,840
+podía jugar a Veo veo bueno dije es un
+
+79
+00:02:56,159 --> 00:02:59,280
+software inteligente que ha leído la
+
+80
+00:02:57,840 --> 00:03:01,519
+mayor parte del texto en internet
+
+81
+00:02:59,280 --> 00:03:02,480
+abierto y puedo hablar contigo sobre lo
+
+82
+00:03:01,519 --> 00:03:07,480
+que
+
+83
+00:03:02,480 --> 00:03:07,480
+quieras correcto Entonces como una
+
+84
+00:03:08,159 --> 00:03:12,680
+persona estaba
+
+85
+00:03:10,200 --> 00:03:15,080
+desconcertado realmente me dejó
+
+86
+00:03:12,680 --> 00:03:17,040
+rascándome la cabeza todas mis
+
+87
+00:03:15,080 --> 00:03:19,480
+respuestas estándar aburridas vinieron
+
+88
+00:03:17,040 --> 00:03:21,159
+rápidamente a mi mente no pero la
+
+89
+00:03:19,480 --> 00:03:22,840
+Inteligencia artificial es Solo otra
+
+90
+00:03:21,159 --> 00:03:24,480
+tecnología de propósito general como la
+
+91
+00:03:22,840 --> 00:03:26,720
+impresión o el vapor será una
+
+92
+00:03:24,480 --> 00:03:29,519
+herramienta que nos aumentará y nos hará
+
+93
+00:03:26,720 --> 00:03:31,840
+más inteligentes y productivos y cuando
+
+94
+00:03:29,519 --> 00:03:33,959
+mejor con el tiempo será como un oráculo
+
+95
+00:03:31,840 --> 00:03:36,760
+que lo sabe todo y nos ayudará a
+
+96
+00:03:33,959 --> 00:03:39,200
+resolver grandes desafíos científicos
+
+97
+00:03:36,760 --> 00:03:42,000
+todas estas respuestas empezaron a
+
+98
+00:03:39,200 --> 00:03:44,480
+parecer Supongo un poco
+
+99
+00:03:42,000 --> 00:03:46,239
+defensivas y de hecho más adecuado para
+
+100
+00:03:44,480 --> 00:03:48,640
+un seminario de políticas que para el
+
+101
+00:03:46,239 --> 00:03:50,799
+desayuno con un niño de 6 años sin
+
+102
+00:03:48,640 --> 00:03:53,920
+rodeos por qué estoy dudando me pregunté
+
+103
+00:03:50,799 --> 00:03:55,799
+a mí mismo sabes seamos honestos mi
+
+104
+00:03:53,920 --> 00:03:57,799
+sobrino me estaba haciendo una pregunta
+
+105
+00:03:55,799 --> 00:04:00,519
+sencilla que los que estamos en
+
+106
+00:03:57,799 --> 00:04:02,120
+Inteligencia artificial Simplemente no
+
+107
+00:04:00,519 --> 00:04:04,360
+confrontamos lo
+
+108
+00:04:02,120 --> 00:04:06,120
+suficiente qué es lo que realmente
+
+109
+00:04:04,360 --> 00:04:08,599
+estamos
+
+110
+00:04:06,120 --> 00:04:11,000
+creando Qué significa hacer algo
+
+111
+00:04:08,599 --> 00:04:13,159
+totalmente nuevo fundamentalmente
+
+112
+00:04:11,000 --> 00:04:14,799
+diferente a cualquier invención que
+
+113
+00:04:13,159 --> 00:04:17,600
+hayamos conocido
+
+114
+00:04:14,799 --> 00:04:19,959
+antes es Claro que estamos en un punto
+
+115
+00:04:17,600 --> 00:04:23,360
+de inflexión en la historia de la
+
+116
+00:04:19,959 --> 00:04:26,280
+humanidad en nuestra trayectoria actual
+
+117
+00:04:23,360 --> 00:04:29,720
+Nos dirigimos hacia la aparición de algo
+
+118
+00:04:26,280 --> 00:04:32,840
+que todos estamos luchando por describir
+
+119
+00:04:29,720 --> 00:04:35,840
+y aún así no podemos controlar lo que no
+
+120
+00:04:32,840 --> 00:04:38,720
+entendemos y así las metáforas los
+
+121
+00:04:35,840 --> 00:04:40,240
+modelos mentales los nombres todos
+
+122
+00:04:38,720 --> 00:04:41,880
+importan Si queremos aprovechar al
+
+123
+00:04:40,240 --> 00:04:43,720
+máximo la Inteligencia artificial
+
+124
+00:04:41,880 --> 00:04:46,360
+mientras limitamos sus posibles
+
+125
+00:04:43,720 --> 00:04:48,800
+desventajas como alguien que abraza las
+
+126
+00:04:46,360 --> 00:04:50,320
+posibilidades de esta tecnología pero
+
+127
+00:04:48,800 --> 00:04:52,680
+que también siempre ha tenido un
+
+128
+00:04:50,320 --> 00:04:55,080
+profundo interés por su ética deberíamos
+
+129
+00:04:52,680 --> 00:04:57,800
+creo poder describir fácilmente lo que
+
+130
+00:04:55,080 --> 00:04:59,759
+estamos construyendo y Eso incluye a los
+
+131
+00:04:57,800 --> 00:05:02,360
+niños de 6 años Así que es en ese
+
+132
+00:04:59,759 --> 00:05:04,840
+espíritu que hoy propongo la siguiente
+
+133
+00:05:02,360 --> 00:05:07,840
+metáfora para ayudarnos a tratar de
+
+134
+00:05:04,840 --> 00:05:09,680
+comprender lo que realmente es este
+
+135
+00:05:07,840 --> 00:05:12,240
+momento creo que la Inteligencia
+
+136
+00:05:09,680 --> 00:05:16,080
+artificial se debería entender mejor
+
+137
+00:05:12,240 --> 00:05:18,639
+como una nueva especie digital ahora no
+
+138
+00:05:16,080 --> 00:05:20,840
+lo tomes demasiado literalmente pero
+
+139
+00:05:18,639 --> 00:05:23,080
+predigo que llegaremos a verlos como
+
+140
+00:05:20,840 --> 00:05:26,080
+compañeros digitales nuevos socios en
+
+141
+00:05:23,080 --> 00:05:27,440
+las travesías de todas nuestras vidas ya
+
+142
+00:05:26,080 --> 00:05:30,440
+sea que pienses que estamos en un camino
+
+143
+00:05:27,440 --> 00:05:32,919
+de 10 20 o 30 años aquí
+
+144
+00:05:30,440 --> 00:05:35,400
+Esta es en mi opinión la forma más
+
+145
+00:05:32,919 --> 00:05:37,039
+precisa y fundamentalmente honesta de
+
+146
+00:05:35,400 --> 00:05:38,840
+describir lo que realmente está por
+
+147
+00:05:37,039 --> 00:05:42,919
+venir y sobre todo permite a todos
+
+148
+00:05:38,840 --> 00:05:45,479
+prepararse y dar forma a lo que viene
+
+149
+00:05:42,919 --> 00:05:48,039
+después Ahora entiendo completamente que
+
+150
+00:05:45,479 --> 00:05:49,759
+esta es una afirmación fuerte y voy a
+
+151
+00:05:48,039 --> 00:05:51,479
+explicarles a todos lo mejor que pueda
+
+152
+00:05:49,759 --> 00:05:53,680
+Porque la estoy haciendo pero primero
+
+153
+00:05:51,479 --> 00:05:56,039
+permítame intentar establecer el
+
+154
+00:05:53,680 --> 00:05:58,280
+contexto Desde los primeros organismos
+
+155
+00:05:56,039 --> 00:06:01,000
+microscópicos la vida en la tierra se
+
+156
+00:05:58,280 --> 00:06:03,280
+remonta a miles de millones de años
+
+157
+00:06:01,000 --> 00:06:04,199
+durante ese tiempo la vida evolucionó y
+
+158
+00:06:03,280 --> 00:06:06,360
+se
+
+159
+00:06:04,199 --> 00:06:08,880
+diversificó luego hace unos pocos
+
+160
+00:06:06,360 --> 00:06:10,720
+millones de años algo comenzó a cambiar
+
+161
+00:06:08,880 --> 00:06:12,960
+después de incontables ciclos de
+
+162
+00:06:10,720 --> 00:06:15,520
+crecimiento y adaptación una de las
+
+163
+00:06:12,960 --> 00:06:19,840
+ramas de la vida comenzó a usar
+
+164
+00:06:15,520 --> 00:06:21,759
+herramientas y esa rama se convirtió en
+
+165
+00:06:19,840 --> 00:06:23,639
+nosotros continuamos produciendo una
+
+166
+00:06:21,759 --> 00:06:26,360
+variedad fascinante de
+
+167
+00:06:23,639 --> 00:06:28,440
+herramientas al principio lentamente y
+
+168
+00:06:26,360 --> 00:06:31,360
+luego con una velocidad asombrosa
+
+169
+00:06:28,440 --> 00:06:33,720
+pasamos de hachas de piedra y fuego a
+
+170
+00:06:31,360 --> 00:06:35,280
+lenguaje escritura y eventualmente
+
+171
+00:06:33,720 --> 00:06:39,440
+tecnologías
+
+172
+00:06:35,280 --> 00:06:42,639
+industriales un invento desató mil más y
+
+173
+00:06:39,440 --> 00:06:45,800
+con el tiempo nos convertimos en homot
+
+174
+00:06:42,639 --> 00:06:48,360
+tecnológicos hace unos 80 años comenzó
+
+175
+00:06:45,800 --> 00:06:50,160
+otra nueva rama de la tecnología con la
+
+176
+00:06:48,360 --> 00:06:51,800
+invención de las computadoras
+
+177
+00:06:50,160 --> 00:06:54,160
+rápidamente saltamos de los primeros
+
+178
+00:06:51,800 --> 00:06:56,440
+mainframes y transistores a los
+
+179
+00:06:54,160 --> 00:06:59,599
+teléfonos inteligentes y los auriculares
+
+180
+00:06:56,440 --> 00:07:02,520
+de realidad virtual de hoy información
+
+181
+00:06:59,599 --> 00:07:04,680
+conocimiento comunicación computación en
+
+182
+00:07:02,520 --> 00:07:06,759
+esta Revolución la creación ha explotado
+
+183
+00:07:04,680 --> 00:07:09,759
+como nunca
+
+184
+00:07:06,759 --> 00:07:13,479
+antes y ahora una Nueva Ola está sobre
+
+185
+00:07:09,759 --> 00:07:15,800
+nosotros la Inteligencia artificial esas
+
+186
+00:07:13,479 --> 00:07:17,919
+olas de la historia claramente se están
+
+187
+00:07:15,800 --> 00:07:20,759
+acelerando ya que cada una es
+
+188
+00:07:17,919 --> 00:07:22,840
+amplificada y acelerada por la anterior
+
+189
+00:07:20,759 --> 00:07:24,800
+y si miras hacia atrás Es evidente que
+
+190
+00:07:22,840 --> 00:07:26,960
+estamos en la ola más rápida y
+
+191
+00:07:24,800 --> 00:07:28,720
+trascendental de la historia los viajes
+
+192
+00:07:26,960 --> 00:07:30,360
+de la humanidad y la tecnología ahora
+
+193
+00:07:28,720 --> 00:07:33,160
+están profunda amente
+
+194
+00:07:30,360 --> 00:07:34,800
+entrelazados en solo 18 meses más de
+
+195
+00:07:33,160 --> 00:07:37,199
+1000 millones de personas han usado
+
+196
+00:07:34,800 --> 00:07:39,080
+modelos de lenguaje grandes hemos
+
+197
+00:07:37,199 --> 00:07:41,800
+presencia de un evento histórico tras
+
+198
+00:07:39,080 --> 00:07:43,479
+otro hace solo unos años la gente decía
+
+199
+00:07:41,800 --> 00:07:45,479
+que la Inteligencia artificial nunca
+
+200
+00:07:43,479 --> 00:07:46,919
+sería creativa y sin embargo la
+
+201
+00:07:45,479 --> 00:07:49,479
+Inteligencia artificial ahora se siente
+
+202
+00:07:46,919 --> 00:07:52,639
+como un río interminable de creatividad
+
+203
+00:07:49,479 --> 00:07:54,599
+creando poesía imágenes música y video
+
+204
+00:07:52,639 --> 00:07:56,919
+que expanden la imaginación la gente
+
+205
+00:07:54,599 --> 00:07:58,879
+dijo que nunca sería empático y sin
+
+206
+00:07:56,919 --> 00:08:00,080
+embargo hoy en día millones de personas
+
+207
+00:07:58,879 --> 00:08:01,639
+disfrutan de conversaciones
+
+208
+00:08:00,080 --> 00:08:03,720
+significativas con las inteligencias
+
+209
+00:08:01,639 --> 00:08:05,520
+artificiales hablando de sus esperanzas
+
+210
+00:08:03,720 --> 00:08:07,800
+y sueños y ayudándoles a superar
+
+211
+00:08:05,520 --> 00:08:09,360
+desafíos emocionales difíciles las
+
+212
+00:08:07,800 --> 00:08:11,080
+inteligencias artificiales ahora pueden
+
+213
+00:08:09,360 --> 00:08:14,840
+conducir coches gestionar redes
+
+214
+00:08:11,080 --> 00:08:17,720
+energéticas e incluso inventar nuevas
+
+215
+00:08:14,840 --> 00:08:20,960
+moléculas hace solo unos años cada una
+
+216
+00:08:17,720 --> 00:08:22,879
+de estas cosas era imposible y todo esto
+
+217
+00:08:20,960 --> 00:08:26,280
+está potenciado por las espirales
+
+218
+00:08:22,879 --> 00:08:28,440
+exponenciales de datos y computación el
+
+219
+00:08:26,280 --> 00:08:32,479
+año pasado en flexión
+
+220
+00:08:28,440 --> 00:08:34,839
+2.5 nuestro último modelo utilizó 5000
+
+221
+00:08:32,479 --> 00:08:37,519
+millones de veces más computación que la
+
+222
+00:08:34,839 --> 00:08:39,640
+ía de Deep Mine que venció los juegos de
+
+223
+00:08:37,519 --> 00:08:42,719
+azari de la vieja escuela hace poco más
+
+224
+00:08:39,640 --> 00:08:45,680
+de 10 años eso es nueve órdenes de
+
+225
+00:08:42,719 --> 00:08:48,480
+magnitud más de computación 10 veces por
+
+226
+00:08:45,680 --> 00:08:51,000
+año todos los años durante casi una
+
+227
+00:08:48,480 --> 00:08:53,240
+década en ese mismo tiempo el tamaño de
+
+228
+00:08:51,000 --> 00:08:55,160
+estos modelos ha crecido de decenas de
+
+229
+00:08:53,240 --> 00:08:57,760
+millones de parámetros a miles de
+
+230
+00:08:55,160 --> 00:09:00,079
+millones de parámetros y muy pronto
+
+231
+00:08:57,760 --> 00:09:01,920
+decenas de billones de parámetros
+
+232
+00:09:00,079 --> 00:09:04,440
+si alguien no hiciera nada más que leer
+
+233
+00:09:01,920 --> 00:09:07,399
+las 24 horas del día durante toda su
+
+234
+00:09:04,440 --> 00:09:10,000
+vida consumiría 8000 millones de
+
+235
+00:09:07,399 --> 00:09:12,240
+palabras y por supuesto eso son muchas
+
+236
+00:09:10,000 --> 00:09:14,560
+palabras pero hoy en día las
+
+237
+00:09:12,240 --> 00:09:16,760
+inteligencias artificiales más avanzadas
+
+238
+00:09:14,560 --> 00:09:19,160
+consumen más de 8 billones de palabras
+
+239
+00:09:16,760 --> 00:09:22,399
+en un solo mes de entrenamiento y todo
+
+240
+00:09:19,160 --> 00:09:24,120
+esto está destinado a continuar el largo
+
+241
+00:09:22,399 --> 00:09:26,399
+arco de la historia tecnológica ahora
+
+242
+00:09:24,120 --> 00:09:28,680
+está en una nueva fase
+
+243
+00:09:26,399 --> 00:09:30,720
+extraordinaria Entonces qué significa
+
+244
+00:09:28,680 --> 00:09:33,079
+esto en la práctica bueno así como el
+
+245
+00:09:30,720 --> 00:09:35,480
+internet nos dio el navegador y el
+
+246
+00:09:33,079 --> 00:09:38,279
+Smartphone nos dio las aplicaciones la
+
+247
+00:09:35,480 --> 00:09:41,839
+supercomputadora basada en la nube está
+
+248
+00:09:38,279 --> 00:09:45,000
+inaugurando una nueva era de ías
+
+249
+00:09:41,839 --> 00:09:47,880
+ubicuas todo pronto estará representado
+
+250
+00:09:45,000 --> 00:09:50,720
+por una interfaz conversacional o dicho
+
+251
+00:09:47,880 --> 00:09:52,440
+de otra manera una ía personal y estas
+
+252
+00:09:50,720 --> 00:09:54,760
+inteligencias artificiales serán
+
+253
+00:09:52,440 --> 00:09:57,200
+infinitamente conocedoras y pronto serán
+
+254
+00:09:54,760 --> 00:09:59,640
+precisas y fiables tendrán un
+
+255
+00:09:57,200 --> 00:10:01,079
+coeficiente intelectual casi perfecto
+
+256
+00:09:59,640 --> 00:10:04,480
+también tendrán una inteligencia
+
+257
+00:10:01,079 --> 00:10:06,800
+emocional excepcional serán amables
+
+258
+00:10:04,480 --> 00:10:09,200
+comprensivos
+
+259
+00:10:06,800 --> 00:10:11,760
+empáticos estos elementos por sí solos
+
+260
+00:10:09,200 --> 00:10:13,680
+serían transformadores solo imagina Si
+
+261
+00:10:11,760 --> 00:10:16,200
+todos tuvieran un tutor personalizado en
+
+262
+00:10:13,680 --> 00:10:18,480
+su bolsillo y acceso a consejos médicos
+
+263
+00:10:16,200 --> 00:10:20,800
+de bajo costo un abogado y un médico un
+
+264
+00:10:18,480 --> 00:10:23,760
+estratega de negocios y coach todos en
+
+265
+00:10:20,800 --> 00:10:25,519
+tu bolsillo las 24 horas del día pero
+
+266
+00:10:23,760 --> 00:10:27,360
+las cosas realmente comienzan a cambiar
+
+267
+00:10:25,519 --> 00:10:30,000
+cuando desarrollan lo que yo llamo seu
+
+268
+00:10:27,360 --> 00:10:31,760
+su cosciente de acción
+
+269
+00:10:30,000 --> 00:10:33,760
+Esta es su capacidad para realmente
+
+270
+00:10:31,760 --> 00:10:36,639
+lograr que las cosas se hagan en el
+
+271
+00:10:33,760 --> 00:10:37,920
+mundo digital y físico y pronto no solo
+
+272
+00:10:36,639 --> 00:10:40,200
+las personas tendrán inteligencias
+
+273
+00:10:37,920 --> 00:10:42,120
+artificiales por extraño que parezca
+
+274
+00:10:40,200 --> 00:10:43,959
+cada organización desde pequeñas
+
+275
+00:10:42,120 --> 00:10:46,480
+empresas hasta organizaciones sin fines
+
+276
+00:10:43,959 --> 00:10:49,680
+de lucro y gobiernos nacionales cada una
+
+277
+00:10:46,480 --> 00:10:52,000
+tendrá la suya cada ciudad edificio y
+
+278
+00:10:49,680 --> 00:10:54,040
+objeto estará representado por una
+
+279
+00:10:52,000 --> 00:10:56,480
+persona única e
+
+280
+00:10:54,040 --> 00:10:57,800
+interactiva Y estos no serán solo
+
+281
+00:10:56,480 --> 00:11:01,680
+asistentes
+
+282
+00:10:57,800 --> 00:11:04,800
+mecánicos serán compañeros confidences
+
+283
+00:11:01,680 --> 00:11:07,560
+colegas amigos y socios tan variados y
+
+284
+00:11:04,800 --> 00:11:09,399
+únicos como los Somos todos en este
+
+285
+00:11:07,560 --> 00:11:11,440
+punto las sillas imitarán de manera
+
+286
+00:11:09,399 --> 00:11:13,480
+convincente a los humanos en la mayoría
+
+287
+00:11:11,440 --> 00:11:15,959
+de las tareas y lo sentiremos En los
+
+288
+00:11:13,480 --> 00:11:17,839
+niveles más íntimos una Inteligencia
+
+289
+00:11:15,959 --> 00:11:20,519
+artificial organizando una reunión
+
+290
+00:11:17,839 --> 00:11:22,399
+comunitaria para un vecino anciano un
+
+291
+00:11:20,519 --> 00:11:24,720
+experto comprensivo ayudándote a
+
+292
+00:11:22,399 --> 00:11:26,519
+entender un diagnóstico difícil pero
+
+293
+00:11:24,720 --> 00:11:28,800
+también lo sentiremos a gran escala
+
+294
+00:11:26,519 --> 00:11:31,519
+acelerando el descubrimiento científico
+
+295
+00:11:28,800 --> 00:11:33,959
+coche autónomos en las carreteras drones
+
+296
+00:11:31,519 --> 00:11:36,440
+en el cielo ellos tanto harán el pedido
+
+297
+00:11:33,959 --> 00:11:38,440
+de comida para llevar como operarán la
+
+298
+00:11:36,440 --> 00:11:41,160
+central eléctrica interactuarán con
+
+299
+00:11:38,440 --> 00:11:43,680
+nosotros y por supuesto entre ellos
+
+300
+00:11:41,160 --> 00:11:46,240
+hablarán todos los idiomas captarán
+
+301
+00:11:43,680 --> 00:11:49,279
+todos los patrones de datos de sensores
+
+302
+00:11:46,240 --> 00:11:51,680
+imágenes sonidos corrientes y corrientes
+
+303
+00:11:49,279 --> 00:11:53,800
+de información que superan con creces lo
+
+304
+00:11:51,680 --> 00:11:57,120
+que cualquiera de nosotros podría
+
+305
+00:11:53,800 --> 00:12:00,120
+consumir en mil vidas Entonces qué es
+
+306
+00:11:57,120 --> 00:12:02,920
+esto Qué son Esta es
+
+307
+00:12:00,120 --> 00:12:05,639
+ias si vamos a priorizar la seguridad
+
+308
+00:12:02,920 --> 00:12:08,639
+por encima de todo para asegurarnos de
+
+309
+00:12:05,639 --> 00:12:11,279
+que esta Nueva Ola siempre Sirva y
+
+310
+00:12:08,639 --> 00:12:13,279
+amplifique a la humanidad entonces
+
+311
+00:12:11,279 --> 00:12:15,440
+necesitamos encontrar las metáforas
+
+312
+00:12:13,279 --> 00:12:18,000
+adecuadas para lo que esto podría
+
+313
+00:12:15,440 --> 00:12:19,839
+convertirse durante años nosotros en la
+
+314
+00:12:18,000 --> 00:12:21,800
+comunidad de Inteligencia artificial y
+
+315
+00:12:19,839 --> 00:12:23,560
+yo específicamente hemos tenido la
+
+316
+00:12:21,800 --> 00:12:24,920
+tendencia de referirnos a esto
+
+317
+00:12:23,560 --> 00:12:27,440
+simplemente como
+
+318
+00:12:24,920 --> 00:12:29,920
+herramientas Pero eso realmente no
+
+319
+00:12:27,440 --> 00:12:31,480
+captura lo que está sucediendo aquí las
+
+320
+00:12:29,920 --> 00:12:33,959
+inteligencias artificiales son
+
+321
+00:12:31,480 --> 00:12:36,240
+claramente más dinámicas más ambiguas
+
+322
+00:12:33,959 --> 00:12:37,920
+más integradas y más emergentes que
+
+323
+00:12:36,240 --> 00:12:40,199
+simples herramientas que están
+
+324
+00:12:37,920 --> 00:12:42,639
+completamente sujetas al control humano
+
+325
+00:12:40,199 --> 00:12:45,160
+por lo tanto para contener esta ola
+
+326
+00:12:42,639 --> 00:12:47,560
+poner la agencia humana en su centro y
+
+327
+00:12:45,160 --> 00:12:50,480
+mitigar las inevitables consecuencias no
+
+328
+00:12:47,560 --> 00:12:53,160
+deseadas que probablemente surjan
+
+329
+00:12:50,480 --> 00:12:55,600
+deberíamos comenzar a pensar en ellas
+
+330
+00:12:53,160 --> 00:12:58,519
+como si fueran una nueva especie digital
+
+331
+00:12:55,600 --> 00:13:01,120
+ahora es solo una analogía no es una
+
+332
+00:12:58,519 --> 00:13:04,120
+descripción literal y no es perfecta
+
+333
+00:13:01,120 --> 00:13:05,560
+quiero decir para empezar claramente no
+
+334
+00:13:04,120 --> 00:13:08,480
+son biológicos en ningún sentido
+
+335
+00:13:05,560 --> 00:13:10,480
+tradicional pero detente un momento y
+
+336
+00:13:08,480 --> 00:13:13,040
+piensa realmente en lo que ya hacen se
+
+337
+00:13:10,480 --> 00:13:15,240
+comunican en nuestros idiomas ven lo que
+
+338
+00:13:13,040 --> 00:13:18,560
+vemos consumen cantidades
+
+339
+00:13:15,240 --> 00:13:20,839
+inimaginablemente grandes de
+
+340
+00:13:18,560 --> 00:13:23,320
+información tienen
+
+341
+00:13:20,839 --> 00:13:26,320
+memoria tienen
+
+342
+00:13:23,320 --> 00:13:28,560
+personalidad tienen creatividad incluso
+
+343
+00:13:26,320 --> 00:13:31,480
+pueden razonar hasta cierto punto y
+
+344
+00:13:28,560 --> 00:13:33,160
+formular planes rudimentarios pueden
+
+345
+00:13:31,480 --> 00:13:35,560
+actuar de manera Autónoma si se lo
+
+346
+00:13:33,160 --> 00:13:37,880
+permitimos y hacen todo esto con un
+
+347
+00:13:35,560 --> 00:13:39,560
+nivel de sofisticación que va mucho más
+
+348
+00:13:37,880 --> 00:13:42,600
+allá de cualquier cosa que hayamos
+
+349
+00:13:39,560 --> 00:13:44,320
+conocido en una mera herramienta y decir
+
+350
+00:13:42,600 --> 00:13:46,040
+que la Inteligencia artificial se trata
+
+351
+00:13:44,320 --> 00:13:48,399
+principalmente de las Matemáticas o el
+
+352
+00:13:46,040 --> 00:13:51,600
+código es como decir que nosotros los
+
+353
+00:13:48,399 --> 00:13:54,839
+humanos somos principalmente carbono y
+
+354
+00:13:51,600 --> 00:13:56,120
+agua es cierto pero se pierde
+
+355
+00:13:54,839 --> 00:13:59,279
+completamente el
+
+356
+00:13:56,120 --> 00:14:01,720
+punto y Sí lo entiendo es es un
+
+357
+00:13:59,279 --> 00:14:04,040
+pensamiento muy cautivador Pero
+
+358
+00:14:01,720 --> 00:14:06,000
+sinceramente Creo que este enfoque ayuda
+
+359
+00:14:04,040 --> 00:14:09,639
+a enfocar nuestra atención en los
+
+360
+00:14:06,000 --> 00:14:12,120
+problemas críticos Cuáles son los
+
+361
+00:14:09,639 --> 00:14:13,320
+riesgos Cuáles son los límites que
+
+362
+00:14:12,120 --> 00:14:15,440
+necesitamos
+
+363
+00:14:13,320 --> 00:14:17,440
+imponer Qué tipo de Inteligencia
+
+364
+00:14:15,440 --> 00:14:20,240
+artificial queremos construir o permitir
+
+365
+00:14:17,440 --> 00:14:23,399
+que se construya Esta es una historia
+
+366
+00:14:20,240 --> 00:14:26,160
+que aún se está desarrollando nada debe
+
+367
+00:14:23,399 --> 00:14:28,360
+ser aceptado como un hecho todos debemos
+
+368
+00:14:26,160 --> 00:14:32,399
+elegir lo que creamos qué inteligencias
+
+369
+00:14:28,360 --> 00:14:35,120
+artificiales traemos al mundo Oh
+
+370
+00:14:32,399 --> 00:14:38,560
+no Estas son las preguntas para todos
+
+371
+00:14:35,120 --> 00:14:41,240
+nosotros aquí hoy y todos nosotros vivos
+
+372
+00:14:38,560 --> 00:14:43,560
+en este momento para mí los beneficios
+
+373
+00:14:41,240 --> 00:14:46,600
+de esta tecnología son asombrosamente
+
+374
+00:14:43,560 --> 00:14:49,800
+obvios y ellos inspiran el trabajo de mi
+
+375
+00:14:46,600 --> 00:14:52,120
+vida cada día pero francamente ellos
+
+376
+00:14:49,800 --> 00:14:55,079
+hablarán por sí mismos a lo largo de los
+
+377
+00:14:52,120 --> 00:14:57,079
+años nunca me he rehusado a destacar los
+
+378
+00:14:55,079 --> 00:14:59,360
+riesgos y hablar sobre los
+
+379
+00:14:57,079 --> 00:15:01,120
+inconvenientes pensar de esta manera nos
+
+380
+00:14:59,360 --> 00:15:03,600
+ayuda a centrarnos en los enormes
+
+381
+00:15:01,120 --> 00:15:06,560
+desafíos que nos esperan a todos pero
+
+382
+00:15:03,600 --> 00:15:09,480
+seamos claros no hay camino hacia el
+
+383
+00:15:06,560 --> 00:15:11,199
+progreso donde dejemos la tecnología
+
+384
+00:15:09,480 --> 00:15:14,000
+atrás el premio para toda la
+
+385
+00:15:11,199 --> 00:15:16,120
+civilización es inmenso necesitamos
+
+386
+00:15:14,000 --> 00:15:18,040
+soluciones en el cuidado de la salud y
+
+387
+00:15:16,120 --> 00:15:19,959
+la educación para nuestra crisis
+
+388
+00:15:18,040 --> 00:15:22,560
+climática Y si la Inteligencia
+
+389
+00:15:19,959 --> 00:15:25,399
+artificial cumple solo una fracción de
+
+390
+00:15:22,560 --> 00:15:28,079
+su potencial la próxima década será la
+
+391
+00:15:25,399 --> 00:15:31,120
+más productiva en la historia humana
+
+392
+00:15:28,079 --> 00:15:33,360
+aquí hay otra forma de pensarlo en el
+
+393
+00:15:31,120 --> 00:15:35,000
+pasado el crecimiento económico a menudo
+
+394
+00:15:33,360 --> 00:15:37,600
+venía con enormes
+
+395
+00:15:35,000 --> 00:15:39,399
+desventajas la economía se expandió a
+
+396
+00:15:37,600 --> 00:15:42,360
+medida que las personas descubrieron
+
+397
+00:15:39,399 --> 00:15:45,519
+nuevos continentes y abrieron nuevas
+
+398
+00:15:42,360 --> 00:15:46,319
+fronteras pero colonizaba poblaciones al
+
+399
+00:15:45,519 --> 00:15:49,279
+mismo
+
+400
+00:15:46,319 --> 00:15:52,000
+tiempo construimos fábricas pero eran
+
+401
+00:15:49,279 --> 00:15:54,440
+lugares sombríos y peligrosos para
+
+402
+00:15:52,000 --> 00:15:57,000
+trabajar descubrimos petróleo pero
+
+403
+00:15:54,440 --> 00:15:59,079
+contaminamos el planeta ahora porque
+
+404
+00:15:57,000 --> 00:16:00,959
+todavía estamos diseñando y construyendo
+
+405
+00:15:59,079 --> 00:16:03,600
+Inteligencia artificial tenemos el
+
+406
+00:16:00,959 --> 00:16:06,639
+potencial y la oportunidad de hacerlo
+
+407
+00:16:03,600 --> 00:16:08,519
+mejor radicalmente mejor y hoy no
+
+408
+00:16:06,639 --> 00:16:11,279
+estamos descubriendo un nuevo continente
+
+409
+00:16:08,519 --> 00:16:15,160
+y saqueando sus recursos estamos
+
+410
+00:16:11,279 --> 00:16:15,160
+construyendo uno desde cero
+

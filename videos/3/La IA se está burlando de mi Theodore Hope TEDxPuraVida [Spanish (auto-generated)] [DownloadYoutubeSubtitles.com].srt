@@ -1,0 +1,984 @@
+1
+00:00:01,700 --> 00:00:11,970
+[Música]
+
+2
+00:00:16,760 --> 00:00:20,560
+Voy a suponer que la mayoría de ustedes
+
+3
+00:00:18,720 --> 00:00:22,720
+han usado una de las herramientas de
+
+4
+00:00:20,560 --> 00:00:25,119
+inteligencia artificial generativa,
+
+5
+00:00:22,720 --> 00:00:27,080
+chat, GBT, Google, Gemini, Deepsek, ese
+
+6
+00:00:25,119 --> 00:00:29,439
+tipo de cosas. Estas herramientas
+
+7
+00:00:27,080 --> 00:00:31,880
+aparecieron para uso público hace un
+
+8
+00:00:29,439 --> 00:00:35,000
+poco menos de 3 años y pocas tecnologías
+
+9
+00:00:31,880 --> 00:00:37,079
+han sido tan transformadoras y con un
+
+10
+00:00:35,000 --> 00:00:40,000
+con un impacto tan grande en un tiempo
+
+11
+00:00:37,079 --> 00:00:41,360
+tan corto. Cada vez que yo las uso, me
+
+12
+00:00:40,000 --> 00:00:43,120
+tengo que recordar de un montón de
+
+13
+00:00:41,360 --> 00:00:44,800
+cosas. Tengo que recordar, por ejemplo,
+
+14
+00:00:43,120 --> 00:00:47,440
+para empezar, que la inteligencia
+
+15
+00:00:44,800 --> 00:00:49,199
+artificial no es una cosa, es una
+
+16
+00:00:47,440 --> 00:00:50,760
+característica de un sistema. Es la
+
+17
+00:00:49,199 --> 00:00:52,920
+capacidad que tiene un sistema de
+
+18
+00:00:50,760 --> 00:00:55,079
+cómputo para realizar tareas que
+
+19
+00:00:52,920 --> 00:00:56,399
+normalmente requieren de de inteligencia
+
+20
+00:00:55,079 --> 00:00:58,399
+humana.
+
+21
+00:00:56,399 --> 00:01:01,399
+como el aprendizaje, la resolución de
+
+22
+00:00:58,399 --> 00:01:03,600
+problemas, la toma de decisiones. Y como
+
+23
+00:01:01,399 --> 00:01:04,879
+informático de profesión tengo que
+
+24
+00:01:03,600 --> 00:01:07,159
+recordarme que la inteligencia
+
+25
+00:01:04,879 --> 00:01:09,479
+artificial como área de estudio dentro
+
+26
+00:01:07,159 --> 00:01:11,520
+de las ciencias de computación busca
+
+27
+00:01:09,479 --> 00:01:13,520
+crear máquinas que puedan hacer esas
+
+28
+00:01:11,520 --> 00:01:15,320
+cosas.
+
+29
+00:01:13,520 --> 00:01:17,320
+Estas herramientas utilizan un modelo
+
+30
+00:01:15,320 --> 00:01:21,280
+computacional conocido en inglés como
+
+31
+00:01:17,320 --> 00:01:23,040
+large language models, lls
+
+32
+00:01:21,280 --> 00:01:25,479
+y se llaman inteligencia artificial
+
+33
+00:01:23,040 --> 00:01:28,240
+generativa porque generan contenido,
+
+34
+00:01:25,479 --> 00:01:30,560
+generan texto, generan imágenes, generan
+
+35
+00:01:28,240 --> 00:01:32,960
+videos y demás.
+
+36
+00:01:30,560 --> 00:01:34,840
+Yo tiendo a imputarle cualidades humanas
+
+37
+00:01:32,960 --> 00:01:37,200
+a las computadoras. Otra gente hace esto
+
+38
+00:01:34,840 --> 00:01:39,759
+también, ¿verdad? Uso frases como, "El
+
+39
+00:01:37,200 --> 00:01:41,479
+disco se murió, el sistema no quiere, el
+
+40
+00:01:39,759 --> 00:01:43,079
+programa no me entiende, este tipo de
+
+41
+00:01:41,479 --> 00:01:45,439
+cosas." Y cuando los sistemas no
+
+42
+00:01:43,079 --> 00:01:47,200
+funcionan como yo quiero, me frustro, me
+
+43
+00:01:45,439 --> 00:01:49,000
+enojo, pienso que hay intervención
+
+44
+00:01:47,200 --> 00:01:51,280
+diabólica y a veces recurro a la
+
+45
+00:01:49,000 --> 00:01:53,320
+intersión divina.
+
+46
+00:01:51,280 --> 00:01:55,479
+Eso es con la computación en general.
+
+47
+00:01:53,320 --> 00:01:56,920
+Ahora, ante un LLM, uno de estos
+
+48
+00:01:55,479 --> 00:01:58,880
+sistemas de inteligencia artificial
+
+49
+00:01:56,920 --> 00:02:01,520
+generativa,
+
+50
+00:01:58,880 --> 00:02:03,719
+yo realmente que yo realmente pienso que
+
+51
+00:02:01,520 --> 00:02:05,799
+estoy frente a una caja negra donde
+
+52
+00:02:03,719 --> 00:02:08,000
+adentro hay un omúnculo que lee la
+
+53
+00:02:05,799 --> 00:02:10,520
+pregunta que yo le hago, piensa y me
+
+54
+00:02:08,000 --> 00:02:12,080
+devuelve una respuesta cual sí humano y
+
+55
+00:02:10,520 --> 00:02:14,519
+tengo que hacer un esfuerzo
+
+56
+00:02:12,080 --> 00:02:17,120
+absolutamente consciente y continuo para
+
+57
+00:02:14,519 --> 00:02:19,239
+no caer en esa antropomorfización.
+
+58
+00:02:17,120 --> 00:02:21,760
+Yo sé que no es un ser sintiente, por
+
+59
+00:02:19,239 --> 00:02:23,920
+más que lo parezca. Y esto es difícil
+
+60
+00:02:21,760 --> 00:02:26,560
+porque estos sistemas generan lenguaje
+
+61
+00:02:23,920 --> 00:02:28,920
+natural muy complejo, con gramática
+
+62
+00:02:26,560 --> 00:02:32,319
+perfecta, ¿verdad? Coloquial y
+
+63
+00:02:28,920 --> 00:02:34,640
+coherente. Y lo que lo que muestran sí
+
+64
+00:02:32,319 --> 00:02:37,080
+es un tipo de inteligencia, pero no es
+
+65
+00:02:34,640 --> 00:02:39,440
+una variante de inteligencia humana. Es
+
+66
+00:02:37,080 --> 00:02:41,760
+decir, sus algoritmos no buscan la
+
+67
+00:02:39,440 --> 00:02:44,239
+verdad ni el razonamiento,
+
+68
+00:02:41,760 --> 00:02:47,239
+sino que intentan generar el contenido
+
+69
+00:02:44,239 --> 00:02:49,959
+que sea más plausible. Me explico. Los
+
+70
+00:02:47,239 --> 00:02:52,319
+LLMs consumen y procesan enormes
+
+71
+00:02:49,959 --> 00:02:54,400
+volúmenes de datos y sus algoritmos de
+
+72
+00:02:52,319 --> 00:02:57,319
+predicción generan las secuencias de
+
+73
+00:02:54,400 --> 00:02:59,360
+texto que sean más verosímiles y
+
+74
+00:02:57,319 --> 00:03:01,800
+contextualmente relevantes a la pregunta
+
+75
+00:02:59,360 --> 00:03:03,640
+que yo le hago.
+
+76
+00:03:01,800 --> 00:03:06,280
+Esto es poderosísimo, sobre todo en las
+
+77
+00:03:03,640 --> 00:03:07,920
+manos de una persona bien entrenada.
+
+78
+00:03:06,280 --> 00:03:10,280
+Pero tengo que recordarme también que
+
+79
+00:03:07,920 --> 00:03:12,440
+los LLMs son como las personas en el
+
+80
+00:03:10,280 --> 00:03:15,200
+sentido que son lo que comen y no
+
+81
+00:03:12,440 --> 00:03:17,519
+siempre sabemos que comen y lo que comen
+
+82
+00:03:15,200 --> 00:03:20,560
+puede incluir contenido totalmente falso
+
+83
+00:03:17,519 --> 00:03:22,319
+o repugnante. Me estoy refiriendo a los
+
+84
+00:03:20,560 --> 00:03:25,959
+conjuntos de datos que se usan para
+
+85
+00:03:22,319 --> 00:03:28,080
+entrenar estos LLMs de uso general.
+
+86
+00:03:25,959 --> 00:03:29,920
+Aún si minimizáramos los contenidos
+
+87
+00:03:28,080 --> 00:03:31,599
+falsos y odiosos, es decir, que
+
+88
+00:03:29,920 --> 00:03:34,400
+entrenáramos un modelo de estos
+
+89
+00:03:31,599 --> 00:03:36,000
+únicamente con publicaciones arbitradas
+
+90
+00:03:34,400 --> 00:03:38,560
+y el contenido de Wikipedia, por
+
+91
+00:03:36,000 --> 00:03:41,319
+ejemplo, los algoritmos siempre
+
+92
+00:03:38,560 --> 00:03:43,799
+buscarían generar el contenido que es
+
+93
+00:03:41,319 --> 00:03:46,280
+más probable estadísticamente, más no
+
+94
+00:03:43,799 --> 00:03:49,200
+necesariamente verídico.
+
+95
+00:03:46,280 --> 00:03:51,080
+Entonces, si yo cuestiono la veracidad
+
+96
+00:03:49,200 --> 00:03:52,720
+de algo que me generó una de estas
+
+97
+00:03:51,080 --> 00:03:55,640
+herramientas,
+
+98
+00:03:52,720 --> 00:03:58,599
+resulta que el problema es mío.
+
+99
+00:03:55,640 --> 00:04:00,879
+Y comprobar qué tan cierto es algo es
+
+100
+00:03:58,599 --> 00:04:03,959
+bastante caro. Tras de que la verdad es
+
+101
+00:04:00,879 --> 00:04:05,799
+costosa, puede ser desagradable,
+
+102
+00:04:03,959 --> 00:04:07,840
+¿verdad? y difícil de digerir. En
+
+103
+00:04:05,799 --> 00:04:11,760
+cambio, una ficción o una verdad a
+
+104
+00:04:07,840 --> 00:04:14,840
+medias puede ser muy bonita, simple y
+
+105
+00:04:11,760 --> 00:04:17,799
+generada a mucho menor costo.
+
+106
+00:04:14,840 --> 00:04:19,320
+Hace tiempo yo pensaba ingenuamente
+
+107
+00:04:17,799 --> 00:04:21,560
+que la inteligencia me llevaba
+
+108
+00:04:19,320 --> 00:04:23,240
+automáticamente a la verdad y luego me
+
+109
+00:04:21,560 --> 00:04:25,880
+di cuenta que eso era ridículo, porque a
+
+110
+00:04:23,240 --> 00:04:29,199
+cada rato yo uso mi inteligencia para
+
+111
+00:04:25,880 --> 00:04:31,840
+engañar y mentir. Entonces, cuando estoy
+
+112
+00:04:29,199 --> 00:04:34,360
+frente al resultado de una de estas
+
+113
+00:04:31,840 --> 00:04:36,880
+herramientas,
+
+114
+00:04:34,360 --> 00:04:40,600
+siento que hay un problema de falacia,
+
+115
+00:04:36,880 --> 00:04:43,479
+de inversión de la carga,
+
+116
+00:04:40,600 --> 00:04:46,440
+eh, porque yo quiero que él me explique
+
+117
+00:04:43,479 --> 00:04:48,240
+cómo es que es cierto lo que él me dice
+
+118
+00:04:46,440 --> 00:04:51,520
+o por lo menos que me cite las fuentes
+
+119
+00:04:48,240 --> 00:04:53,199
+que usó. Y para los LLMs de uso general,
+
+120
+00:04:51,520 --> 00:04:54,960
+eso no es viable, entonces se convierte
+
+121
+00:04:53,199 --> 00:04:58,759
+como en un problema epistemológico para
+
+122
+00:04:54,960 --> 00:05:01,840
+mí. De hecho, es muy distinto
+
+123
+00:04:58,759 --> 00:05:04,400
+eh recibir una respuesta que saber si el
+
+124
+00:05:01,840 --> 00:05:07,600
+modelo sabe algo o no. No es nada fácil
+
+125
+00:05:04,400 --> 00:05:09,960
+hacer que chat GPT eh o Google Gemini
+
+126
+00:05:07,600 --> 00:05:12,440
+admitan que no saben algo. Yo le puedo
+
+127
+00:05:09,960 --> 00:05:14,919
+hacer una pregunta y él puede evadir la
+
+128
+00:05:12,440 --> 00:05:16,680
+pregunta, puede recusarse de la pregunta
+
+129
+00:05:14,919 --> 00:05:19,039
+diciendo, "No lo voy a responder porque
+
+130
+00:05:16,680 --> 00:05:21,479
+eso, por ejemplo, incitaría al odio o
+
+131
+00:05:19,039 --> 00:05:23,600
+algo así." Y hay casos donde me dice que
+
+132
+00:05:21,479 --> 00:05:25,400
+él cree que yo le hice la pregunta
+
+133
+00:05:23,600 --> 00:05:27,440
+equivocada.
+
+134
+00:05:25,400 --> 00:05:29,919
+Y si ven, ya caí en eso otra vez. Yo
+
+135
+00:05:27,440 --> 00:05:32,160
+dije, él cree. Él no cree nada porque no
+
+136
+00:05:29,919 --> 00:05:34,400
+es un ser sintiente, ¿verdad? Y no
+
+137
+00:05:32,160 --> 00:05:36,479
+tiene, no razona y no tiene conciencia y
+
+138
+00:05:34,400 --> 00:05:38,160
+no tiene convicciones.
+
+139
+00:05:36,479 --> 00:05:40,240
+Y cada vez que esto me pasa, siento que
+
+140
+00:05:38,160 --> 00:05:42,720
+estoy frente a un sistema que se está
+
+141
+00:05:40,240 --> 00:05:46,479
+burlando de mí porque yo creo que es un
+
+142
+00:05:42,720 --> 00:05:48,880
+ser sintiente y no lo es.
+
+143
+00:05:46,479 --> 00:05:52,000
+En el ámbito educativo hay amplia
+
+144
+00:05:48,880 --> 00:05:53,800
+evidencia que estas herramientas están
+
+145
+00:05:52,000 --> 00:05:55,520
+eh disminuyendo la capacidad de
+
+146
+00:05:53,800 --> 00:05:57,479
+redacción y de pensamiento crítico de
+
+147
+00:05:55,520 --> 00:06:00,440
+los estudiantes de secundaria y
+
+148
+00:05:57,479 --> 00:06:02,400
+universitarios. Y esto va a obligar a
+
+149
+00:06:00,440 --> 00:06:05,039
+cambios no triviales en el proceso de
+
+150
+00:06:02,400 --> 00:06:06,720
+educación formal. Eso se complica además
+
+151
+00:06:05,039 --> 00:06:08,960
+con el hecho que estas tecnologías están
+
+152
+00:06:06,720 --> 00:06:11,000
+cambiando muy rápidamente.
+
+153
+00:06:08,960 --> 00:06:13,479
+Algunos educadores opinan que hay que
+
+154
+00:06:11,000 --> 00:06:16,960
+crear estructuras de enseñanza que
+
+155
+00:06:13,479 --> 00:06:18,360
+minimicen la tentación a subcontratar el
+
+156
+00:06:16,960 --> 00:06:20,720
+pensamiento, porque eso es lo que nos
+
+157
+00:06:18,360 --> 00:06:22,880
+ofrecen estas herramientas, subcontratar
+
+158
+00:06:20,720 --> 00:06:26,039
+el pensamiento. Desafortunadamente
+
+159
+00:06:22,880 --> 00:06:27,840
+también el razonamiento.
+
+160
+00:06:26,039 --> 00:06:30,560
+Cuando yo uso cualquier tecnología que
+
+161
+00:06:27,840 --> 00:06:32,880
+no sea meramente mecánica, yo hago algo
+
+162
+00:06:30,560 --> 00:06:35,120
+que se llama una descarga cognitiva.
+
+163
+00:06:32,880 --> 00:06:37,800
+cognitive offloading en la literatura,
+
+164
+00:06:35,120 --> 00:06:41,280
+es decir, descargo ciertos procesos
+
+165
+00:06:37,800 --> 00:06:43,000
+mentales a entes externos para yo poder
+
+166
+00:06:41,280 --> 00:06:45,440
+rendir mejor, por ejemplo, cuando uso
+
+167
+00:06:43,000 --> 00:06:47,319
+una calculadora. Uno de los problemas
+
+168
+00:06:45,440 --> 00:06:50,639
+ahora es que estas herramientas permiten
+
+169
+00:06:47,319 --> 00:06:52,960
+la carga, perdón, la descarga cognitiva
+
+170
+00:06:50,639 --> 00:06:55,039
+de procesos muchísimo más complejos de
+
+171
+00:06:52,960 --> 00:06:57,240
+los que descargábamos anteriormente. Y
+
+172
+00:06:55,039 --> 00:07:00,039
+una vez que uno se acostumbra a eso, es
+
+173
+00:06:57,240 --> 00:07:02,360
+bastante difícil volverlas a asumir.
+
+174
+00:07:00,039 --> 00:07:04,400
+Para gente como yo, de cierta edad, ya
+
+175
+00:07:02,360 --> 00:07:06,360
+formado supuestamente, tiene todo el
+
+176
+00:07:04,400 --> 00:07:08,680
+sentido que yo use estas herramientas
+
+177
+00:07:06,360 --> 00:07:10,720
+como multiplicador de mi rendimiento y
+
+178
+00:07:08,680 --> 00:07:12,759
+que me enfoque en el análisis y la
+
+179
+00:07:10,720 --> 00:07:14,639
+resolución de problemas mucho más
+
+180
+00:07:12,759 --> 00:07:16,440
+complejos.
+
+181
+00:07:14,639 --> 00:07:18,039
+Pero para los jóvenes, los estudiantes,
+
+182
+00:07:16,440 --> 00:07:20,280
+la preocupación es que estén usando
+
+183
+00:07:18,039 --> 00:07:22,560
+estas herramientas en lugar de
+
+184
+00:07:20,280 --> 00:07:24,319
+desarrollar sus capacidades de redacción
+
+185
+00:07:22,560 --> 00:07:27,199
+y pensamiento crítico y resolución de
+
+186
+00:07:24,319 --> 00:07:30,080
+problemas. Y mi temor es que eso a poca
+
+187
+00:07:27,199 --> 00:07:31,919
+gente le importa.
+
+188
+00:07:30,080 --> 00:07:33,759
+Estas herramientas son muchísimo más
+
+189
+00:07:31,919 --> 00:07:35,479
+poderosas de lo que eran hace apenas 2
+
+190
+00:07:33,759 --> 00:07:38,080
+años y quién sabe dónde vamos a estar en
+
+191
+00:07:35,479 --> 00:07:41,639
+el futuro cercano.
+
+192
+00:07:38,080 --> 00:07:44,120
+La científica cognitiva Alison Gopnick
+
+193
+00:07:41,639 --> 00:07:46,039
+dice que los LLM son tecnologías
+
+194
+00:07:44,120 --> 00:07:48,400
+culturales en el sentido que nos
+
+195
+00:07:46,039 --> 00:07:50,639
+permiten aprovechar y compartir toda la
+
+196
+00:07:48,400 --> 00:07:52,560
+producción cultural a una escala jamás
+
+197
+00:07:50,639 --> 00:07:55,159
+antes imaginaba
+
+198
+00:07:52,560 --> 00:07:57,599
+imaginada. Y en ese sentido nos aumentan
+
+199
+00:07:55,159 --> 00:07:59,919
+y nos mejoran como personas, más no nos
+
+200
+00:07:57,599 --> 00:08:01,800
+desplazan.
+
+201
+00:07:59,919 --> 00:08:03,400
+Eso me emociona, por supuesto, pero hay
+
+202
+00:08:01,800 --> 00:08:07,039
+algunas facetas de todo esto que me
+
+203
+00:08:03,400 --> 00:08:09,840
+llenan de miedo y aprensión,
+
+204
+00:08:07,039 --> 00:08:12,039
+dado que estas tecnologías en sí son
+
+205
+00:08:09,840 --> 00:08:13,800
+amorales y pueden ser usadas con fines
+
+206
+00:08:12,039 --> 00:08:16,199
+nefastos.
+
+207
+00:08:13,800 --> 00:08:17,840
+El historiador Yuval Harari afirma que
+
+208
+00:08:16,199 --> 00:08:19,960
+uno de los grandes, una de las grandes
+
+209
+00:08:17,840 --> 00:08:22,199
+amenazas de la inteligencia artificial
+
+210
+00:08:19,960 --> 00:08:26,919
+es que la gente confíe ciegamente en
+
+211
+00:08:22,199 --> 00:08:28,599
+ella cuando ni siquiera confíe entre sí.
+
+212
+00:08:26,919 --> 00:08:30,960
+Yo también me pregunto acerca del modelo
+
+213
+00:08:28,599 --> 00:08:32,519
+de negocios de estos servicios. En sus
+
+214
+00:08:30,960 --> 00:08:35,440
+versiones más básicas, que son las que
+
+215
+00:08:32,519 --> 00:08:37,440
+usamos casi todos, son gratuitas pese al
+
+216
+00:08:35,440 --> 00:08:40,200
+enorme consumo energético de los centros
+
+217
+00:08:37,440 --> 00:08:42,120
+de procesamiento de datos. Incluso se
+
+218
+00:08:40,200 --> 00:08:45,080
+cree que los costos reales tampoco son
+
+219
+00:08:42,120 --> 00:08:46,839
+cubiertos por los usuarios que sí pagan
+
+220
+00:08:45,080 --> 00:08:48,760
+por las versiones más avanzadas.
+
+221
+00:08:46,839 --> 00:08:50,240
+Entonces, ¿quién está pagando por esto?
+
+222
+00:08:48,760 --> 00:08:52,519
+¿Cuáles son las externalidades
+
+223
+00:08:50,240 --> 00:08:54,560
+negativas? O va a ser como otras
+
+224
+00:08:52,519 --> 00:08:56,880
+plataformas digitales supuestamente
+
+225
+00:08:54,560 --> 00:09:00,120
+gratuitas. donde resulta que el producto
+
+226
+00:08:56,880 --> 00:09:02,440
+soy yo.
+
+227
+00:09:00,120 --> 00:09:04,640
+Por primera vez en historia estamos ante
+
+228
+00:09:02,440 --> 00:09:10,440
+una tecnología que puede tomar
+
+229
+00:09:04,640 --> 00:09:12,440
+decisiones y crear algo por sí sola.
+
+230
+00:09:10,440 --> 00:09:14,320
+Y eso me lleva a la siguiente pregunta.
+
+231
+00:09:12,440 --> 00:09:16,839
+Si un sistema puede crear algo mejor de
+
+232
+00:09:14,320 --> 00:09:20,120
+lo que lo puedo crear yo, y ojalá sea
+
+233
+00:09:16,839 --> 00:09:22,480
+así, entonces, ¿qué valor va a tener mi
+
+234
+00:09:20,120 --> 00:09:24,279
+creatividad?
+
+235
+00:09:22,480 --> 00:09:25,800
+No sé.
+
+236
+00:09:24,279 --> 00:09:27,800
+Evidentemente, mi relación con las
+
+237
+00:09:25,800 --> 00:09:29,720
+tecnologías de inteligencia artificial
+
+238
+00:09:27,800 --> 00:09:32,839
+generativa está en la etapa conocida
+
+239
+00:09:29,720 --> 00:09:34,760
+como It's complicated. Eh,
+
+240
+00:09:32,839 --> 00:09:37,160
+independientemente de cómo evolucione
+
+241
+00:09:34,760 --> 00:09:39,399
+esa relación, estoy convencido de que
+
+242
+00:09:37,160 --> 00:09:42,680
+siempre voy a buscar la interacción con
+
+243
+00:09:39,399 --> 00:09:43,940
+personas como ustedes y como yo. Muchas
+
+244
+00:09:42,680 --> 00:09:45,980
+gracias.
+
+245
+00:09:43,940 --> 00:09:53,759
+[Aplausos]
+
+246
+00:09:45,980 --> 00:09:53,759
+[Música]
+

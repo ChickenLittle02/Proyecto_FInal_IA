@@ -1,0 +1,1468 @@
+1
+00:00:00,400 --> 00:00:13,000
+[Música]
+
+2
+00:00:11,599 --> 00:00:15,200
+Bueno, el día de hoy os voy a hablar
+
+3
+00:00:13,000 --> 00:00:16,560
+sobre la inteligencia artificial y el
+
+4
+00:00:15,200 --> 00:00:19,640
+impacto que va a tener en nuestra
+
+5
+00:00:16,560 --> 00:00:21,000
+sociedad. Así que vamos con ello. La
+
+6
+00:00:19,640 --> 00:00:23,119
+primera cuestión que os quiero lanzar el
+
+7
+00:00:21,000 --> 00:00:25,119
+día de hoy es, ¿qué significa ser humano
+
+8
+00:00:23,119 --> 00:00:28,640
+cuando una inteligencia artificial puede
+
+9
+00:00:25,119 --> 00:00:30,320
+hacerlo todo mejor, más rápido y sin
+
+10
+00:00:28,640 --> 00:00:32,759
+errores?
+
+11
+00:00:30,320 --> 00:00:34,280
+Porque durante siglos nos definimos por
+
+12
+00:00:32,759 --> 00:00:37,160
+lo que hacemos, ¿no? Un escritor
+
+13
+00:00:34,280 --> 00:00:39,040
+escribe, un médico cura, un artista
+
+14
+00:00:37,160 --> 00:00:41,399
+crea, pero ¿y si la inteligencia
+
+15
+00:00:39,040 --> 00:00:43,440
+artificial también pudiera hacerlo? En
+
+16
+00:00:41,399 --> 00:00:45,360
+el día de hoy quiero que contemplemos
+
+17
+00:00:43,440 --> 00:00:47,800
+juntos este dilema porque aunque parezca
+
+18
+00:00:45,360 --> 00:00:50,399
+ciencia ficción realmente es una
+
+19
+00:00:47,800 --> 00:00:53,879
+realidad con la que convivimos el día de
+
+20
+00:00:50,399 --> 00:00:56,359
+hoy. El cambio tecnológico eh la verdad
+
+21
+00:00:53,879 --> 00:00:58,559
+que me sorprende porque muchas personas
+
+22
+00:00:56,359 --> 00:01:01,079
+hemos normalizado el desarrollo de las
+
+23
+00:00:58,559 --> 00:01:03,400
+tecnologías durante todos estos años
+
+24
+00:01:01,079 --> 00:01:06,560
+porque en
+
+25
+00:01:03,400 --> 00:01:07,680
+1903 decían que volar era imposible,
+
+26
+00:01:06,560 --> 00:01:09,920
+¿no?
+
+27
+00:01:07,680 --> 00:01:11,680
+El periódico New York Times se reía y
+
+28
+00:01:09,920 --> 00:01:13,520
+ridiculizaba la idea de que un objeto
+
+29
+00:01:11,680 --> 00:01:16,040
+que pesase más que el aire pudiese
+
+30
+00:01:13,520 --> 00:01:19,240
+volar. Sin embargo, 10 días después, los
+
+31
+00:01:16,040 --> 00:01:21,640
+hermanos Wright hicieron historia y
+
+32
+00:01:19,240 --> 00:01:25,640
+volaron el primer avión de la historia.
+
+33
+00:01:21,640 --> 00:01:27,560
+En 1980, los ejecutivos de la telefonía
+
+34
+00:01:25,640 --> 00:01:29,439
+se reían de la idea de que todas las
+
+35
+00:01:27,560 --> 00:01:31,000
+personas tuviesen un teléfono móvil. Sin
+
+36
+00:01:29,439 --> 00:01:33,560
+embargo, creo que a día de hoy todos
+
+37
+00:01:31,000 --> 00:01:36,360
+tenéis uno. En
+
+38
+00:01:33,560 --> 00:01:39,159
+1997, un joven llamado Larry Page estaba
+
+39
+00:01:36,360 --> 00:01:41,720
+cansado de la idea de tener que patearse
+
+40
+00:01:39,159 --> 00:01:44,719
+durante horas en una biblioteca para
+
+41
+00:01:41,720 --> 00:01:46,759
+buscar un dato o una información y
+
+42
+00:01:44,719 --> 00:01:48,719
+anhelaba con la idea de que oye, ojalá
+
+43
+00:01:46,759 --> 00:01:51,880
+algún día pudiésemos llegar a cualquier
+
+44
+00:01:48,719 --> 00:01:53,880
+información así. Un año después,
+
+45
+00:01:51,880 --> 00:01:56,640
+mientras sus amigos se reían, creó
+
+46
+00:01:53,880 --> 00:02:00,039
+Google.
+
+47
+00:01:56,640 --> 00:02:03,360
+Durante años nos damos cuenta de que el
+
+48
+00:02:00,039 --> 00:02:05,840
+desarrollo de la tecnología realmente
+
+49
+00:02:03,360 --> 00:02:07,200
+creemos que lo estamos normalizando y
+
+50
+00:02:05,840 --> 00:02:10,000
+que estamos preparados para cuando
+
+51
+00:02:07,200 --> 00:02:11,760
+llegue. Sin embargo, la realidad no es
+
+52
+00:02:10,000 --> 00:02:13,879
+así. A día de hoy tenemos la
+
+53
+00:02:11,760 --> 00:02:17,200
+inteligencia artificial y probablemente
+
+54
+00:02:13,879 --> 00:02:19,080
+esta tecnología tan disruptiva que no ha
+
+55
+00:02:17,200 --> 00:02:21,160
+pedido a nadie permiso para que llegue y
+
+56
+00:02:19,080 --> 00:02:22,959
+cambie nuestra sociedad. Algunos lo
+
+57
+00:02:21,160 --> 00:02:24,800
+utilizáis como un juguete con el que
+
+58
+00:02:22,959 --> 00:02:27,760
+poder poner a Pedro Sánchez a bailar en
+
+59
+00:02:24,800 --> 00:02:29,879
+TikTok eh, despacito o que vuestro amigo
+
+60
+00:02:27,760 --> 00:02:31,920
+esté cantando el guaca waca. Algunos
+
+61
+00:02:29,879 --> 00:02:34,000
+otros más astutos utilizan esto como una
+
+62
+00:02:31,920 --> 00:02:36,879
+herramienta con la que poder optimizar
+
+63
+00:02:34,000 --> 00:02:39,400
+más su trabajo y aprovechar más su día.
+
+64
+00:02:36,879 --> 00:02:41,720
+o algunos otros lo utilizan como un arma
+
+65
+00:02:39,400 --> 00:02:43,680
+con la que poder clonar tu voz con tan
+
+66
+00:02:41,720 --> 00:02:45,840
+solo 3 segundos de audio y enviarle a tu
+
+67
+00:02:43,680 --> 00:02:48,159
+madre un audio diciéndole que estás en
+
+68
+00:02:45,840 --> 00:02:49,400
+apuros, que por favor necesitas 50 € que
+
+69
+00:02:48,159 --> 00:02:51,000
+le estás llamando a través del teléfono
+
+70
+00:02:49,400 --> 00:02:54,720
+de un amigo y que necesitas que se lo
+
+71
+00:02:51,000 --> 00:02:57,319
+envíe a esta dirección de de cuenta de
+
+72
+00:02:54,720 --> 00:03:00,239
+banco. Sin
+
+73
+00:02:57,319 --> 00:03:03,360
+embargo, ¿cómo puede ser esto posible?
+
+74
+00:03:00,239 --> 00:03:05,159
+¿Cómo puede ser que una persona podamos
+
+75
+00:03:03,360 --> 00:03:08,400
+con una imagen poner a Pedro Sánchez a
+
+76
+00:03:05,159 --> 00:03:10,599
+bailar o que yo sea un experto cantando
+
+77
+00:03:08,400 --> 00:03:12,040
+una canción o que pueda clonar la voz de
+
+78
+00:03:10,599 --> 00:03:14,200
+Bad Bunyie para cantar otra canción
+
+79
+00:03:12,040 --> 00:03:16,599
+completamente diferente? Pues todo esto
+
+80
+00:03:14,200 --> 00:03:18,560
+es debido a que estos motores, estos
+
+81
+00:03:16,599 --> 00:03:20,200
+modelos de inteligencia artificial son
+
+82
+00:03:18,560 --> 00:03:21,680
+propulsados gracias al oro digital que
+
+83
+00:03:20,200 --> 00:03:24,280
+le regalamos a los redes sociales todos
+
+84
+00:03:21,680 --> 00:03:25,959
+los días, los datos. Estos modelos de
+
+85
+00:03:24,280 --> 00:03:28,040
+inteligencia artificial han sido
+
+86
+00:03:25,959 --> 00:03:30,319
+entrenados con millones de parámetros
+
+87
+00:03:28,040 --> 00:03:32,239
+que pues a cada vez que subimos un
+
+88
+00:03:30,319 --> 00:03:34,959
+artículo a una página web, un vídeo a
+
+89
+00:03:32,239 --> 00:03:37,120
+YouTube, eh toda la Wikipedia ha
+
+90
+00:03:34,959 --> 00:03:38,799
+aprendido de ella. Y la inteligencia
+
+91
+00:03:37,120 --> 00:03:40,959
+artificial a día de hoy tú puedes ir y
+
+92
+00:03:38,799 --> 00:03:43,760
+escribirle que nos escriba, eh, que nos
+
+93
+00:03:40,959 --> 00:03:45,599
+haga una imagen de una manzana en el
+
+94
+00:03:43,760 --> 00:03:47,400
+Sájara y lo hace a la perfección. ¿Por
+
+95
+00:03:45,599 --> 00:03:49,599
+qué? porque ha analizado millones de
+
+96
+00:03:47,400 --> 00:03:51,599
+fotos de manzanas en todos sus estados y
+
+97
+00:03:49,599 --> 00:03:53,840
+tiene más fotos del Sájara que
+
+98
+00:03:51,599 --> 00:03:55,360
+probablemente eh las personas que vivan
+
+99
+00:03:53,840 --> 00:03:58,599
+ahí. Os voy a contar una historia. Este
+
+100
+00:03:55,360 --> 00:04:00,040
+de aquí no soy yo, pero hace poco en una
+
+101
+00:03:58,599 --> 00:04:01,159
+cuenta de Instagram que yo tengo privada
+
+102
+00:04:00,040 --> 00:04:03,840
+donde solo me siguen amigos y
+
+103
+00:04:01,159 --> 00:04:05,879
+familiares, todo el mundo se lo creyó.
+
+104
+00:04:03,840 --> 00:04:08,799
+Eh, algunos que están aquí
+
+105
+00:04:05,879 --> 00:04:10,239
+también. Este también. Este tampoco soy
+
+106
+00:04:08,799 --> 00:04:12,000
+yo, la verdad, aunque se me parece un
+
+107
+00:04:10,239 --> 00:04:13,439
+poco. Los vídeos que subo a mis redes
+
+108
+00:04:12,000 --> 00:04:15,560
+sociales, en donde aparezco hablando
+
+109
+00:04:13,439 --> 00:04:17,600
+sobre inteligencia artificial, no los
+
+110
+00:04:15,560 --> 00:04:21,160
+hago yo, los hace un avatar que me ha
+
+111
+00:04:17,600 --> 00:04:22,600
+clonado mi mi cara y también mi voz. Lo
+
+112
+00:04:21,160 --> 00:04:23,880
+bueno de esto es que me permite que cada
+
+113
+00:04:22,600 --> 00:04:25,720
+vez que aparezca una noticia de
+
+114
+00:04:23,880 --> 00:04:28,720
+inteligencia artificial ser el primero
+
+115
+00:04:25,720 --> 00:04:32,039
+en lanzarla al mundo. Sin embargo, lo
+
+116
+00:04:28,720 --> 00:04:34,600
+curioso y donde está el el golpe de
+
+117
+00:04:32,039 --> 00:04:36,880
+realidad es que si yo he podido utilizar
+
+118
+00:04:34,600 --> 00:04:39,360
+la inteligencia artificial para clonar
+
+119
+00:04:36,880 --> 00:04:43,120
+mi voz y mi imagen con tan solo unos
+
+120
+00:04:39,360 --> 00:04:45,600
+pocos recursos míos, entonces, ¿qué le
+
+121
+00:04:43,120 --> 00:04:48,120
+impide a otra persona que pueda hacer y
+
+122
+00:04:45,600 --> 00:04:50,320
+utilizar lo mismo para crear una imagen
+
+123
+00:04:48,120 --> 00:04:53,919
+comprometida de mí o utilizar mi voz
+
+124
+00:04:50,320 --> 00:04:56,360
+para decir cosas que yo jamás he dicho?
+
+125
+00:04:53,919 --> 00:05:00,000
+Sin embargo, aunque la inteligencia
+
+126
+00:04:56,360 --> 00:05:01,680
+artificial es una herramienta, algunos
+
+127
+00:05:00,000 --> 00:05:03,759
+lo podemos ver como un arma, pero
+
+128
+00:05:01,680 --> 00:05:05,880
+realmente si nos ponemos a pensar la
+
+129
+00:05:03,759 --> 00:05:07,720
+culpa, ¿de quién es? ¿La culpa es de la
+
+130
+00:05:05,880 --> 00:05:09,240
+máquina o del humano? Si yo le doy un
+
+131
+00:05:07,720 --> 00:05:11,320
+cuchillo a una persona, pues puede
+
+132
+00:05:09,240 --> 00:05:13,360
+cocinar con él o puede cometer un
+
+133
+00:05:11,320 --> 00:05:15,560
+asesinato. Lo que es cierto es que esta
+
+134
+00:05:13,360 --> 00:05:17,160
+tecnología tiene que regularse y
+
+135
+00:05:15,560 --> 00:05:20,960
+supuestamente ya se están haciendo
+
+136
+00:05:17,160 --> 00:05:22,919
+cosas, pero realmente a día de hoy no se
+
+137
+00:05:20,960 --> 00:05:26,919
+le impide mucho a la gente porque
+
+138
+00:05:22,919 --> 00:05:29,160
+todavía no estamos preparados para para
+
+139
+00:05:26,919 --> 00:05:30,600
+adaptarnos a estas nuevas tecnologías. Y
+
+140
+00:05:29,160 --> 00:05:33,680
+la realidad es una ilusión porque hace
+
+141
+00:05:30,600 --> 00:05:35,759
+20 años internet era un sueño. Eh, hace
+
+142
+00:05:33,680 --> 00:05:38,600
+40 años llevar un móvil en el bolsillo y
+
+143
+00:05:35,759 --> 00:05:41,680
+decirle a yo, por ejemplo, decirle a mi
+
+144
+00:05:38,600 --> 00:05:43,759
+abuela cuando era joven que la podría
+
+145
+00:05:41,680 --> 00:05:45,360
+llamar por teléfono en un futuro estando
+
+146
+00:05:43,759 --> 00:05:46,880
+ella en otro país, pues era
+
+147
+00:05:45,360 --> 00:05:49,400
+indispensable. Y hoy la inteligencia
+
+148
+00:05:46,880 --> 00:05:52,560
+artificial está transformándolo todo.
+
+149
+00:05:49,400 --> 00:05:55,600
+Incluso si nos ponemos a pensar el
+
+150
+00:05:52,560 --> 00:05:57,960
+avance tecnológico en general per sé ha
+
+151
+00:05:55,600 --> 00:05:59,960
+hecho cambiar ya no solo la forma en la
+
+152
+00:05:57,960 --> 00:06:02,720
+que trabajamos o la que nos comunicamos
+
+153
+00:05:59,960 --> 00:06:04,039
+sino la sociedad en sí. Por ejemplo, en
+
+154
+00:06:02,720 --> 00:06:06,120
+la forma en la que trabajábamos
+
+155
+00:06:04,039 --> 00:06:07,599
+antiguamente eran las fábricas. A día de
+
+156
+00:06:06,120 --> 00:06:08,960
+hoy la gente va a oficinas donde
+
+157
+00:06:07,599 --> 00:06:10,840
+controlan las máquinas que están
+
+158
+00:06:08,960 --> 00:06:14,240
+trabajando en la fábrica. Incluso si me
+
+159
+00:06:10,840 --> 00:06:16,240
+apuras, hay gente eh en Bali, en una
+
+160
+00:06:14,240 --> 00:06:18,479
+tumbona, eh trabajando desde el
+
+161
+00:06:16,240 --> 00:06:20,360
+ordenador. Luego, por otro lado, desde
+
+162
+00:06:18,479 --> 00:06:23,520
+la educación también ha cambiado, ¿no?
+
+163
+00:06:20,360 --> 00:06:25,720
+Hay personas que tan solo entrando en
+
+164
+00:06:23,520 --> 00:06:27,520
+YouTube en un año pueden aprender más
+
+165
+00:06:25,720 --> 00:06:29,639
+que quizá una persona que ha estado 5
+
+166
+00:06:27,520 --> 00:06:32,639
+años en una universidad
+
+167
+00:06:29,639 --> 00:06:35,639
+tradicional o incluso por otro lado,
+
+168
+00:06:32,639 --> 00:06:37,800
+pues el propio arte ha cambiado, ¿no?
+
+169
+00:06:35,639 --> 00:06:40,880
+Muchos de vosotros creíamos que solo las
+
+170
+00:06:37,800 --> 00:06:43,080
+personas podíamos crear arte, música,
+
+171
+00:06:40,880 --> 00:06:45,759
+fotografía, eh
+
+172
+00:06:43,080 --> 00:06:48,039
+pinturas, pero y si os dijese que estas
+
+173
+00:06:45,759 --> 00:06:50,840
+fotos, una fue creada con inteligencia
+
+174
+00:06:48,039 --> 00:06:52,880
+artificial y otra por un humano, ¿alguno
+
+175
+00:06:50,840 --> 00:06:55,000
+de vosotros sabíais distinguirla? Porque
+
+176
+00:06:52,880 --> 00:06:57,400
+probablemente algunos me diréis que no,
+
+177
+00:06:55,000 --> 00:06:58,919
+que que el arte solo puede ser creado
+
+178
+00:06:57,400 --> 00:07:00,759
+por humano, porque eso ha sido creado
+
+179
+00:06:58,919 --> 00:07:02,800
+por una máquina, pero la realidad es
+
+180
+00:07:00,759 --> 00:07:04,800
+completamente otra.
+
+181
+00:07:02,800 --> 00:07:06,599
+Y la historia tiene un patrón muy claro,
+
+182
+00:07:04,800 --> 00:07:09,360
+¿no? Primero ignoramos el cambio, luego
+
+183
+00:07:06,599 --> 00:07:11,720
+nos reímos de él, después nos resistimos
+
+184
+00:07:09,360 --> 00:07:14,759
+y finalmente se vuelve parte de nuestra
+
+185
+00:07:11,720 --> 00:07:16,120
+vida. Y los cuatro jugadores claves en
+
+186
+00:07:14,759 --> 00:07:18,960
+esta revolución de la inteligencia
+
+187
+00:07:16,120 --> 00:07:21,440
+artificial son eh los desarrolladores de
+
+188
+00:07:18,960 --> 00:07:22,840
+chips, como pueden ser Nvidia o AMD, que
+
+189
+00:07:21,440 --> 00:07:24,720
+son aquellos que están desarrollando
+
+190
+00:07:22,840 --> 00:07:26,440
+esas tarjetas gráficas que luego
+
+191
+00:07:24,720 --> 00:07:28,800
+utilizan el siguiente jugador, que son
+
+192
+00:07:26,440 --> 00:07:30,160
+las plataformas, aquellas plataformas
+
+193
+00:07:28,800 --> 00:07:34,280
+como pueden ser Open AI, que es la
+
+194
+00:07:30,160 --> 00:07:35,960
+desarrolladora de Chat GPT o Deepsic. Y
+
+195
+00:07:34,280 --> 00:07:37,199
+luego a partir de estas plataformas, que
+
+196
+00:07:35,960 --> 00:07:39,039
+son los que crean los modelos de
+
+197
+00:07:37,199 --> 00:07:42,800
+inteligencia artificial, que te permiten
+
+198
+00:07:39,039 --> 00:07:44,520
+crear texto, imágenes, audio, vídeo,
+
+199
+00:07:42,800 --> 00:07:45,919
+están los desarrolladores como yo, que
+
+200
+00:07:44,520 --> 00:07:48,000
+somos aquellos que nos apalancamos de
+
+201
+00:07:45,919 --> 00:07:50,319
+estas tecnologías para crear soluciones
+
+202
+00:07:48,000 --> 00:07:53,800
+a problemas reales en la sociedad. Y por
+
+203
+00:07:50,319 --> 00:07:55,639
+último, y los consumidores, aquellos que
+
+204
+00:07:53,800 --> 00:07:57,400
+utilizamos la inteligencia artificial
+
+205
+00:07:55,639 --> 00:07:59,560
+todos los días. La inteligencia
+
+206
+00:07:57,400 --> 00:08:01,680
+artificial a día de hoy es como llevar
+
+207
+00:07:59,560 --> 00:08:03,759
+agua al desierto para las empresas. Os
+
+208
+00:08:01,680 --> 00:08:06,639
+voy a contar una historia. Hace poco
+
+209
+00:08:03,759 --> 00:08:09,599
+estuve en una charla informal, en una
+
+210
+00:08:06,639 --> 00:08:11,080
+fiesta con un alto directivo de HP y él
+
+211
+00:08:09,599 --> 00:08:12,879
+que estaba muy puesto en el tema de
+
+212
+00:08:11,080 --> 00:08:15,039
+inteligencia artificial me lo decía.
+
+213
+00:08:12,879 --> 00:08:17,120
+Realmente la inteligencia artificial va
+
+214
+00:08:15,039 --> 00:08:19,599
+a cambiar el mundo desde dos desde dos
+
+215
+00:08:17,120 --> 00:08:21,280
+perspectivas. Desde el la perspectiva de
+
+216
+00:08:19,599 --> 00:08:23,240
+las empresas y desde las perspectivas de
+
+217
+00:08:21,280 --> 00:08:25,080
+las personas de a pie. Para las
+
+218
+00:08:23,240 --> 00:08:26,680
+empresas, como os he dicho, es como
+
+219
+00:08:25,080 --> 00:08:28,479
+llevar agua al desierto. ¿Por qué?
+
+220
+00:08:26,680 --> 00:08:31,199
+Porque al final la máquina no se cansa,
+
+221
+00:08:28,479 --> 00:08:35,039
+no cobra seguridad social, no duerme, no
+
+222
+00:08:31,199 --> 00:08:37,399
+tiene vacaciones, no, no nada. Y al
+
+223
+00:08:35,039 --> 00:08:40,039
+final las automatizaciones llevan
+
+224
+00:08:37,399 --> 00:08:41,479
+existiendo realmente toda la vida. ¿O es
+
+225
+00:08:40,039 --> 00:08:43,200
+que ninguno de vosotros ha llamado
+
+226
+00:08:41,479 --> 00:08:45,640
+alguna vez por teléfono y le ha salido
+
+227
+00:08:43,200 --> 00:08:48,240
+un contestador automático de pulsa uno
+
+228
+00:08:45,640 --> 00:08:49,320
+si no sé qué, pulsa dos y no sé cuántos?
+
+229
+00:08:48,240 --> 00:08:51,399
+Lo que permite la inteligencia
+
+230
+00:08:49,320 --> 00:08:53,120
+artificial generativa es personalizar
+
+231
+00:08:51,399 --> 00:08:55,279
+esa experiencia.
+
+232
+00:08:53,120 --> 00:08:56,959
+Por ejemplo, a día de hoy yo subí un
+
+233
+00:08:55,279 --> 00:08:59,160
+vídeo el otro día que os lo voy a dejar
+
+234
+00:08:56,959 --> 00:09:01,320
+por aquí en donde explicaba cómo
+
+235
+00:08:59,160 --> 00:09:03,720
+desarrollamos un asistente telefónico
+
+236
+00:09:01,320 --> 00:09:05,920
+que gestionaba las citas de las reservas
+
+237
+00:09:03,720 --> 00:09:08,480
+de una peluquería y te hablaba una chica
+
+238
+00:09:05,920 --> 00:09:10,120
+magísima que ya le podíais insultar, le
+
+239
+00:09:08,480 --> 00:09:12,120
+podías decir lo que sea, que ella tenía
+
+240
+00:09:10,120 --> 00:09:13,360
+la paciencia perfecta porque es una
+
+241
+00:09:12,120 --> 00:09:14,959
+máquina que ha sido entrenada con
+
+242
+00:09:13,360 --> 00:09:17,680
+ciertas instrucciones y que no va a
+
+243
+00:09:14,959 --> 00:09:19,519
+fallar y que puede eh 1000
+
+244
+00:09:17,680 --> 00:09:21,680
+llamadas a la vez, no hay ningún tipo de
+
+245
+00:09:19,519 --> 00:09:22,920
+problema.
+
+246
+00:09:21,680 --> 00:09:24,040
+Esto lo decía Jessen Juan, la
+
+247
+00:09:22,920 --> 00:09:25,440
+inteligencia artificial nos va a
+
+248
+00:09:24,040 --> 00:09:27,279
+convertir a todos en programadores. Lo
+
+249
+00:09:25,440 --> 00:09:28,480
+más curioso de este de este avance
+
+250
+00:09:27,279 --> 00:09:30,160
+tecnológico de la inteligencia
+
+251
+00:09:28,480 --> 00:09:32,200
+artificial generativa es que ha venido
+
+252
+00:09:30,160 --> 00:09:34,000
+de la mano de otro muy grande que es el
+
+253
+00:09:32,200 --> 00:09:36,959
+desarrollo sin código, el desarrollo no
+
+254
+00:09:34,000 --> 00:09:38,600
+code. Y eso permite a personas normales
+
+255
+00:09:36,959 --> 00:09:40,279
+y corrientes poder desarrollar
+
+256
+00:09:38,600 --> 00:09:41,640
+automatizaciones de procesos como las
+
+257
+00:09:40,279 --> 00:09:44,720
+que os enseño en el
+
+258
+00:09:41,640 --> 00:09:46,000
+vídeo sin saber programar. Entonces, lo
+
+259
+00:09:44,720 --> 00:09:47,760
+de que la inteligencia artificial nos va
+
+260
+00:09:46,000 --> 00:09:50,399
+a convertir en programadores, al final
+
+261
+00:09:47,760 --> 00:09:52,160
+del día solo vamos a tener que usar el
+
+262
+00:09:50,399 --> 00:09:53,880
+raciocinio, algo que se va a ir
+
+263
+00:09:52,160 --> 00:09:55,160
+perdiendo, que ya os voy a ir contando.
+
+264
+00:09:53,880 --> 00:09:57,640
+Por ejemplo, para desarrollar ese
+
+265
+00:09:55,160 --> 00:09:59,279
+asistente telefónico personalizado,
+
+266
+00:09:57,640 --> 00:10:00,880
+simplemente necesitamos que la
+
+267
+00:09:59,279 --> 00:10:04,040
+inteligencia artificial cumpla con
+
+268
+00:10:00,880 --> 00:10:06,760
+ciertos eh con ciertos sentidos del ser
+
+269
+00:10:04,040 --> 00:10:08,760
+humano, porque pese quitando el olfato y
+
+270
+00:10:06,760 --> 00:10:10,959
+el gusto, realmente la inteligencia
+
+271
+00:10:08,760 --> 00:10:13,120
+artificial puede hablar, puede escuchar,
+
+272
+00:10:10,959 --> 00:10:15,279
+puede pensar. Si cogemos, por ejemplo,
+
+273
+00:10:13,120 --> 00:10:17,959
+un modelo como el de Open AI Whisper,
+
+274
+00:10:15,279 --> 00:10:20,360
+que lo que hace es transcribir texto a,
+
+275
+00:10:17,959 --> 00:10:21,839
+perdón, transcribir audio a texto y
+
+276
+00:10:20,360 --> 00:10:24,079
+luego lo pasamos con un modelo de
+
+277
+00:10:21,839 --> 00:10:27,279
+inteligencia artificial como puede ser
+
+278
+00:10:24,079 --> 00:10:28,399
+GPT4 y le decimos que en base a las
+
+279
+00:10:27,279 --> 00:10:31,120
+instrucciones con las que ha sido
+
+280
+00:10:28,399 --> 00:10:33,000
+entrenada de una respuesta conectándose
+
+281
+00:10:31,120 --> 00:10:36,279
+a la base de datos del calendario de la
+
+282
+00:10:33,000 --> 00:10:38,760
+peluquería y saber los huecos que tiene
+
+283
+00:10:36,279 --> 00:10:41,600
+libre, luego esa respuesta se la damos a
+
+284
+00:10:38,760 --> 00:10:43,480
+un modelo que que combine ese texto y lo
+
+285
+00:10:41,600 --> 00:10:46,279
+convierta en voz, pues tenemos un
+
+286
+00:10:43,480 --> 00:10:47,760
+asistente virtual como este. Y lo más
+
+287
+00:10:46,279 --> 00:10:49,279
+asombroso de todo esto es que personas
+
+288
+00:10:47,760 --> 00:10:51,760
+normales pueden desarrollar estas
+
+289
+00:10:49,279 --> 00:10:53,920
+soluciones con herramientas como N8N y
+
+290
+00:10:51,760 --> 00:10:55,680
+MAC. Entonces, aquí hay un gran dilema
+
+291
+00:10:53,920 --> 00:10:57,600
+que es la pérdida de empleo. No hay
+
+292
+00:10:55,680 --> 00:10:58,720
+muchas personas, yo siempre digo que la
+
+293
+00:10:57,600 --> 00:11:00,000
+inteligencia artificial no va a
+
+294
+00:10:58,720 --> 00:11:02,040
+reemplazar a las personas, sino que va a
+
+295
+00:11:00,000 --> 00:11:03,760
+reemplazar a las tareas. Y es por eso
+
+296
+00:11:02,040 --> 00:11:05,680
+que hay muchas personas que están
+
+297
+00:11:03,760 --> 00:11:07,399
+haciendo como que miran para otro lado y
+
+298
+00:11:05,680 --> 00:11:09,839
+otras muchas que también están viendo
+
+299
+00:11:07,399 --> 00:11:11,160
+cómo pueden adaptar tecnología en su día
+
+300
+00:11:09,839 --> 00:11:13,279
+a día.
+
+301
+00:11:11,160 --> 00:11:14,600
+Luego, por otro lado, viendo ya la
+
+302
+00:11:13,279 --> 00:11:16,320
+perspectiva de las empresas, cómo
+
+303
+00:11:14,600 --> 00:11:17,959
+quieren evolucionar, porque al final el
+
+304
+00:11:16,320 --> 00:11:18,839
+mayor cuello de botella que tienen son
+
+305
+00:11:17,959 --> 00:11:21,720
+las
+
+306
+00:11:18,839 --> 00:11:23,200
+personas, vamos a ver el impacto que va
+
+307
+00:11:21,720 --> 00:11:26,040
+a tener la inteligencia artificial para
+
+308
+00:11:23,200 --> 00:11:28,560
+las personas en la sociedad. Y realmente
+
+309
+00:11:26,040 --> 00:11:30,320
+lo que me decía este señor, que es muy
+
+310
+00:11:28,560 --> 00:11:33,200
+curioso, es que las personas van a
+
+311
+00:11:30,320 --> 00:11:34,920
+tender a ser cada vez menos seres
+
+312
+00:11:33,200 --> 00:11:37,399
+pensantes, cada vez van a pensar
+
+313
+00:11:34,920 --> 00:11:39,320
+muchísimo menos. Por ejemplo, a día de
+
+314
+00:11:37,399 --> 00:11:41,519
+hoy, yo no sé si pues cuando vais a
+
+315
+00:11:39,320 --> 00:11:43,320
+estudiar utilizáis chat GPT y ya ni
+
+316
+00:11:41,519 --> 00:11:45,519
+siquiera os preocupáis para ir leyendo
+
+317
+00:11:43,320 --> 00:11:47,040
+artículos en Google, ¿no? O incluso
+
+318
+00:11:45,519 --> 00:11:48,839
+muchas otras personas ya un poco más
+
+319
+00:11:47,040 --> 00:11:50,839
+frikis como yo, cogen y le sacan una
+
+320
+00:11:48,839 --> 00:11:52,720
+foto a la nevera y le dicen, "Oye, en
+
+321
+00:11:50,839 --> 00:11:55,160
+base a los ingredientes que tengo, ¿qué
+
+322
+00:11:52,720 --> 00:11:57,079
+me puedo cocinar hoy?" O incluso para
+
+323
+00:11:55,160 --> 00:11:58,839
+venir hoy a dar esta charla, coges y le
+
+324
+00:11:57,079 --> 00:12:00,480
+sacas una foto al armario o con
+
+325
+00:11:58,839 --> 00:12:02,639
+aplicaciones personalizadas que ya
+
+326
+00:12:00,480 --> 00:12:04,519
+tienen tu armario subido y le dices,
+
+327
+00:12:02,639 --> 00:12:05,839
+"Oye, para esta ocasión, ¿qué ropa
+
+328
+00:12:04,519 --> 00:12:07,880
+debería ponerme? Que no quiero ni
+
+329
+00:12:05,839 --> 00:12:08,880
+siquiera pensar." Pero realmente esto ha
+
+330
+00:12:07,880 --> 00:12:10,399
+pasado con todos los avances
+
+331
+00:12:08,880 --> 00:12:12,519
+tecnológicos. Probablemente mi
+
+332
+00:12:10,399 --> 00:12:14,760
+generación no, pero si le preguntamos a
+
+333
+00:12:12,519 --> 00:12:16,760
+nuestros padres antiguamente se sabían
+
+334
+00:12:14,760 --> 00:12:18,720
+el número de teléfono de sus hermanos o
+
+335
+00:12:16,760 --> 00:12:21,120
+de sus padres incluso. Probablemente
+
+336
+00:12:18,720 --> 00:12:22,440
+vosotros no sepáis el número de teléfono
+
+337
+00:12:21,120 --> 00:12:23,720
+de vuestro mejor amigo o de vuestros
+
+338
+00:12:22,440 --> 00:12:25,800
+hermanos.
+
+339
+00:12:23,720 --> 00:12:27,240
+Pero antiguamente no existía la
+
+340
+00:12:25,800 --> 00:12:29,079
+posibilidad de decirle a Siri que por
+
+341
+00:12:27,240 --> 00:12:30,399
+favor que llame a nuestro hermano que lo
+
+342
+00:12:29,079 --> 00:12:31,600
+necesitamos. Te tenías que haber
+
+343
+00:12:30,399 --> 00:12:33,880
+aprendido el nombre, el número de
+
+344
+00:12:31,600 --> 00:12:36,120
+teléfono o apuntarlo en algún lado. Y al
+
+345
+00:12:33,880 --> 00:12:37,560
+final lo que está pasando que con este
+
+346
+00:12:36,120 --> 00:12:39,680
+avance tecnológico de la inteligencia
+
+347
+00:12:37,560 --> 00:12:42,839
+artificial ha pasado a lo largo de la
+
+348
+00:12:39,680 --> 00:12:44,440
+historia muchísimas veces. Pero al final
+
+349
+00:12:42,839 --> 00:12:46,360
+del día la inteligencia artificial no va
+
+350
+00:12:44,440 --> 00:12:48,040
+a decir quién eres, tus sueños, tus
+
+351
+00:12:46,360 --> 00:12:50,360
+emociones y tus elecciones. Eso sigue
+
+352
+00:12:48,040 --> 00:12:52,120
+siendo completamente humano. No se trata
+
+353
+00:12:50,360 --> 00:12:54,040
+de resistirse al cambio, se trata de
+
+354
+00:12:52,120 --> 00:12:56,279
+comprenderlo y usarlo con
+
+355
+00:12:54,040 --> 00:12:57,480
+conciencia. Y al final del día vosotros
+
+356
+00:12:56,279 --> 00:12:59,320
+os tenéis que preguntar a vosotros
+
+357
+00:12:57,480 --> 00:13:01,480
+mismos quién queréis ser en esta nueva
+
+358
+00:12:59,320 --> 00:13:03,360
+realidad. Se trata de comprender el
+
+359
+00:13:01,480 --> 00:13:04,480
+avance tecnológico, que al final es
+
+360
+00:13:03,360 --> 00:13:06,959
+inevitable y que no lo podemos
+
+361
+00:13:04,480 --> 00:13:08,279
+controlar. Y la pregunta no es si la
+
+362
+00:13:06,959 --> 00:13:10,199
+inteligencia artificial va a ser el
+
+363
+00:13:08,279 --> 00:13:11,880
+enemigo o el aliado. La pregunta es,
+
+364
+00:13:10,199 --> 00:13:16,120
+¿qué papel quieres cubrir tú en esta
+
+365
+00:13:11,880 --> 00:13:16,120
+nueva realidad? Muchísimas gracias.
+
+366
+00:13:21,160 --> 00:13:24,760
+[Música]
+
+367
+00:13:22,680 --> 00:13:24,760
+he
+
