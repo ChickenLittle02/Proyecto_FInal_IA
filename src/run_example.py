@@ -11,12 +11,26 @@ from src.solver.baseline import ordered_knapsack_dp
 
 def main() -> None:
     root = Path(__file__).resolve().parent.parent
-    instance_path = root / "data" / "instances" / "example_instance.json"
+    
+    if len(sys.argv) > 1:
+        instance_path = Path(sys.argv[1])
+        if not instance_path.exists():
+            # Intentar buscar en data/instances/ si se pasó solo el nombre del archivo
+            alt_path = root / "data" / "instances" / instance_path.name
+            if alt_path.exists():
+                instance_path = alt_path
+    else:
+        instance_path = root / "data" / "instances" / "example_instance.json"
+
+    if not instance_path.exists():
+        print(f"Error: No se encontró el archivo de instancia en {instance_path}")
+        sys.exit(1)
+
     problem = load_instance_file(str(instance_path))
 
-    print("Instancia cargada:")
+    print(f"Instancia cargada: {instance_path.name}")
     print(f"- fragmentos: {len(problem.fragments)}")
-    print(f"- duración máxima: {problem.max_duration}")
+    print(f"- duración máxima: {problem.max_duration}s")
 
     scores = [1.0 for _ in problem.fragments]
     selected_indices, total_score = ordered_knapsack_dp(problem.fragments, scores, problem.max_duration)

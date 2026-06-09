@@ -1,0 +1,255 @@
+{
+  "max_duration": 157.62,
+  "fragments": [
+    {
+      "id": "1",
+      "text": "Voy a suponer que la mayoría de ustedes han usado una de las herramientas de inteligencia artificial generativa, chat, GBT, Google, Gemini, Deepsek, ese tipo de cosas. Estas herramientas aparecieron para uso público hace un poco menos de 3 años y pocas tecnologías han sido tan transformadoras y con un con un impacto tan grande en un tiempo tan corto. Cada vez que yo las uso, me tengo que recordar de un montón de",
+      "duration": 26.36,
+      "start_time": 16.76,
+      "end_time": 43.12,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "2",
+      "text": "cosas. Tengo que recordar, por ejemplo, para empezar, que la inteligencia artificial no es una cosa, es una característica de un sistema. Es la capacidad que tiene un sistema de cómputo para realizar tareas que normalmente requieren de de inteligencia humana. como el aprendizaje, la resolución de problemas, la toma de decisiones. Y como informático de profesión tengo que recordarme que la inteligencia",
+      "duration": 25.8,
+      "start_time": 41.36,
+      "end_time": 67.16,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "3",
+      "text": "artificial como área de estudio dentro de las ciencias de computación busca crear máquinas que puedan hacer esas cosas. Estas herramientas utilizan un modelo computacional conocido en inglés como large language models, lls y se llaman inteligencia artificial generativa porque generan contenido, generan texto, generan imágenes, generan",
+      "duration": 25.68,
+      "start_time": 64.88,
+      "end_time": 90.56,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "4",
+      "text": "videos y demás. Yo tiendo a imputarle cualidades humanas a las computadoras. Otra gente hace esto también, ¿verdad? Uso frases como, \"El disco se murió, el sistema no quiere, el programa no me entiende, este tipo de cosas.\" Y cuando los sistemas no funcionan como yo quiero, me frustro, me enojo, pienso que hay intervención diabólica y a veces recurro a la intersión divina.",
+      "duration": 25.08,
+      "start_time": 88.24,
+      "end_time": 113.32,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "5",
+      "text": "Eso es con la computación en general. Ahora, ante un LLM, uno de estos sistemas de inteligencia artificial generativa, yo realmente que yo realmente pienso que estoy frente a una caja negra donde adentro hay un omúnculo que lee la pregunta que yo le hago, piensa y me devuelve una respuesta cual sí humano y tengo que hacer un esfuerzo absolutamente consciente y continuo para",
+      "duration": 25.84,
+      "start_time": 111.28,
+      "end_time": 137.12,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "6",
+      "text": "no caer en esa antropomorfización. Yo sé que no es un ser sintiente, por más que lo parezca. Y esto es difícil porque estos sistemas generan lenguaje natural muy complejo, con gramática perfecta, ¿verdad? Coloquial y coherente. Y lo que lo que muestran sí es un tipo de inteligencia, pero no es una variante de inteligencia humana. Es decir, sus algoritmos no buscan la",
+      "duration": 27.24,
+      "start_time": 134.52,
+      "end_time": 161.76,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "7",
+      "text": "verdad ni el razonamiento, sino que intentan generar el contenido que sea más plausible. Me explico. Los LLMs consumen y procesan enormes volúmenes de datos y sus algoritmos de predicción generan las secuencias de texto que sean más verosímiles y contextualmente relevantes a la pregunta que yo le hago.",
+      "duration": 24.2,
+      "start_time": 159.44,
+      "end_time": 183.64,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "8",
+      "text": "Esto es poderosísimo, sobre todo en las manos de una persona bien entrenada. Pero tengo que recordarme también que los LLMs son como las personas en el sentido que son lo que comen y no siempre sabemos que comen y lo que comen puede incluir contenido totalmente falso o repugnante. Me estoy refiriendo a los conjuntos de datos que se usan para entrenar estos LLMs de uso general.",
+      "duration": 26.28,
+      "start_time": 181.8,
+      "end_time": 208.08,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "9",
+      "text": "Aún si minimizáramos los contenidos falsos y odiosos, es decir, que entrenáramos un modelo de estos únicamente con publicaciones arbitradas y el contenido de Wikipedia, por ejemplo, los algoritmos siempre buscarían generar el contenido que es más probable estadísticamente, más no necesariamente verídico.",
+      "duration": 23.24,
+      "start_time": 205.96,
+      "end_time": 229.2,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "10",
+      "text": "Entonces, si yo cuestiono la veracidad de algo que me generó una de estas herramientas, resulta que el problema es mío. Y comprobar qué tan cierto es algo es bastante caro. Tras de que la verdad es costosa, puede ser desagradable, ¿verdad? y difícil de digerir. En cambio, una ficción o una verdad a",
+      "duration": 25.48,
+      "start_time": 226.28,
+      "end_time": 251.76,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "11",
+      "text": "medias puede ser muy bonita, simple y generada a mucho menor costo. Hace tiempo yo pensaba ingenuamente que la inteligencia me llevaba automáticamente a la verdad y luego me di cuenta que eso era ridículo, porque a cada rato yo uso mi inteligencia para engañar y mentir. Entonces, cuando estoy frente al resultado de una de estas",
+      "duration": 26.52,
+      "start_time": 247.84,
+      "end_time": 274.36,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "12",
+      "text": "herramientas, siento que hay un problema de falacia, de inversión de la carga, eh, porque yo quiero que él me explique cómo es que es cierto lo que él me dice o por lo menos que me cite las fuentes que usó. Y para los LLMs de uso general, eso no es viable, entonces se convierte como en un problema epistemológico para",
+      "duration": 26.92,
+      "start_time": 271.84,
+      "end_time": 298.76,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "13",
+      "text": "mí. De hecho, es muy distinto eh recibir una respuesta que saber si el modelo sabe algo o no. No es nada fácil hacer que chat GPT eh o Google Gemini admitan que no saben algo. Yo le puedo hacer una pregunta y él puede evadir la pregunta, puede recusarse de la pregunta diciendo, \"No lo voy a responder porque eso, por ejemplo, incitaría al odio o",
+      "duration": 26.52,
+      "start_time": 294.96,
+      "end_time": 321.48,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "14",
+      "text": "algo así.\" Y hay casos donde me dice que él cree que yo le hice la pregunta equivocada. Y si ven, ya caí en eso otra vez. Yo dije, él cree. Él no cree nada porque no es un ser sintiente, ¿verdad? Y no tiene, no razona y no tiene conciencia y no tiene convicciones. Y cada vez que esto me pasa, siento que estoy frente a un sistema que se está burlando de mí porque yo creo que es un",
+      "duration": 27.44,
+      "start_time": 319.04,
+      "end_time": 346.48,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "15",
+      "text": "ser sintiente y no lo es. En el ámbito educativo hay amplia evidencia que estas herramientas están eh disminuyendo la capacidad de redacción y de pensamiento crítico de los estudiantes de secundaria y universitarios. Y esto va a obligar a cambios no triviales en el proceso de educación formal. Eso se complica además con el hecho que estas tecnologías están",
+      "duration": 26.24,
+      "start_time": 342.72,
+      "end_time": 368.96,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "16",
+      "text": "cambiando muy rápidamente. Algunos educadores opinan que hay que crear estructuras de enseñanza que minimicen la tentación a subcontratar el pensamiento, porque eso es lo que nos ofrecen estas herramientas, subcontratar el pensamiento. Desafortunadamente también el razonamiento.",
+      "duration": 21.12,
+      "start_time": 366.72,
+      "end_time": 387.84,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "17",
+      "text": "Cuando yo uso cualquier tecnología que no sea meramente mecánica, yo hago algo que se llama una descarga cognitiva. cognitive offloading en la literatura, es decir, descargo ciertos procesos mentales a entes externos para yo poder rendir mejor, por ejemplo, cuando uso una calculadora. Uno de los problemas ahora es que estas herramientas permiten la carga, perdón, la descarga cognitiva",
+      "duration": 26.92,
+      "start_time": 386.04,
+      "end_time": 412.96,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "18",
+      "text": "de procesos muchísimo más complejos de los que descargábamos anteriormente. Y una vez que uno se acostumbra a eso, es bastante difícil volverlas a asumir. Para gente como yo, de cierta edad, ya formado supuestamente, tiene todo el sentido que yo use estas herramientas como multiplicador de mi rendimiento y que me enfoque en el análisis y la resolución de problemas mucho más complejos.",
+      "duration": 25.8,
+      "start_time": 410.64,
+      "end_time": 436.44,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "19",
+      "text": "Pero para los jóvenes, los estudiantes, la preocupación es que estén usando estas herramientas en lugar de desarrollar sus capacidades de redacción y pensamiento crítico y resolución de problemas. Y mi temor es que eso a poca gente le importa. Estas herramientas son muchísimo más poderosas de lo que eran hace apenas 2 años y quién sabe dónde vamos a estar en el futuro cercano.",
+      "duration": 27.0,
+      "start_time": 434.64,
+      "end_time": 461.64,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "20",
+      "text": "La científica cognitiva Alison Gopnick dice que los LLM son tecnologías culturales en el sentido que nos permiten aprovechar y compartir toda la producción cultural a una escala jamás antes imaginaba imaginada. Y en ese sentido nos aumentan y nos mejoran como personas, más no nos desplazan.",
+      "duration": 23.72,
+      "start_time": 458.08,
+      "end_time": 481.8,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "21",
+      "text": "Eso me emociona, por supuesto, pero hay algunas facetas de todo esto que me llenan de miedo y aprensión, dado que estas tecnologías en sí son amorales y pueden ser usadas con fines nefastos. El historiador Yuval Harari afirma que uno de los grandes, una de las grandes amenazas de la inteligencia artificial es que la gente confíe ciegamente en",
+      "duration": 27.0,
+      "start_time": 479.92,
+      "end_time": 506.92,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "22",
+      "text": "ella cuando ni siquiera confíe entre sí. Yo también me pregunto acerca del modelo de negocios de estos servicios. En sus versiones más básicas, que son las que usamos casi todos, son gratuitas pese al enorme consumo energético de los centros de procesamiento de datos. Incluso se cree que los costos reales tampoco son cubiertos por los usuarios que sí pagan por las versiones más avanzadas.",
+      "duration": 26.56,
+      "start_time": 502.2,
+      "end_time": 528.76,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "23",
+      "text": "Entonces, ¿quién está pagando por esto? ¿Cuáles son las externalidades negativas? O va a ser como otras plataformas digitales supuestamente gratuitas. donde resulta que el producto soy yo. Por primera vez en historia estamos ante una tecnología que puede tomar decisiones y crear algo por sí sola.",
+      "duration": 25.6,
+      "start_time": 526.84,
+      "end_time": 552.44,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "24",
+      "text": "Y eso me lleva a la siguiente pregunta. Si un sistema puede crear algo mejor de lo que lo puedo crear yo, y ojalá sea así, entonces, ¿qué valor va a tener mi creatividad? No sé. Evidentemente, mi relación con las tecnologías de inteligencia artificial generativa está en la etapa conocida como It's complicated. Eh, independientemente de cómo evolucione",
+      "duration": 26.72,
+      "start_time": 550.44,
+      "end_time": 577.16,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "25",
+      "text": "esa relación, estoy convencido de que siempre voy a buscar la interacción con personas como ustedes y como yo. Muchas gracias.",
+      "duration": 11.22,
+      "start_time": 574.76,
+      "end_time": 585.98,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    }
+  ]
+}

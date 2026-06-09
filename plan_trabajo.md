@@ -15,120 +15,111 @@
 
 ## Objetivo del plan
 Terminar el sistema completo en una semana con:
-- dataset / instancias
-- implementación algorítmica + versión asistida por LLM
-- configuración de LLM reproducible
-- análisis experimental
-- informe técnico
-- instrucciones de ejecución
+- [x] dataset / instancias
+- [/] implementación algorítmica + versión asistida por LLM
+- [/] configuración de LLM reproducible
+- [ ] análisis experimental
+- [ ] informe técnico
+- [ ] instrucciones de ejecución
 
 ---
 
 ## Día 1 — Definición y diseño
-- Definir el problema formal:
-  - variables: fragmentos `s_i`, longitud `l_i`, selección `x_i \in {0,1}`
-  - restricción: suma de longitudes ≤ límite
-  - objetivo: maximizar relevancia + coherencia del resumen
-  - orden preservado según el video original
-- Decidir el modelo algorítmico:
-  - variante de **DP / knapsack con orden** para seleccionar fragmentos
-  - o “subset selection con penalty de transición”
-- Anotar claramente:
-  - qué hace el algoritmo clásico
-  - qué hace el LLM
-- Escribir un esquema de la estructura del proyecto:
-  - `src/problem.py`, `src/instance.py`, `src/solver/baseline.py`, `src/solver/llm_assisted.py`, `src/llm/`
+- [x] Definir el problema formal:
+  - [x] variables: fragmentos `s_i`, longitud `l_i`, selección `x_i \in {0,1}`
+  - [x] restricción: suma de longitudes ≤ límite
+  - [x] objetivo: maximizar relevancia + coherencia del resumen
+  - [x] orden preservado según el video original
+- [x] Decidir el modelo algorítmico:
+  - [x] variante de **DP / knapsack con orden** para seleccionar fragmentos
+  - [x] o “subset selection con penalty de transición”
+- [x] Anotar claramente qué hace el algoritmo clásico vs el LLM
+- [x] Escribir un esquema de la estructura del proyecto:
+  - [x] `src/problem.py`, `src/instance.py`, `src/solver/baseline.py`, `src/solver/llm_assisted.py`, `src/llm/`
 
 ## Día 2 — Dataset e instancias
-- Recolectar o generar dataset:
-  - usar 2–3 videos educativos reales
-  - extraer fragmentos cortos + transcripciones
-  - crear instancias en JSON/CSV con: texto, duración, posición
-- Crear instancias de prueba razonables:
-  - videos de 5-10 fragmentos
-  - casos con segmentos muy relevantes y segmentos irrelevantes
-- Implementar loader de datos:
-  - `data/instances/`
-  - función para leer fragmentos y longitudes
-- Guardar el proceso de generación en el informe
+- [/] Recolectar o generar dataset:
+  - [/] Usar 2–3 videos reales (Archivos `.srt` de subtítulos de videos reales ya descargados en `videos/`, pero falta procesarlos y segmentarlos en archivos JSON de instancias dentro de `data/instances/`)
+  - [ ] Extraer fragmentos cortos + transcripciones
+  - [ ] Crear instancias en JSON con: texto, duración, posición (start_time, end_time)
+- [x] Crear instancias de prueba razonables:
+  - [x] videos de 5-10 fragmentos (`example_instance.json`)
+  - [x] casos con segmentos muy relevantes y segmentos irrelevantes
+- [x] Implementar loader de datos:
+  - [x] `data/instances/`
+  - [x] función para leer fragmentos y longitudes (`src/instance.py`)
+- [ ] Guardar el proceso de generación en el informe
 
 ## Día 3 — LLM + prompts + caché
-- Elegir proveedor / modo de desarrollo:
-  - local (Ollama, Llama 3) o API (OpenAI / Anthropic / Gemini)
-- Crear wrapper de LLM:
-  - env var para modelo y API key
-  - `src/llm/client.py`
-  - `src/llm/prompts.py`
-  - `src/llm/cache.py`
-- Diseñar prompts claros para:
-  - puntuar relevancia de cada fragmento
-  - puntuar coherencia entre dos fragmentos consecutivos
-  - evaluar la coherencia final del resumen
-- Implementar caché de respuestas para no gastar tokens en cada iteración
+- [/] Elegir proveedor / modo de desarrollo:
+  - [x] local (Ollama) o API (OpenAI / Anthropic / Gemini) -> Estructura preparada en `src/llm/client.py`
+  - [ ] Integrar el cliente real del proveedor elegido (actualmente `_invoke_model` es un placeholder que retorna `"0.0"`)
+- [/] Crear wrapper de LLM:
+  - [x] env var para modelo y API key
+  - [x] `src/llm/client.py` (Falta integrar la llamada real de API)
+  - [x] `src/llm/prompts.py` (Prompts base definidos)
+  - [x] `src/llm/cache.py` (Caché local en disco implementada)
+- [/] Diseñar prompts claros para:
+  - [x] puntuar relevancia de cada fragmento
+  - [x] puntuar coherencia entre dos fragmentos consecutivos
+  - [ ] evaluar la coherencia final del resumen (opcional / refinar)
+- [x] Implementar caché de respuestas para no gastar tokens en cada iteración
 
 ## Día 4 — Algoritmos y primera integración
-- Implementar algoritmo base sin LLM:
-  - por ejemplo, selección por TF-IDF / frecuencia de palabras clave
-  - orden preservado, largo máximo
-- Implementar solver real:
-  - DP exacto / knapsack con orden
-  - si el tiempo permite, una versión heurística
-- Implementar solver asistido por LLM:
-  - usar scores de relevancia LLM para cada fragmento
-  - usar score de transición para ordenar / validar
-  - opcional: usar LLM para generar una lista de candidatos clave
-- Probar flujo completo en 2-3 instancias
+- [x] Implementar algoritmo base sin LLM (ej. DP y greedy en `src/solver/baseline.py`)
+- [x] Implementar solver real:
+  - [x] DP exacto / knapsack con orden (`src/solver/baseline.py`)
+- [/] Implementar solver asistido por LLM:
+  - [x] usar scores de relevancia LLM para cada fragmento
+  - [/] usar score de transición para ordenar / validar (Parcial: se combina relevancia con la transición del fragmento siguiente, pero no soporta transiciones dinámicas entre saltos arbitrarios de fragmentos no consecutivos si se omiten fragmentos intermedios. Se podría refinar el DP para esto)
+- [ ] Probar flujo completo en las instancias reales y sintéticas creadas con el LLM real activo
 
 ## Día 5 — Experimentos y análisis
-- Ejecutar comparaciones:
-  - baseline sin LLM vs. LLM-asistido
-  - distintas formas de usar al LLM (relevancia solo / relevancia+coherencia)
-  - posiblemente distintos prompts
-- Recoger métricas:
-  - longitud usada
-  - cobertura de contenido
-  - coherencia estimada por LLM
-  - comparaciones cualitativas
-- Guardar resultados en CSV y tablas
-- Generar al menos un gráfico simple o tabla de comparación
+- [ ] Ejecutar comparaciones:
+  - [ ] baseline sin LLM vs. LLM-asistido
+  - [ ] distintas formas de usar al LLM (relevancia solo / relevancia+coherencia)
+  - [ ] posiblemente distintos prompts
+- [ ] Recoger métricas:
+  - [ ] longitud usada
+  - [ ] cobertura de contenido
+  - [ ] coherencia estimada por LLM
+  - [ ] comparaciones cualitativas
+- [ ] Guardar resultados en CSV y tablas
+- [ ] Generar al menos un gráfico simple o tabla de comparación
 
 ## Día 6 — Documentación e informe
-- Escribir informe técnico con estas secciones:
+- [ ] Escribir informe técnico con estas secciones:
   1. descripción del problema
-  2. modelado formal
+  2. modelado formal (con referencias a los capítulos de `temas-simulacion.pdf` si aplica, como lógica difusa para grados de relevancia, etc.)
   3. descripción de dataset utilizado
   4. diseño del algoritmo
   5. rol del LLM
   6. metodología experimental
   7. resultados y análisis
   8. limitaciones y mejoras
-- Redactar README / `instructions.md`:
-  - cómo instalar
-  - cómo configurar LLM
-  - cómo ejecutar experimentos
-- Incluir:
-  - `requirements.txt`
-  - `.env.example`
-  - ejemplos de salida
+- [ ] Redactar README / `instructions.md` final con instrucciones detalladas de ejecución
+- [x] Incluir `requirements.txt` (creado, pero requiere agregar paquetes necesarios del LLM elegido, ej: `google-generativeai` u `openai`)
+- [ ] Crear `.env.example`
+- [ ] Ejemplos de salida
 
 ## Día 7 — Revisión final y cierre
-- Probar todo de punta a punta:
-  - carga de datos
-  - solver base
-  - solver LLM
-  - generación de resultados
-- Revisar que:
-  - el código sea reproducible
-  - el informe explique el rol del LLM claramente
-  - el sistema NO dependa de llamadas LLM innecesarias
-- Ajustar detalles finales
-- Empaquetar entrega:
-  - `src/`
-  - `data/`
-  - `README.md`
-  - `informe/`
-  - `requirements.txt`
-  - `.env.example`
+- [ ] Probar todo de punta a punta:
+  - [ ] carga de datos
+  - [ ] solver base
+  - [ ] solver LLM
+  - [ ] generación de resultados
+- [ ] Revisar que:
+  - [ ] el código sea reproducible
+  - [ ] el informe explique el rol del LLM claramente
+  - [ ] el sistema NO dependa de llamadas LLM innecesarias (verificar funcionamiento de caché)
+- [ ] Ajustar detalles finales
+- [ ] Empaquetar entrega:
+  - [ ] `src/`
+  - [ ] `data/`
+  - [ ] `README.md`
+  - [ ] `informe/`
+  - [ ] `requirements.txt`
+  - [ ] `.env.example`
 
 ---
 
