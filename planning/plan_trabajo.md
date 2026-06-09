@@ -38,17 +38,17 @@ Terminar el sistema completo en una semana con:
   - [x] `src/problem.py`, `src/instance.py`, `src/solver/baseline.py`, `src/solver/llm_assisted.py`, `src/llm/`
 
 ## Día 2 — Dataset e instancias
-- [/] Recolectar o generar dataset:
-  - [/] Usar 2–3 videos reales (Archivos `.srt` de subtítulos de videos reales ya descargados en `videos/`, pero falta procesarlos y segmentarlos en archivos JSON de instancias dentro de `data/instances/`)
-  - [ ] Extraer fragmentos cortos + transcripciones
-  - [ ] Crear instancias en JSON con: texto, duración, posición (start_time, end_time)
+- [x] Recolectar o generar dataset:
+  - [x] Usar 2–3 videos reales (Procesados los subtítulos `.srt` de las 4 carpetas de videos reales y segmentados en archivos JSON en `data/instances/video_*.json`)
+  - [x] Extraer fragmentos cortos + transcripciones
+  - [x] Crear instancias en JSON con: texto, duración, posición (start_time, end_time)
 - [x] Crear instancias de prueba razonables:
   - [x] videos de 5-10 fragmentos (`example_instance.json`)
   - [x] casos con segmentos muy relevantes y segmentos irrelevantes
 - [x] Implementar loader de datos:
   - [x] `data/instances/`
   - [x] función para leer fragmentos y longitudes (`src/instance.py`)
-- [ ] Guardar el proceso de generación en el informe
+- [ ] Guardar el proceso de generación en el informe (Se documentará en el informe final)
 
 ## Día 3 — LLM + prompts + caché
 - [/] Elegir proveedor / modo de desarrollo:

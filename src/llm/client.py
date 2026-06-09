@@ -1,11 +1,19 @@
 """
-Wrapper básico para la configuración de un LLM y envío de prompts.
+Wrapper para la configuración del LLM de Gemini y envío de prompts.
 """
 import os
+import re
+import time
 from typing import Dict, Optional
+
+from dotenv import load_dotenv
+import google.generativeai as genai
 
 from .prompts import coherence_prompt, fragment_prompt
 from .cache import LLMCache
+
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
 
 
 class LLMClient:
@@ -16,9 +24,17 @@ class LLMClient:
         api_key: Optional[str] = None,
         cache_path: Optional[str] = None,
     ):
-        self.provider = provider or os.getenv("LLM_PROVIDER", "openai")
-        self.model = model or os.getenv("LLM_MODEL", "gpt-4.1")
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+        self.provider = provider or os.getenv("LLM_PROVIDER", "gemini")
+        self.model = model or os.getenv("LLM_MODEL", "gemini-1.5-flash")
+        
+        # Configurar la API de Gemini si corresponde
+        if self.provider == "gemini":
+            self.api_key = api_key or os.getenv("GEMINI_API_KEY")
+            if self.api_key:
+                genai.configure(api_key=self.api_key)
+        else:
+            self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+            
         self.cache = LLMCache(cache_path or ".llm_cache.json")
 
     def score_fragment(self, fragment) -> float:
@@ -40,13 +56,31 @@ class LLMClient:
         return response
 
     def _invoke_model(self, prompt: str) -> str:
-        # Placeholder para integrar la API real del proveedor.
-        # En día 1 bastará con esta abstracción; luego se conecta a OpenAI, Anthropic, Ollama, etc.
-        return "0.0"
+        if self.provider == "gemini":
+            if not self.api_key:
+                raise ValueError("Error: GEMINI_API_KEY no está configurada en las variables de entorno o archivo .env")
+            try:
+                # Retraso de cortesía para respetar el límite de 15 RPM en el plan gratuito de Gemini
+                time.sleep(1.0)
+                
+                model = genai.GenerativeModel(self.model)
+                response = model.generate_content(prompt)
+                return response.text
+            except Exception as e:
+                print(f"Error llamando a la API de Gemini: {e}")
+                return "0.0"
+        else:
+            # Fallback para otros proveedores (por ejemplo, OpenAI)
+            return "0.0"
 
     @staticmethod
     def _parse_score(response: str) -> float:
         try:
+            # Buscar el primer número entero o decimal entre 0.0 y 1.0 en la respuesta del modelo
+            match = re.search(r'\b(0(\.\d+)?|1(\.0+)?)\b', response)
+            if match:
+                return float(match.group(0))
             return float(response.strip())
         except ValueError:
             return 0.0
+

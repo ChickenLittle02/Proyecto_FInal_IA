@@ -26,11 +26,33 @@ Para cargar la instancia y ejecutar un ejemplo rápido con el solver clásico:
 python src/run_example.py
 ```
 
-## Configuración mínima
-- Python 3.10+
-- Instalar dependencias con `pip install -r requirements.txt`
+## Configuración de la API (Gemini)
+Para poder utilizar el solver asistido por LLM, debes configurar tu clave de API de Gemini:
 
-## Siguientes tareas
-- Generar instancias sintéticas o reales.
-- Evaluar la selección con un solver clásico.
-- Añadir un wrapper real para llamada a un modelo LLM.
+1. Ve a [Google AI Studio](https://aistudio.google.com/) y genera una clave de API gratuita (puedes iniciar sesión con tu cuenta de Gmail).
+2. Crea un archivo llamado `.env` en la raíz de este proyecto (está configurado en `.gitignore` para que tus claves nunca se suban públicamente al repositorio).
+3. Añade el siguiente contenido al archivo `.env`, reemplazando el valor con la clave de API obtenida:
+
+```env
+GEMINI_API_KEY=tu_clave_api_de_gemini_aqui
+LLM_MODEL=gemini-1.5-flash
+LLM_PROVIDER=gemini
+```
+
+## Ejecución de ejemplos
+Para ejecutar una prueba clásica con la instancia sintética pequeña:
+```bash
+python src/run_example.py
+```
+
+Para probar con una instancia real generada a partir de los subtítulos de los videos (por ejemplo, el video 3):
+```bash
+python src/run_example.py video_3.json
+```
+
+## Configuración del entorno
+- Python 3.10+
+- Instalar dependencias con:
+  ```bash
+  pip install -r requirements.txt
+  ```
