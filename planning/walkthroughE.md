@@ -37,6 +37,16 @@ Solver: heuristic_reorder (n=30, input desordenado según start_time)
 
 **Por qué no siempre DP exacto:** con n=50 hay ~10¹⁵ estados — inviable en práctica. La heurística escala y sigue reordenando cuando el input llega permutado.
 
+### Qué ocurre si no se distingue por tamaño
+
+| Decisión incorrecta | Efecto |
+|---|---|
+| DP exacto siempre | Videos de 25–50 fragmentos: tiempo/memoria prohibitivos; experimentos con LLM inviables (O(n²) coherencia). |
+| Heurística siempre | En bench (n=5) resultados subóptimos; casos diseñados (`bench_disordered`) dejan de validar reordenación óptima. |
+| Sin reordenación (solo subsecuencia) | Input permutado produce resumen incoherente aunque la selección de fragmentos sea buena. |
+
+El umbral **12** (`REORDER_EXACT_LIMIT`) deja exactitud demostrable en laboratorio (`mini_video_*`, n=10) y escalabilidad en producción (`video_*`). Documentación para usuarios: `README.md` § *Por qué se distingue el tamaño*; informe: `informe/informe_tecnico.md` §5.
+
 ### Heurística (n > 12)
 
 Implementación en `src/solver/reorder.py`:

@@ -18,8 +18,9 @@ Terminar el sistema completo en una semana con:
 - [x] dataset / instancias
 - [x] implementación algorítmica + versión asistida por LLM (DP con coherencia dinámica — Paso C)
 - [x] configuración de LLM reproducible (`.env.example`, cliente Gemini, validación con `test_llm.py`)
-- [/] análisis experimental (Paso D: suite bench, CSV, gráficos en `results/`)
-- [ ] informe técnico
+- [x] análisis experimental (Paso D: suite lite, CSV, gráficos en `results/`)
+- [x] ejecución manual bloque a bloque (`execute.md`, bloques 3–8 + fusión + Fase 8)
+- [/] informe técnico (`informe/informe_tecnico.md` — problema, algoritmos; `notas_experimentos.md` — resultados)
 - [ ] instrucciones de ejecución
 
 ---
@@ -117,7 +118,7 @@ Terminar el sistema completo en una semana con:
 - [x] Crear `bench_disordered.json` (ver Día 2)
 - [x] Añadir tests mock: orden de salida narrativamente correcto pese al input permutado
 - [x] Añadir bloque de experimentos en README / `run_experiments.py` (`--reorder`, Bloque 6b)
-- [ ] Documentar en informe: contraste *subsecuencia fija* vs *reordenación* y cuándo cada uno aplica
+- [x] Documentar en informe: contraste *subsecuencia fija* vs *reordenación* y cuándo cada uno aplica → `informe/informe_tecnico.md` §2–5
 
 ### Task E — Solver unificado (reordenar automáticamente) → `planning/taskE.md`
 
@@ -156,23 +157,26 @@ Terminar el sistema completo en una semana con:
 - [x] Ejecutar comparaciones en instancias **lite** (sintéticas)
 - [x] baseline vs LLM-asistido con `--evaluate`
 - [x] estático vs dinámico (`bench_static_vs_dynamic.json`)
+- [x] Ejecución manual por bloques (`execute.md`): Bloques 3–6b, fusión (Fase 7), tabla/gráfico (Fase 8)
+- [x] `informe/notas_experimentos.md` generado automáticamente (15 filas, Groq)
 - [ ] suite completa con `mini_video_*` (opcional, no recomendada)
 - [x] Recoger métricas estructurales y post-hoc
 - [x] `results/experiments.csv` (example_instance)
-- [x] `results/experiments_bench.csv` (suite lite)
+- [x] `results/experiments_bench.csv` (suite lite, 15 filas)
+- [x] `results/summary_bench.md`, `results/comparison_bench.png`
 - [x] `prepare_mini_instances.py`, instancias `bench_*`, `mini_video_*` generadas
 - [x] Documentación en `walkthroughD.md` (origen, corte, uso, limitaciones)
 
 ## Día 6 — Documentación e informe
-- [ ] Escribir informe técnico con estas secciones:
-  1. descripción del problema
-  2. modelado formal (con referencias a los capítulos de `temas-simulacion.pdf` si aplica, como lógica difusa para grados de relevancia, etc.)
-  3. descripción de dataset utilizado
-  4. diseño del algoritmo
-  5. rol del LLM
-  6. metodología experimental
-  7. resultados y análisis
-  8. limitaciones y mejoras (contraste subsecuencia fija vs reordenación con `bench_disordered.json`; exacto O(2ⁿ) vs heurístico n>12 — ver `planning/walkthroughE.md`)
+- [/] Escribir informe técnico con estas secciones:
+  1. [x] descripción del problema → `informe/informe_tecnico.md` §1
+  2. [ ] modelado formal (con referencias a los capítulos de `temas-simulacion.pdf` si aplica, como lógica difusa para grados de relevancia, etc.)
+  3. [ ] descripción de dataset utilizado
+  4. [x] diseño del algoritmo → `informe/informe_tecnico.md` §2–3
+  5. [x] rol del LLM → `informe/informe_tecnico.md` §4
+  6. [x] metodología experimental → `informe/informe_tecnico.md` §5; corrida en `execute.md` ✓
+  7. [x] resultados y análisis → `informe/informe_tecnico.md` §6; datos en `notas_experimentos.md` + `results/summary_bench.md`
+  8. [x] limitaciones y mejoras (contraste subsecuencia fija vs reordenación; exacto O(2ⁿ) vs heurístico n>12) → `informe/informe_tecnico.md` §5 y §7; ver `planning/walkthroughE.md`
 - [ ] Redactar README / `instructions.md` final con instrucciones detalladas de ejecución
 - [x] Incluir `requirements.txt` (`google-generativeai`, `python-dotenv`)
 - [x] Crear `.env.example`

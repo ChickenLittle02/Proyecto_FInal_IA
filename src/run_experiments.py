@@ -13,6 +13,7 @@ from src.experiments.metrics import (
     evaluate_selection_with_llm,
     structural_metrics,
 )
+from src.experiments.notes import append_block_notes
 from src.instance import load_instance_file
 from src.llm.client import LLMClient
 from src.problem import SelectionProblem
@@ -200,6 +201,16 @@ def main() -> None:
         default="results/experiments.csv",
         help="Ruta del CSV de salida (default: results/experiments.csv)",
     )
+    parser.add_argument(
+        "--notes",
+        default=None,
+        help="Ruta markdown donde anotar escenario, selecciones y métricas (append)",
+    )
+    parser.add_argument(
+        "--block-label",
+        default=None,
+        help="Título del bloque en notas_experimentos.md (ej. 'Bloque 4 — overlimit')",
+    )
     args = parser.parse_args()
 
     project_root = Path(__file__).resolve().parent.parent
@@ -269,6 +280,22 @@ def main() -> None:
         output_path = project_root / output_path
     write_csv(rows, output_path)
     print(f"\nResultados guardados en {output_path} ({len(rows)} filas)")
+
+    if args.notes:
+        notes_path = Path(args.notes)
+        if not notes_path.is_absolute():
+            notes_path = project_root / notes_path
+        if not notes_path.exists():
+            from src.experiments.notes import init_notes
+
+            init_notes(notes_path, project_root, cache_cleared=False)
+        instance_filter = instance_paths[0].name if len(instance_paths) == 1 else None
+        append_block_notes(
+            notes_path,
+            output_path,
+            block_label=args.block_label,
+            instance_filter=instance_filter,
+        )
 
 
 if __name__ == "__main__":

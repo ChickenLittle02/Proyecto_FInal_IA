@@ -125,12 +125,13 @@ python src/experiments/summarize.py \
 ## Criterios de aceptación (estado)
 
 - [x] Script de experimentos y exportación CSV.
-- [x] Suite **lite** ejecutada → `results/experiments_bench.csv`.
+- [x] Suite **lite** ejecutada → `results/experiments_bench.csv` (15 filas, 5 instancias).
+- [x] Ejecución manual `execute.md` (bloques 3–8) → `informe/notas_experimentos.md`.
 - [x] Mini-videos generados y documentados (sin corrida LLM).
 - [x] Suite **bench** completa documentada como no ejecutada (casos grandes).
 - [x] Tabla y gráfico en `results/summary_bench.md` + `comparison_bench.png`.
 - [ ] Corrida LLM sobre `mini_video_*` o `video_*` completos (opcional).
 
-## Siguiente paso → Paso E (informe)
+## Siguiente paso → informe técnico
 
-Incorporar CSV/gráficos de `results/` al informe; describir limitación de coste API y uso de instancias sintéticas + suite lite.
+Borrador en `informe/informe_tecnico.md` (problema, algoritmos, distinción por tamaño). Resultados cualitativos en `informe/notas_experimentos.md`. Pendiente: modelado formal, dataset y redacción final.

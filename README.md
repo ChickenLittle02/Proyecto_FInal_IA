@@ -14,6 +14,9 @@ Este repositorio contiene una base inicial para el proyecto final de IA sobre se
 - `src/llm/cache.py` — caché local para respuestas de LLM.
 - `src/run_experiments.py` — comparación sistemática baseline vs LLM con salida CSV.
 - `src/experiments/` — métricas y resumen (`summarize.py`).
+- `informe/informe_tecnico.md` — borrador del informe (problema, algoritmos, metodología).
+- `informe/notas_experimentos.md` — notas automáticas por bloque experimental.
+- `execute.md` — plan manual bloque a bloque (completado).
 
 ## Configuración del entorno
 
@@ -159,6 +162,32 @@ El flujo normal usa **`solve()`** (con LLM) y **`solve_baseline()`** (sin LLM) e
 
 El usuario **no necesita** saber si el input está ordenado ni activar flags. Ver `planning/walkthroughE.md` para la decisión de diseño.
 
+### Por qué se distingue el tamaño (n ≤ 12 vs n > 12)
+
+El enunciado exige **seleccionar y ordenar** fragmentos. La reordenación óptima se resuelve con DP sobre máscaras de bits: estado `(mask, last, remaining)` recorre todas las permutaciones viables del subconjunto elegido. Eso es **exacto** pero cuesta **O(2ⁿ · n · capacidad)**.
+
+| n | Estados bitmask (orden de magnitud) | ¿Viable? |
+|---|---|---|
+| 5 (bench) | ~32 | Sí — suite lite del informe |
+| 12 (límite) | ~4 096 | Sí — cubre `mini_video_*.json` |
+| 30 | ~10⁹ | No en tiempo razonable |
+| 50 (`video_*.json`) | ~10¹⁵ | Imposible en la práctica |
+
+**Por qué no usar siempre el mismo algoritmo:**
+
+- **Siempre DP exacto:** con videos reales (25–50 fragmentos) el tiempo y la memoria explotan; una corrida LLM además precalcula O(n²) pares de coherencia — inviable para experimentos masivos.
+- **Siempre heurística:** en instancias pequeñas (n ≤ 12) se pierde optimalidad demostrable; casos como `bench_disordered.json` dejan de servir como prueba formal de reordenación correcta.
+
+**Qué pasa si no se hace la distinción:**
+
+| Escenario | Consecuencia |
+|---|---|
+| Forzar DP exacto en `video_*.json` | Timeout o agotamiento de memoria; el sistema no escala al dataset del Día 2. |
+| Forzar heurística en bench (n=5) | Selecciones subóptimas; el contraste baseline vs LLM y la validación de `bench_disordered` pierden rigor. |
+| Ignorar reordenación (solo subsecuencia fija) | Input permutado → resumen incoherente aunque los fragmentos sean buenos (`bench_disordered` falla). |
+
+El umbral **12** (`REORDER_EXACT_LIMIT` en `src/solver/llm_assisted.py`) equilibra optimalidad en casos de laboratorio y escalabilidad en videos largos. Los experimentos del informe usan n=5 (siempre `exact_reorder`); los `video_*.json` usarían `heuristic_reorder` si se ejecutaran con LLM.
+
 Funciones legacy (solo comparación en experimentos):
 
 | Función | Comportamiento |
@@ -179,6 +208,33 @@ Para comprobar todo sin API:
 
 ```bash
 python src/test_bench_instances.py
+```
+
+## Suite lite automatizada (notas + gráfico)
+
+Para ejecutar **todos los bloques 3–8** de una vez, borrar la caché LLM al inicio y generar automáticamente `informe/notas_experimentos.md` (escenario, selecciones, observación cualitativa y métricas por bloque), más `experiments_bench.csv`, `summary_bench.md` y `comparison_bench.png`:
+
+```bash
+python src/run_lite_suite.py
+```
+
+Opciones útiles:
+
+| Flag | Descripción |
+|---|---|
+| `--from-block 4` | Ejecutar desde el bloque 4 hasta el final |
+| `--block 5` | Solo el bloque 5 |
+| `--keep-cache` | No borrar `.llm_cache.json` al inicio |
+| `--skip-tests` | Omitir `test_bench_instances.py` antes de los bloques LLM |
+| `--no-merge` | Solo bloques + notas; sin fusionar CSV ni gráfico |
+
+Cada bloque individual también puede anotar notas si usas `--notes` y `--block-label` en `run_experiments.py`:
+
+```bash
+python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --static --evaluate \
+  --output results/part06_irrelevant_middle.csv \
+  --notes informe/notas_experimentos.md \
+  --block-label "Bloque 6 — bench_irrelevant_middle"
 ```
 
 ## Experimentación por bloques (≤ 3 min por bloque)

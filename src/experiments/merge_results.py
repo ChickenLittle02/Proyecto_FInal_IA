@@ -10,6 +10,7 @@ DEFAULT_SOURCES = [
     "results/part04_overlimit.csv",
     "results/part05_static_vs_dynamic.csv",
     "results/part06_irrelevant_middle.csv",
+    "results/part06b_disordered.csv",
 ]
 
 
