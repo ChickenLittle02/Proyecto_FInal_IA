@@ -85,6 +85,7 @@ Terminar el sistema completo en una semana con:
 - [/] Probar flujo completo en las instancias reales y sintéticas creadas con el LLM real activo
   - [x] Instancia sintética (`python src/run_example.py --llm`)
   - [x] Suite lite sintética (`--suite lite` en `run_experiments.py`)
+  - [x] Bench disordered / irrelevant_middle con solver unificado (`run_example.py --llm`)
   - [ ] Instancias `mini_video_*` / `video_*.json` completas — no ejecutadas (coste API); mini generados con `prepare_mini_instances.py`
 
 ### Extensión — Selección **con** reordenación (implementada)
@@ -117,6 +118,23 @@ Terminar el sistema completo en una semana con:
 - [x] Añadir tests mock: orden de salida narrativamente correcto pese al input permutado
 - [x] Añadir bloque de experimentos en README / `run_experiments.py` (`--reorder`, Bloque 6b)
 - [ ] Documentar en informe: contraste *subsecuencia fija* vs *reordenación* y cuándo cada uno aplica
+
+### Task E — Solver unificado (reordenar automáticamente) → `planning/taskE.md`
+
+**Problema:** hoy el usuario debe activar `--reorder` o llamar `solve_with_llm_reorder` a mano. El enunciado exige seleccionar **y** ordenar sin que el usuario defina si el input viene permutado.
+
+**Por qué no DP exacto siempre:** complejidad O(2ⁿ). Con n=50 son ~10¹⁵ estados — inviable. La solución no es “no reordenar en videos grandes”, sino **cambiar de algoritmo según n**:
+
+| n | Estrategia | Reordena |
+|---|---|---|
+| ≤ 12 | DP bitmask exacto (`solve_with_llm_reorder`) | Sí, óptimo |
+| > 12 | Heurística 2 fases (subconjunto + orden greedy/2-opt) | Sí, aproximado |
+
+- [x] **Prompt 1** — `solve()` + `solve_baseline()` + enrutado n≤12 + `run_example.py` + tests disordered sin flags
+- [x] **Prompt 2** — heurística n>12 + `run_experiments.py` unificado + test n=15
+- [x] **Prompt 3** — README, walkthroughE, Bloque 6b, cierre Task E en plan e informe
+
+**Estado:** Task E completada. Enrutado automático en `solve()` / `solve_baseline()`; ver `planning/walkthroughE.md`.
 
 ## Día 5 — Experimentos y análisis
 
@@ -154,7 +172,7 @@ Terminar el sistema completo en una semana con:
   5. rol del LLM
   6. metodología experimental
   7. resultados y análisis
-  8. limitaciones y mejoras (contraste subsecuencia fija vs reordenación con `bench_disordered.json`)
+  8. limitaciones y mejoras (contraste subsecuencia fija vs reordenación con `bench_disordered.json`; exacto O(2ⁿ) vs heurístico n>12 — ver `planning/walkthroughE.md`)
 - [ ] Redactar README / `instructions.md` final con instrucciones detalladas de ejecución
 - [x] Incluir `requirements.txt` (`google-generativeai`, `python-dotenv`)
 - [x] Crear `.env.example`

@@ -16,13 +16,11 @@ from src.experiments.metrics import (
 from src.instance import load_instance_file
 from src.llm.client import LLMClient
 from src.problem import SelectionProblem
-from src.solver.baseline import ordered_knapsack_dp
 from src.solver.llm_assisted import (
-    solve_with_llm,
-    solve_with_llm_reorder,
+    solve,
+    solve_baseline,
     solve_with_llm_static,
 )
-from src.solver.reorder import solve_baseline_reorder
 
 CSV_FIELDS = [
     "instance",
@@ -98,25 +96,25 @@ def run_solver(
     coherence_weight: float,
 ) -> tuple[List[int], float]:
     if solver_name == "baseline":
-        scores = [1.0 for _ in problem.fragments]
-        return ordered_knapsack_dp(problem.fragments, scores, problem.max_duration)
+        selected_indices, solver_score, _mode = solve_baseline(problem, coherence_weight)
+        return selected_indices, solver_score
     if solver_name == "llm_dynamic":
         if llm_client is None:
             raise ValueError("El solver llm_dynamic requiere un LLMClient configurado.")
-        return solve_with_llm(problem, llm_client, coherence_weight=coherence_weight)
+        selected_indices, solver_score, _mode = solve(problem, llm_client, coherence_weight)
+        return selected_indices, solver_score
     if solver_name == "llm_static":
         if llm_client is None:
             raise ValueError("El solver llm_static requiere un LLMClient configurado.")
         return solve_with_llm_static(problem, llm_client, coherence_weight=coherence_weight)
     if solver_name == "baseline_reorder":
-        scores = [1.0 for _ in problem.fragments]
-        return solve_baseline_reorder(
-            problem.fragments, scores, problem.max_duration, coherence_weight
-        )
+        selected_indices, solver_score, _mode = solve_baseline(problem, coherence_weight)
+        return selected_indices, solver_score
     if solver_name == "llm_reorder":
         if llm_client is None:
             raise ValueError("El solver llm_reorder requiere un LLMClient configurado.")
-        return solve_with_llm_reorder(problem, llm_client, coherence_weight=coherence_weight)
+        selected_indices, solver_score, _mode = solve(problem, llm_client, coherence_weight)
+        return selected_indices, solver_score
     raise ValueError(f"Solver desconocido: {solver_name}")
 
 

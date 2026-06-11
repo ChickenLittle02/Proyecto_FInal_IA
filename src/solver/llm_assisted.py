@@ -7,7 +7,14 @@ from typing import Callable, Dict, List, Tuple
 from ..llm.client import LLMClient
 from ..problem import Fragment, SelectionProblem
 from .baseline import ordered_knapsack_dp
-from .reorder import unordered_knapsack_dp_with_coherence
+from .reorder import (
+    heuristic_reorder_with_coherence,
+    solve_baseline_heuristic_reorder,
+    solve_baseline_reorder,
+    unordered_knapsack_dp_with_coherence,
+)
+
+REORDER_EXACT_LIMIT = 12
 
 
 def compute_relevance_with_llm(
@@ -138,3 +145,99 @@ def solve_with_llm_reorder(
         get_coherence,
         coherence_weight,
     )
+
+
+def solve_with_llm_heuristic_reorder(
+    problem: SelectionProblem,
+    llm_client: LLMClient,
+    coherence_weight: float = 0.25,
+) -> Tuple[List[int], float]:
+    """Selección + reordenación heurística para n > REORDER_EXACT_LIMIT."""
+    relevance_scores = compute_relevance_with_llm(problem, llm_client)
+
+    if not problem.fragments:
+        return [], 0.0
+
+    coherence_memo: Dict[Tuple[int, int], float] = {}
+
+    def get_coherence(i: int, j: int) -> float:
+        key = (i, j)
+        if key not in coherence_memo:
+            coherence_memo[key] = llm_client.score_coherence(
+                problem.fragments[i], problem.fragments[j]
+            )
+        return coherence_memo[key]
+
+    return heuristic_reorder_with_coherence(
+        problem.fragments,
+        relevance_scores,
+        problem.max_duration,
+        get_coherence,
+        coherence_weight,
+    )
+
+
+def resolve_solver_mode(problem: SelectionProblem) -> str:
+    """Devuelve 'exact_reorder' si n <= REORDER_EXACT_LIMIT, else 'heuristic_reorder'."""
+    if len(problem.fragments) <= REORDER_EXACT_LIMIT:
+        return "exact_reorder"
+    return "heuristic_reorder"
+
+
+def log_solver_mode(mode: str, problem: SelectionProblem) -> None:
+    n = len(problem.fragments)
+    if mode == "exact_reorder":
+        print(f"Solver: exact_reorder (n={n})")
+        return
+    disordered = not problem.validate_order()
+    suffix = ", input desordenado según start_time" if disordered else ""
+    print(f"Solver: heuristic_reorder (n={n}{suffix})")
+
+
+def solve(
+    problem: SelectionProblem,
+    llm_client: LLMClient,
+    coherence_weight: float = 0.25,
+) -> Tuple[List[int], float, str]:
+    """Punto de entrada único LLM. Siempre devuelve orden de reproducción."""
+    mode = resolve_solver_mode(problem)
+    log_solver_mode(mode, problem)
+
+    if mode == "exact_reorder":
+        indices, score = solve_with_llm_reorder(problem, llm_client, coherence_weight)
+        return indices, score, mode
+
+    indices, score = solve_with_llm_heuristic_reorder(problem, llm_client, coherence_weight)
+    return indices, score, mode
+
+
+def solve_baseline(
+    problem: SelectionProblem,
+    coherence_weight: float = 0.25,
+) -> Tuple[List[int], float, str]:
+    """Punto de entrada único sin LLM. Mismo enrutado que solve()."""
+    mode = resolve_solver_mode(problem)
+    log_solver_mode(mode, problem)
+
+    if mode == "exact_reorder":
+        if not problem.fragments:
+            return [], 0.0, mode
+        relevance_scores = [1.0] * len(problem.fragments)
+        indices, score = solve_baseline_reorder(
+            problem.fragments,
+            relevance_scores,
+            problem.max_duration,
+            coherence_weight,
+        )
+        return indices, score, mode
+
+    if not problem.fragments:
+        return [], 0.0, mode
+    relevance_scores = [1.0] * len(problem.fragments)
+    indices, score = solve_baseline_heuristic_reorder(
+        problem.fragments,
+        relevance_scores,
+        problem.max_duration,
+        coherence_weight,
+    )
+    return indices, score, mode

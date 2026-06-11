@@ -1,0 +1,2 @@
+instance,solver,n_fragments,n_selected,max_duration,duration_used,duration_utilization,fragment_coverage,duration_coverage,solver_score,mean_relevance,mean_coherence,objective_score,selected_indices
+mini_video_1.json,baseline,10.0,2.0,62.56,47.2,0.7544757033248082,0.2,0.18861892583120204,2.1407499999999997,,,,"[4, 5]"

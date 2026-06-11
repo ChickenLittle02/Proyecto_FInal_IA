@@ -8,8 +8,7 @@ sys.path.insert(0, str(root))
 
 from src.instance import load_instance_file
 from src.llm.client import LLMClient
-from src.solver.baseline import ordered_knapsack_dp
-from src.solver.llm_assisted import solve_with_llm
+from src.solver.llm_assisted import solve, solve_baseline
 
 
 def resolve_instance_path(args: argparse.Namespace, project_root: Path) -> Path:
@@ -77,13 +76,10 @@ def main() -> None:
 
         print(f"- proveedor: {llm_client.provider}")
         print(f"- modelo: {llm_client.model}")
-        selected_indices, total_score = solve_with_llm(problem, llm_client)
+        selected_indices, total_score, _mode = solve(problem, llm_client)
         print_selection(problem, selected_indices, total_score, "solver LLM")
     else:
-        scores = [1.0 for _ in problem.fragments]
-        selected_indices, total_score = ordered_knapsack_dp(
-            problem.fragments, scores, problem.max_duration
-        )
+        selected_indices, total_score, _mode = solve_baseline(problem)
         print_selection(problem, selected_indices, total_score, "solver clásico")
 
 

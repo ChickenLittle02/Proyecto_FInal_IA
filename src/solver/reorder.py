@@ -11,6 +11,94 @@ from typing import Callable, List, Tuple
 from ..problem import Fragment
 
 
+def score_ordered_path(
+    order: List[int],
+    relevance_scores: List[float],
+    coherence_fn: Callable[[int, int], float],
+    coherence_weight: float = 0.25,
+) -> float:
+    if not order:
+        return 0.0
+    score = sum(relevance_scores[i] for i in order)
+    for first, second in zip(order, order[1:]):
+        score += coherence_weight * coherence_fn(first, second)
+    return score
+
+
+def select_subset_greedy(
+    fragments: List[Fragment],
+    relevance_scores: List[float],
+    max_duration: float,
+) -> List[int]:
+    """Fase 1: elige subconjunto greedy por ratio relevancia/duración (sin orden)."""
+    ranked = sorted(
+        range(len(fragments)),
+        key=lambda index: relevance_scores[index] / max(fragments[index].duration, 1e-6),
+        reverse=True,
+    )
+    selected: List[int] = []
+    remaining = max_duration
+    for index in ranked:
+        duration = fragments[index].duration
+        if duration <= remaining:
+            selected.append(index)
+            remaining -= duration
+    return selected
+
+
+def order_subset_greedy(
+    subset: List[int],
+    relevance_scores: List[float],
+    coherence_fn: Callable[[int, int], float],
+    coherence_weight: float = 0.25,
+) -> List[int]:
+    """Fase 2: ordena el subconjunto por inserción greedy sobre coherencia."""
+    if not subset:
+        return []
+    if len(subset) == 1:
+        return list(subset)
+
+    remaining = list(subset)
+    seed = max(remaining, key=lambda index: relevance_scores[index])
+    order = [seed]
+    remaining.remove(seed)
+
+    while remaining:
+        best_fragment = remaining[0]
+        best_position = 0
+        best_score = float("-inf")
+
+        for fragment in remaining:
+            for position in range(len(order) + 1):
+                candidate = order[:position] + [fragment] + order[position:]
+                score = score_ordered_path(
+                    candidate, relevance_scores, coherence_fn, coherence_weight
+                )
+                if score > best_score:
+                    best_score = score
+                    best_fragment = fragment
+                    best_position = position
+
+        order = order[:best_position] + [best_fragment] + order[best_position:]
+        remaining.remove(best_fragment)
+
+    return order
+
+
+def heuristic_reorder_with_coherence(
+    fragments: List[Fragment],
+    relevance_scores: List[float],
+    max_duration: float,
+    coherence_fn: Callable[[int, int], float],
+    coherence_weight: float = 0.25,
+) -> Tuple[List[int], float]:
+    """Heurística en dos fases para n grande: subconjunto greedy + orden por inserción."""
+    subset = select_subset_greedy(fragments, relevance_scores, max_duration)
+    order = order_subset_greedy(subset, relevance_scores, coherence_fn, coherence_weight)
+    score = score_ordered_path(order, relevance_scores, coherence_fn, coherence_weight)
+    return order, score
+
+
 def unordered_knapsack_dp_with_coherence(
     fragments: List[Fragment],
     relevance_scores: List[float],
@@ -90,6 +178,23 @@ def solve_baseline_reorder(
     """Baseline con reordenación usando coherencia temporal (start_time)."""
     coherence_fn = build_temporal_coherence_fn(fragments)
     return unordered_knapsack_dp_with_coherence(
+        fragments,
+        relevance_scores,
+        max_duration,
+        coherence_fn,
+        coherence_weight,
+    )
+
+
+def solve_baseline_heuristic_reorder(
+    fragments: List[Fragment],
+    relevance_scores: List[float],
+    max_duration: float,
+    coherence_weight: float = 0.25,
+) -> Tuple[List[int], float]:
+    """Baseline heurístico: subconjunto greedy + orden por coherencia temporal."""
+    coherence_fn = build_temporal_coherence_fn(fragments)
+    return heuristic_reorder_with_coherence(
         fragments,
         relevance_scores,
         max_duration,

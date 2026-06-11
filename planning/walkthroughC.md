@@ -145,3 +145,5 @@ La selección coincide con la del Paso B en esta instancia, pero el score reflej
 ## Siguiente paso → Paso D
 
 Ver `planning/walkthroughD.md` y `planning/taskD.md`.
+
+> **Task E (solver unificado):** ver `planning/walkthroughE.md` — `solve()` / `solve_baseline()` reordenan automáticamente; enrutado exacto (n≤12) vs heurístico (n>12).

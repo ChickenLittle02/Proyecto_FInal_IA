@@ -8,7 +8,7 @@ Este repositorio contiene una base inicial para el proyecto final de IA sobre se
 - `src/instance.py` — carga y guardado de instancias en JSON.
 - `src/solver/baseline.py` — solver clásico con selección ordenada y DP.
 - `src/solver/reorder.py` — DP con bitmask para selección **con** reordenación (subconjunto + permutación).
-- `src/solver/llm_assisted.py` — solver asistido por LLM con puntuación de relevancia y coherencia (`solve_with_llm`, `solve_with_llm_reorder`).
+- `src/solver/llm_assisted.py` — solver unificado (`solve`, `solve_baseline`) con enrutado automático exacto/heurístico; funciones legacy (`solve_with_llm`, `solve_with_llm_reorder`, …).
 - `src/llm/client.py` — wrapper de configuración de LLM (Gemini, Groq y APIs compatibles con OpenAI).
 - `src/llm/prompts.py` — prompts base para evaluación de fragmentos.
 - `src/llm/cache.py` — caché local para respuestas de LLM.
@@ -112,12 +112,21 @@ Instancia real (subtítulos de un video TED):
 python src/run_example.py video_3.json
 ```
 
-Solver asistido por LLM (requiere `.env` configurado):
+Solver asistido por LLM (requiere `.env` configurado). **No hace falta `--reorder`**: el solver unificado selecciona y ordena automáticamente:
 
 ```bash
 python src/run_example.py --llm
+python src/run_example.py bench_disordered.json --llm
 python src/run_example.py video_3.json --llm
 ```
+
+Solver clásico sin LLM (mismo enrutado, coherencia proxy por `start_time`):
+
+```bash
+python src/run_example.py bench_disordered.json
+```
+
+Cada ejecución imprime el modo elegido, p. ej. `Solver: exact_reorder (n=5)` o `Solver: heuristic_reorder (n=30, input desordenado según start_time)`.
 
 ## Instancias de datos
 
@@ -139,12 +148,24 @@ python src/prepare_mini_instances.py --n 10 --videos 1 2    # solo videos 1 y 2
 
 **No.** Los `mini_video_*.json` conservan el **orden cronológico** del video original: `prepare_mini_instances.py` toma los primeros N fragmentos consecutivos de cada `video_*.json`, sin barajar ni reordenar.
 
-Hay dos modos de solver:
+### Solver unificado (Task E)
 
-| Modo | Módulo | Salida | Cuándo usar |
+El flujo normal usa **`solve()`** (con LLM) y **`solve_baseline()`** (sin LLM) en `src/solver/llm_assisted.py`. Ambos devuelven un **orden de reproducción** — no una subsecuencia fija del JSON — y enrutan según el número de fragmentos:
+
+| n fragmentos | Modo | Algoritmo | Notas |
 |---|---|---|---|
-| **Orden fijo** | `baseline.py`, `llm_assisted.solve_with_llm` | Subsecuencia del array JSON (índices crecientes) | Input ya en orden cronológico |
-| **Reordenación** | `reorder.py`, `llm_assisted.solve_with_llm_reorder` | Secuencia de reproducción `[j₁, j₂, …]` (puede no ser creciente) | Input permutado; reconstruir orden narrativo |
+| ≤ 12 | `exact_reorder` | DP bitmask (`reorder.py`) | Óptimo; cubre input ordenado y permutado |
+| > 12 | `heuristic_reorder` | Subconjunto greedy + inserción greedy sobre coherencia | Aproximado; escala a `video_*.json` |
+
+El usuario **no necesita** saber si el input está ordenado ni activar flags. Ver `planning/walkthroughE.md` para la decisión de diseño.
+
+Funciones legacy (solo comparación en experimentos):
+
+| Función | Comportamiento |
+|---|---|
+| `solve_with_llm` | Subsecuencia fija (orden del JSON) |
+| `solve_with_llm_reorder` | Reordenación exacta (DP bitmask) |
+| `solve_with_llm_static` | Coherencia solo entre vecinos `(i, i+1)` |
 
 Los casos **bench** (sintéticas) validan comportamiento lógico:
 
@@ -152,7 +173,7 @@ Los casos **bench** (sintéticas) validan comportamiento lógico:
 |---|---|
 | `bench_static_vs_dynamic.json` | Coherencia al **saltar** fragmentos (estático vs dinámico) |
 | `bench_irrelevant_middle.json` | **Omisión** de un fragmento irrelevante en el centro (música/anuncio) |
-| `bench_disordered.json` | Mismos textos que `bench_irrelevant_middle`, pero el array está **permutado** (conclusión antes que introducción). El solver con reordenación debe devolver `[1, 4, 3, 0]` — introducción → definición → ejemplo → conclusión — omitiendo el irrelevante (índice 2). |
+| `bench_disordered.json` | Mismos textos que `bench_irrelevant_middle`, pero el array está **permutado**. Con `solve()` (flujo normal) debe devolver `[1, 4, 3, 0]` — introducción → definición → ejemplo → conclusión — omitiendo el irrelevante (índice 2). |
 
 Para comprobar todo sin API:
 
@@ -222,13 +243,15 @@ Fragmento irrelevante en el centro.
 python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --static --evaluate --output results/part06_irrelevant_middle.csv
 ```
 
-### Bloque 6b — `bench_disordered` (~3–4 min)
+### Bloque 6b — `bench_disordered` (~2–3 min)
 
-Input permutado: contraste subsecuencia fija vs reordenación (`--reorder` añade `baseline_reorder` y `llm_reorder`).
+Input permutado con el **solver unificado** (`baseline` + `llm_dynamic` reordenan sin `--reorder`):
 
 ```bash
-python src/run_experiments.py --instances bench_disordered.json --llm --reorder --evaluate --output results/part06b_disordered.csv
+python src/run_experiments.py --instances bench_disordered.json --llm --evaluate --output results/part06b_disordered.csv
 ```
+
+Opcional: añadir `--static` para comparar enfoque estático, o `--reorder` para duplicar filas legacy (`baseline_reorder`, `llm_reorder`) en el CSV del informe.
 
 ### Bloque 7 — Fusionar CSVs (~10 s)
 
@@ -289,9 +312,9 @@ python src/run_experiments.py --suite bench --llm --static --evaluate --output r
 | `--suite lite` | `example_*.json` + `bench_*.json` |
 | `--suite bench` | lite + `mini_video_*.json` |
 | `--instances A B` | Lista explícita de instancias (nombre, ruta o glob) |
-| `--llm` | Incluir solver LLM dinámico |
-| `--static` | Incluir solver LLM estático |
-| `--reorder` | Incluir solvers con reordenación (`baseline_reorder`, `llm_reorder` si también `--llm`) |
+| `--llm` | Incluir solver LLM unificado (`solve` → reordena automáticamente) |
+| `--static` | Incluir solver LLM estático (legacy, subsecuencia fija) |
+| `--reorder` | Alias legacy: añade filas `baseline_reorder` / `llm_reorder` (equivalentes al flujo unificado) |
 | `--evaluate` | Métricas post-hoc (relevancia, coherencia, objective_score) |
 | `--output PATH` | CSV de salida |
 | `--coherence-weight 0.25` | Peso de coherencia (default 0.25) |
