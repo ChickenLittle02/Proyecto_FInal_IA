@@ -1,19 +1,27 @@
 """
-Wrapper para la configuración del LLM de Gemini y envío de prompts.
+Wrapper para la configuración del LLM y envío de prompts.
+
+Soporta:
+- gemini: Google Gemini (google-generativeai)
+- openai / groq: APIs compatibles con OpenAI (OpenAI, Groq, etc.)
 """
 import os
 import re
 import time
-from typing import Dict, Optional
+from typing import Optional
 
 from dotenv import load_dotenv
 import google.generativeai as genai
+from openai import OpenAI, RateLimitError
 
 from .prompts import coherence_prompt, fragment_prompt
 from .cache import LLMCache
 
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
+
+GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+OPENAI_COMPATIBLE_PROVIDERS = {"openai", "groq"}
 
 
 class LLMClient:
@@ -23,19 +31,39 @@ class LLMClient:
         model: Optional[str] = None,
         api_key: Optional[str] = None,
         cache_path: Optional[str] = None,
+        base_url: Optional[str] = None,
     ):
-        self.provider = provider or os.getenv("LLM_PROVIDER", "gemini")
+        self.provider = (provider or os.getenv("LLM_PROVIDER", "gemini")).lower()
         self.model = model or os.getenv("LLM_MODEL", "gemini-2.5-flash")
-        
-        # Configurar la API de Gemini si corresponde
+        self.base_url = base_url or os.getenv("OPENAI_BASE_URL")
+        self._openai_client: Optional[OpenAI] = None
+
         if self.provider == "gemini":
             self.api_key = api_key or os.getenv("GEMINI_API_KEY")
             if self.api_key:
                 genai.configure(api_key=self.api_key)
+        elif self.provider in OPENAI_COMPATIBLE_PROVIDERS:
+            self.api_key = api_key or os.getenv("OPENAI_API_KEY") or os.getenv("GROQ_API_KEY")
+            if self.provider == "groq" and not self.base_url:
+                self.base_url = GROQ_BASE_URL
+            if self.api_key:
+                self._openai_client = OpenAI(
+                    api_key=self.api_key,
+                    base_url=self.base_url or None,
+                )
         else:
-            self.api_key = api_key or os.getenv("OPENAI_API_KEY")
-            
+            raise ValueError(
+                f"Proveedor LLM no soportado: {self.provider!r}. "
+                f"Usa uno de: gemini, openai, groq."
+            )
+
         self.cache = LLMCache(cache_path or ".llm_cache.json")
+
+    @property
+    def api_key_env_name(self) -> str:
+        if self.provider == "gemini":
+            return "GEMINI_API_KEY"
+        return "OPENAI_API_KEY"
 
     def score_fragment(self, fragment) -> float:
         prompt = fragment_prompt(fragment.text)
@@ -55,33 +83,75 @@ class LLMClient:
         self.cache.set(prompt, response)
         return response
 
+    def _courtesy_delay(self) -> float:
+        if self.provider == "gemini":
+            return 1.0
+        if self.provider in OPENAI_COMPATIBLE_PROVIDERS:
+            return 2.1
+        return 0.0
+
     def _invoke_model(self, prompt: str) -> str:
         if self.provider == "gemini":
-            if not self.api_key:
-                raise ValueError("Error: GEMINI_API_KEY no está configurada en las variables de entorno o archivo .env")
-            max_retries = 3
-            for attempt in range(max_retries):
-                try:
-                    # Retraso de cortesía para respetar el límite de RPM en el plan gratuito de Gemini
-                    time.sleep(1.0)
+            return self._invoke_gemini(prompt)
+        if self.provider in OPENAI_COMPATIBLE_PROVIDERS:
+            return self._invoke_openai_compatible(prompt)
+        return "0.0"
 
-                    model = genai.GenerativeModel(self.model)
-                    response = model.generate_content(prompt)
-                    return response.text
-                except Exception as e:
-                    error_text = str(e)
-                    if "429" in error_text and attempt < max_retries - 1:
-                        retry_match = re.search(r"retry in (\d+(?:\.\d+)?)s", error_text, re.IGNORECASE)
-                        wait_seconds = float(retry_match.group(1)) + 1 if retry_match else 35
-                        print(f"Rate limit alcanzado, reintentando en {wait_seconds:.0f}s...")
-                        time.sleep(wait_seconds)
-                        continue
-                    print(f"Error llamando a la API de Gemini: {e}")
-                    return "0.0"
-            return "0.0"
-        else:
-            # Fallback para otros proveedores (por ejemplo, OpenAI)
-            return "0.0"
+    def _invoke_gemini(self, prompt: str) -> str:
+        if not self.api_key:
+            raise ValueError(
+                "Error: GEMINI_API_KEY no está configurada en las variables de entorno o archivo .env"
+            )
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                time.sleep(self._courtesy_delay())
+                model = genai.GenerativeModel(self.model)
+                response = model.generate_content(prompt)
+                return response.text
+            except Exception as e:
+                error_text = str(e)
+                if "429" in error_text and attempt < max_retries - 1:
+                    retry_match = re.search(r"retry in (\d+(?:\.\d+)?)s", error_text, re.IGNORECASE)
+                    wait_seconds = float(retry_match.group(1)) + 1 if retry_match else 35
+                    print(f"Rate limit alcanzado, reintentando en {wait_seconds:.0f}s...")
+                    time.sleep(wait_seconds)
+                    continue
+                print(f"Error llamando a la API de Gemini: {e}")
+                return "0.0"
+        return "0.0"
+
+    def _invoke_openai_compatible(self, prompt: str) -> str:
+        if not self.api_key:
+            raise ValueError(
+                "Error: OPENAI_API_KEY no está configurada en las variables de entorno o archivo .env"
+            )
+        if self._openai_client is None:
+            raise ValueError("Cliente OpenAI-compatible no inicializado.")
+
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                time.sleep(self._courtesy_delay())
+                response = self._openai_client.chat.completions.create(
+                    model=self.model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0,
+                )
+                content = response.choices[0].message.content
+                return content if content else "0.0"
+            except RateLimitError as e:
+                if attempt < max_retries - 1:
+                    wait_seconds = 35
+                    print(f"Rate limit alcanzado, reintentando en {wait_seconds:.0f}s...")
+                    time.sleep(wait_seconds)
+                    continue
+                print(f"Error llamando a la API OpenAI-compatible (rate limit): {e}")
+                return "0.0"
+            except Exception as e:
+                print(f"Error llamando a la API OpenAI-compatible: {e}")
+                return "0.0"
+        return "0.0"
 
     @staticmethod
     def _parse_score(response: str) -> float:
@@ -93,4 +163,3 @@ class LLMClient:
             return float(response.strip())
         except ValueError:
             return 0.0
-

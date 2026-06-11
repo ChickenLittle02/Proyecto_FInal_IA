@@ -1,0 +1,55 @@
+{
+  "max_duration": 8.0,
+  "fragments": [
+    {
+      "id": "1",
+      "text": "Introducción: en este video explicamos cómo seleccionar los fragmentos más importantes de una clase y ordenarlos para construir un resumen informativo.",
+      "duration": 4.0,
+      "start_time": 0.0,
+      "end_time": 4.0,
+      "metadata": {
+        "topic": "introducción"
+      }
+    },
+    {
+      "id": "2",
+      "text": "Transición: este segmento enlaza la introducción con el siguiente bloque, manteniendo la continuidad narrativa entre fragmentos consecutivos del video.",
+      "duration": 4.0,
+      "start_time": 4.0,
+      "end_time": 8.0,
+      "metadata": {
+        "topic": "puente"
+      }
+    },
+    {
+      "id": "3",
+      "text": "Conclusión: un resumen efectivo combina fragmentos relevantes respetando el orden temporal y maximizando la coherencia global del mensaje educativo.",
+      "duration": 4.0,
+      "start_time": 8.0,
+      "end_time": 12.0,
+      "metadata": {
+        "topic": "conclusión"
+      }
+    },
+    {
+      "id": "4",
+      "text": "Nota metodológica auxiliar: comparación entre evaluación estática y dinámica de coherencia en la selección de segmentos.",
+      "duration": 4.0,
+      "start_time": 12.0,
+      "end_time": 16.0,
+      "metadata": {
+        "topic": "metodología"
+      }
+    },
+    {
+      "id": "5",
+      "text": "Apéndice breve: referencias bibliográficas sobre resumen automático de contenido audiovisual educativo.",
+      "duration": 4.0,
+      "start_time": 16.0,
+      "end_time": 20.0,
+      "metadata": {
+        "topic": "apéndice"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "max_duration": 35.0,
+  "metadata": {
+    "note": "Mismos fragmentos que bench_irrelevant_middle.json, pero el array está permutado. El orden lógico del video queda en start_time/end_time de cada fragmento."
+  },
+  "fragments": [
+    {
+      "id": "5",
+      "text": "Conclusión: un buen resumen omite segmentos irrelevantes y preserva el orden narrativo de los fragmentos seleccionados.",
+      "duration": 8.0,
+      "start_time": 35.0,
+      "end_time": 43.0,
+      "metadata": {
+        "topic": "conclusión"
+      }
+    },
+    {
+      "id": "1",
+      "text": "Introducción: hoy veremos cómo un algoritmo puede elegir los segmentos más útiles de un video educativo bajo un límite de duración.",
+      "duration": 8.0,
+      "start_time": 0.0,
+      "end_time": 8.0,
+      "metadata": {
+        "topic": "introducción"
+      }
+    },
+    {
+      "id": "3",
+      "text": "Música instrumental de fondo. Anuncio del patrocinador. No contiene información sobre el tema del video ni aporta al resumen educativo.",
+      "duration": 8.0,
+      "start_time": 18.0,
+      "end_time": 26.0,
+      "metadata": {
+        "topic": "irrelevante"
+      }
+    },
+    {
+      "id": "4",
+      "text": "Ejemplo práctico: dado un conjunto de fragmentos con transcripciones, el solver elige cuáles incluir para que el resumen tenga sentido lógico.",
+      "duration": 9.0,
+      "start_time": 26.0,
+      "end_time": 35.0,
+      "metadata": {
+        "topic": "ejemplo"
+      }
+    },
+    {
+      "id": "2",
+      "text": "Definición del problema: maximizar relevancia y coherencia seleccionando fragmentos ordenados sin superar la duración máxima del resumen.",
+      "duration": 10.0,
+      "start_time": 8.0,
+      "end_time": 18.0,
+      "metadata": {
+        "topic": "modelado"
+      }
+    }
+  ]
+}

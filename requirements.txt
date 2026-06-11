@@ -1,3 +1,5 @@
 # Dependencias del proyecto
 google-generativeai
+openai
 python-dotenv
+matplotlib

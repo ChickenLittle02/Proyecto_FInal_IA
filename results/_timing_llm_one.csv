@@ -1,0 +1,4 @@
+instance,solver,n_fragments,n_selected,max_duration,duration_used,duration_utilization,fragment_coverage,duration_coverage,solver_score,mean_relevance,mean_coherence,objective_score,selected_indices
+bench_static_vs_dynamic.json,baseline,5.0,2.0,8.0,8.0,1.0,0.4,0.4,2.0,0.0,0.0,0.0,"[3, 4]"
+bench_static_vs_dynamic.json,llm_dynamic,5.0,0.0,8.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,[]
+bench_static_vs_dynamic.json,llm_static,5.0,0.0,8.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,[]

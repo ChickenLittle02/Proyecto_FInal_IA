@@ -30,11 +30,21 @@ class SelectionProblem:
         return True
 
     def is_valid_selection(self, selected_indices: Sequence[int]) -> bool:
+        """Selección válida como subsecuencia del array de entrada (índices crecientes)."""
         if any(i < 0 or i >= len(self.fragments) for i in selected_indices):
             return False
         if list(selected_indices) != sorted(selected_indices):
             return False
         total_duration = sum(self.fragments[i].duration for i in selected_indices)
+        return total_duration <= self.max_duration
+
+    def is_valid_ordered_selection(self, order: Sequence[int]) -> bool:
+        """Selección válida con orden explícito de reproducción (reordenación permitida)."""
+        if any(i < 0 or i >= len(self.fragments) for i in order):
+            return False
+        if len(order) != len(set(order)):
+            return False
+        total_duration = sum(self.fragments[i].duration for i in order)
         return total_duration <= self.max_duration
 
     @staticmethod

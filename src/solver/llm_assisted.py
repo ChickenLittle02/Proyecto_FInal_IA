@@ -7,6 +7,7 @@ from typing import Callable, Dict, List, Tuple
 from ..llm.client import LLMClient
 from ..problem import Fragment, SelectionProblem
 from .baseline import ordered_knapsack_dp
+from .reorder import unordered_knapsack_dp_with_coherence
 
 
 def compute_relevance_with_llm(
@@ -101,6 +102,36 @@ def solve_with_llm(
         return coherence_memo[key]
 
     return ordered_knapsack_dp_with_coherence(
+        problem.fragments,
+        relevance_scores,
+        problem.max_duration,
+        get_coherence,
+        coherence_weight,
+    )
+
+
+def solve_with_llm_reorder(
+    problem: SelectionProblem,
+    llm_client: LLMClient,
+    coherence_weight: float = 0.25,
+) -> Tuple[List[int], float]:
+    """Selección + reordenación: matriz de coherencia completa y DP con bitmask."""
+    relevance_scores = compute_relevance_with_llm(problem, llm_client)
+
+    if not problem.fragments:
+        return [], 0.0
+
+    coherence_memo: Dict[Tuple[int, int], float] = {}
+
+    def get_coherence(i: int, j: int) -> float:
+        key = (i, j)
+        if key not in coherence_memo:
+            coherence_memo[key] = llm_client.score_coherence(
+                problem.fragments[i], problem.fragments[j]
+            )
+        return coherence_memo[key]
+
+    return unordered_knapsack_dp_with_coherence(
         problem.fragments,
         relevance_scores,
         problem.max_duration,

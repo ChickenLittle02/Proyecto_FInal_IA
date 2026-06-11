@@ -18,7 +18,7 @@ Terminar el sistema completo en una semana con:
 - [x] dataset / instancias
 - [x] implementación algorítmica + versión asistida por LLM (DP con coherencia dinámica — Paso C)
 - [x] configuración de LLM reproducible (`.env.example`, cliente Gemini, validación con `test_llm.py`)
-- [ ] análisis experimental
+- [/] análisis experimental (Paso D: suite bench, CSV, gráficos en `results/`)
 - [ ] informe técnico
 - [ ] instrucciones de ejecución
 
@@ -45,6 +45,11 @@ Terminar el sistema completo en una semana con:
 - [x] Crear instancias de prueba razonables:
   - [x] videos de 5-10 fragmentos (`example_instance.json`)
   - [x] casos con segmentos muy relevantes y segmentos irrelevantes
+- [x] Crear instancia bench con fragmentos **deliberadamente desordenados** en el JSON:
+  - [x] `data/instances/bench_disordered.json` — mismos textos que `bench_irrelevant_middle.json`, array permutado (conclusión en posición 0, introducción en 1)
+  - [x] conservar `start_time` / `end_time` correctos en cada fragmento
+  - [x] `max_duration=35.0` — caben los 4 fragmentos narrativos (8+10+9+8) omitiendo el irrelevante
+  - [x] test mock en `src/test_bench_instances.py`: verifica orden `[1, 4, 3, 0]` y omisión del índice 2
 - [x] Implementar loader de datos:
   - [x] `data/instances/`
   - [x] función para leer fragmentos y longitudes (`src/instance.py`)
@@ -79,20 +84,66 @@ Terminar el sistema completo en una semana con:
   - [x] prueba mock sin API (`src/test_llm_solver.py`)
 - [/] Probar flujo completo en las instancias reales y sintéticas creadas con el LLM real activo
   - [x] Instancia sintética (`python src/run_example.py --llm`)
-  - [ ] Instancias reales (`video_*.json`) — pendiente por coste de API / rate limits
+  - [x] Suite lite sintética (`--suite lite` en `run_experiments.py`)
+  - [ ] Instancias `mini_video_*` / `video_*.json` completas — no ejecutadas (coste API); mini generados con `prepare_mini_instances.py`
+
+### Extensión — Selección **con** reordenación (implementada)
+
+**Modo orden fijo:** el DP (`ordered_knapsack_dp`, `ordered_knapsack_dp_with_coherence`) solo elige *incluir u omitir* en la posición del array de entrada. La salida es siempre una **subsecuencia** del orden del JSON.
+
+**Modo reordenación:** `unordered_knapsack_dp_with_coherence` + `solve_with_llm_reorder` eligen subconjunto y permutación; validado con `bench_disordered.json`.
+
+**Problema formal ampliado:** dado un conjunto de fragmentos (posiblemente desordenados en el input), elegir un subconjunto *y* una **permutación** π tal que:
+- ∑ duración(π) ≤ límite
+- se maximiza relevancia + coherencia entre pares **consecutivos en π** (no en el array original)
+
+**Enfoque recomendado (exacto para n pequeño, n ≤ 12 en bench):**
+
+1. **Matriz de coherencia:** precalcular `coherence[i][j]` para todo par (i, j) vía LLM (caché en `.llm_cache.json`); O(n²) llamadas, aceptable en instancias bench.
+2. **DP con máscara de bits:** estado `(mask, last, remaining)` donde `mask` indica qué fragmentos ya están en el resumen y `last` es el último añadido. Transición: añadir `j ∉ mask` si cabe en duración. Complejidad O(2ⁿ · n · capacidad) — viable para los bench de 5 fragmentos.
+3. **Salida:** lista ordenada de índices `[j₁, j₂, …, jₖ]` (no necesariamente creciente).
+4. **Validación:** nueva función `is_valid_ordered_selection(order)` en `problem.py` (comprueba duración y que no haya índices repetidos; **no** exige `sorted(order)`).
+5. **Solver baseline sin LLM:** misma DP con matriz de coherencia uniforme o heurística (p. ej. coherencia = −|start_time_i − start_time_j| como proxy temporal).
+6. **Integración LLM:** `solve_with_llm_reorder()` en `src/solver/llm_assisted.py`, reutilizando `score_fragment` y `score_coherence(i, j)` para cualquier par.
+
+**Alternativa más simple (no óptima):** dos fases — (1) knapsack sin orden para elegir subconjunto; (2) TSP / inserción greedy sobre el subconjunto usando la matriz de coherencia. Más rápida, peor calidad; útil como baseline heurístico.
+
+**Tareas:**
+
+- [x] Implementar `unordered_knapsack_dp_with_coherence` (DP con bitmask) en `src/solver/reorder.py`
+- [x] Implementar `solve_with_llm_reorder` en `src/solver/llm_assisted.py`
+- [x] Añadir `is_valid_ordered_selection` en `src/problem.py` (`is_valid_selection` sin cambios — subsecuencia)
+- [x] Crear `bench_disordered.json` (ver Día 2)
+- [x] Añadir tests mock: orden de salida narrativamente correcto pese al input permutado
+- [x] Añadir bloque de experimentos en README / `run_experiments.py` (`--reorder`, Bloque 6b)
+- [ ] Documentar en informe: contraste *subsecuencia fija* vs *reordenación* y cuándo cada uno aplica
 
 ## Día 5 — Experimentos y análisis
-- [ ] Ejecutar comparaciones:
-  - [ ] baseline sin LLM vs. LLM-asistido
-  - [ ] distintas formas de usar al LLM (relevancia solo / relevancia+coherencia)
-  - [ ] posiblemente distintos prompts
-- [ ] Recoger métricas:
-  - [ ] longitud usada
-  - [ ] cobertura de contenido
-  - [ ] coherencia estimada por LLM
-  - [ ] comparaciones cualitativas
-- [ ] Guardar resultados en CSV y tablas
-- [ ] Generar al menos un gráfico simple o tabla de comparación
+
+### Qué se hizo con los videos de prueba
+
+1. **Videos completos** (`video_*.json`): generados en Día 2 desde subtítulos SRT; 25–50 fragmentos; baseline evaluado en CSV global; **sin corrida LLM** (demasiado costoso).
+
+2. **Mini-resúmenes** (`mini_video_*.json`): script `prepare_mini_instances.py` extrae los **10 primeros fragmentos** de cada video y recalcula `max_duration` al 25 % de ese subconjunto. Archivos generados y listos; **no ejecutados con LLM** en esta fase (la suite `--suite bench` los incluiría y superaría cientos de llamadas API).
+
+3. **Casos sencillos sintéticos** (5 fragmentos): `example_*`, `bench_*`. Son la base cuantitativa del informe. Comando recomendado:
+
+   ```bash
+   python src/run_experiments.py --suite lite --llm --static --evaluate \
+     --output results/experiments_bench.csv
+   ```
+
+4. **Suite `--suite bench` (lite + mini_video)**: documentada pero **no ejecutada** — casos demasiado grandes para el plan/tiempo disponible.
+
+- [x] Ejecutar comparaciones en instancias **lite** (sintéticas)
+- [x] baseline vs LLM-asistido con `--evaluate`
+- [x] estático vs dinámico (`bench_static_vs_dynamic.json`)
+- [ ] suite completa con `mini_video_*` (opcional, no recomendada)
+- [x] Recoger métricas estructurales y post-hoc
+- [x] `results/experiments.csv` (example_instance)
+- [x] `results/experiments_bench.csv` (suite lite)
+- [x] `prepare_mini_instances.py`, instancias `bench_*`, `mini_video_*` generadas
+- [x] Documentación en `walkthroughD.md` (origen, corte, uso, limitaciones)
 
 ## Día 6 — Documentación e informe
 - [ ] Escribir informe técnico con estas secciones:
@@ -103,7 +154,7 @@ Terminar el sistema completo en una semana con:
   5. rol del LLM
   6. metodología experimental
   7. resultados y análisis
-  8. limitaciones y mejoras
+  8. limitaciones y mejoras (contraste subsecuencia fija vs reordenación con `bench_disordered.json`)
 - [ ] Redactar README / `instructions.md` final con instrucciones detalladas de ejecución
 - [x] Incluir `requirements.txt` (`google-generativeai`, `python-dotenv`)
 - [x] Crear `.env.example`
@@ -142,3 +193,4 @@ Terminar el sistema completo en una semana con:
 - Mantén un solver clásico visible: por ejemplo, DP + selección ordenada.
 - Documenta bien el contraste: `sin LLM` vs `con LLM` y `relevancia` vs `coherencia`.
 - Explica por qué tu sistema cumple el requisito del tema 2: seleccionar y ordenar fragmentos.
+- Con la extensión de reordenación + `bench_disordered.json`, demuestra que el sistema no solo elige fragmentos sino que **reconstruye un orden lógico** cuando el input llega permutado.

@@ -46,7 +46,7 @@ def main() -> None:
     parser.add_argument(
         "--llm",
         action="store_true",
-        help="Usar el solver asistido por LLM (requiere GEMINI_API_KEY en .env)",
+        help="Usar el solver asistido por LLM (requiere API key en .env)",
     )
     args = parser.parse_args()
 
@@ -72,7 +72,7 @@ def main() -> None:
             sys.exit(1)
 
         if not llm_client.api_key:
-            print("Error: GEMINI_API_KEY no está configurada. Copia .env.example a .env y añade tu clave.")
+            print(f"Error: {llm_client.api_key_env_name} no está configurada. Copia .env.example a .env y añade tu clave.")
             sys.exit(1)
 
         print(f"- proveedor: {llm_client.provider}")

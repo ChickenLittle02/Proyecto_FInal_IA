@@ -1,0 +1,2 @@
+instance,solver,n_fragments,n_selected,max_duration,duration_used,duration_utilization,fragment_coverage,duration_coverage,solver_score,mean_relevance,mean_coherence,objective_score,selected_indices
+example_instance.json,baseline,5.0,5.0,45.0,45.0,1.0,1.0,1.0,5.0,,,,"[0, 1, 2, 3, 4]"

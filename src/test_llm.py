@@ -1,4 +1,4 @@
-"""Script de prueba para verificar la integración con Gemini API."""
+"""Script de prueba para verificar la integración con el proveedor LLM configurado."""
 import sys
 import time
 from pathlib import Path
@@ -11,7 +11,7 @@ from src.problem import Fragment
 
 
 def main() -> None:
-    print("=== Prueba de Integración con Gemini API ===")
+    print("=== Prueba de Integración con LLM API ===")
     try:
         client = LLMClient()
     except Exception as e:
@@ -23,9 +23,8 @@ def main() -> None:
     print(f"API Key detectada: {'SÍ (oculta)' if client.api_key else 'NO'}")
 
     if not client.api_key:
-        print("\n[ERROR] No se detectó GEMINI_API_KEY en el entorno o archivo .env")
-        print("Por favor, crea un archivo '.env' en la raíz con tu clave:")
-        print("GEMINI_API_KEY=tu_clave_api_aqui")
+        print(f"\n[ERROR] No se detectó {client.api_key_env_name} en el entorno o archivo .env")
+        print("Por favor, crea un archivo '.env' en la raíz (copia .env.example).")
         return
 
     # Crear un fragmento ficticio
@@ -56,7 +55,7 @@ def main() -> None:
     print(f"Tiempo de respuesta: {round(duration_cached * 1000, 2)}ms")
 
     if score == score_cached:
-        print("\n[ÉXITO] ¡Conexión con Gemini y caché funcionando correctamente!")
+        print(f"\n[ÉXITO] ¡Conexión con {client.provider} y caché funcionando correctamente!")
     else:
         print("\n[ADVERTENCIA] Las puntuaciones difieren, revisa el funcionamiento del caché.")
 

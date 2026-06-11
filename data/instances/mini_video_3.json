@@ -1,0 +1,105 @@
+{
+  "max_duration": 63.8,
+  "fragments": [
+    {
+      "id": "1",
+      "text": "Voy a suponer que la mayoría de ustedes han usado una de las herramientas de inteligencia artificial generativa, chat, GBT, Google, Gemini, Deepsek, ese tipo de cosas. Estas herramientas aparecieron para uso público hace un poco menos de 3 años y pocas tecnologías han sido tan transformadoras y con un con un impacto tan grande en un tiempo tan corto. Cada vez que yo las uso, me tengo que recordar de un montón de",
+      "duration": 26.36,
+      "start_time": 16.76,
+      "end_time": 43.12,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "2",
+      "text": "cosas. Tengo que recordar, por ejemplo, para empezar, que la inteligencia artificial no es una cosa, es una característica de un sistema. Es la capacidad que tiene un sistema de cómputo para realizar tareas que normalmente requieren de de inteligencia humana. como el aprendizaje, la resolución de problemas, la toma de decisiones. Y como informático de profesión tengo que recordarme que la inteligencia",
+      "duration": 25.8,
+      "start_time": 41.36,
+      "end_time": 67.16,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "3",
+      "text": "artificial como área de estudio dentro de las ciencias de computación busca crear máquinas que puedan hacer esas cosas. Estas herramientas utilizan un modelo computacional conocido en inglés como large language models, lls y se llaman inteligencia artificial generativa porque generan contenido, generan texto, generan imágenes, generan",
+      "duration": 25.68,
+      "start_time": 64.88,
+      "end_time": 90.56,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "4",
+      "text": "videos y demás. Yo tiendo a imputarle cualidades humanas a las computadoras. Otra gente hace esto también, ¿verdad? Uso frases como, \"El disco se murió, el sistema no quiere, el programa no me entiende, este tipo de cosas.\" Y cuando los sistemas no funcionan como yo quiero, me frustro, me enojo, pienso que hay intervención diabólica y a veces recurro a la intersión divina.",
+      "duration": 25.08,
+      "start_time": 88.24,
+      "end_time": 113.32,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "5",
+      "text": "Eso es con la computación en general. Ahora, ante un LLM, uno de estos sistemas de inteligencia artificial generativa, yo realmente que yo realmente pienso que estoy frente a una caja negra donde adentro hay un omúnculo que lee la pregunta que yo le hago, piensa y me devuelve una respuesta cual sí humano y tengo que hacer un esfuerzo absolutamente consciente y continuo para",
+      "duration": 25.84,
+      "start_time": 111.28,
+      "end_time": 137.12,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "6",
+      "text": "no caer en esa antropomorfización. Yo sé que no es un ser sintiente, por más que lo parezca. Y esto es difícil porque estos sistemas generan lenguaje natural muy complejo, con gramática perfecta, ¿verdad? Coloquial y coherente. Y lo que lo que muestran sí es un tipo de inteligencia, pero no es una variante de inteligencia humana. Es decir, sus algoritmos no buscan la",
+      "duration": 27.24,
+      "start_time": 134.52,
+      "end_time": 161.76,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "7",
+      "text": "verdad ni el razonamiento, sino que intentan generar el contenido que sea más plausible. Me explico. Los LLMs consumen y procesan enormes volúmenes de datos y sus algoritmos de predicción generan las secuencias de texto que sean más verosímiles y contextualmente relevantes a la pregunta que yo le hago.",
+      "duration": 24.2,
+      "start_time": 159.44,
+      "end_time": 183.64,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "8",
+      "text": "Esto es poderosísimo, sobre todo en las manos de una persona bien entrenada. Pero tengo que recordarme también que los LLMs son como las personas en el sentido que son lo que comen y no siempre sabemos que comen y lo que comen puede incluir contenido totalmente falso o repugnante. Me estoy refiriendo a los conjuntos de datos que se usan para entrenar estos LLMs de uso general.",
+      "duration": 26.28,
+      "start_time": 181.8,
+      "end_time": 208.08,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "9",
+      "text": "Aún si minimizáramos los contenidos falsos y odiosos, es decir, que entrenáramos un modelo de estos únicamente con publicaciones arbitradas y el contenido de Wikipedia, por ejemplo, los algoritmos siempre buscarían generar el contenido que es más probable estadísticamente, más no necesariamente verídico.",
+      "duration": 23.24,
+      "start_time": 205.96,
+      "end_time": 229.2,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    },
+    {
+      "id": "10",
+      "text": "Entonces, si yo cuestiono la veracidad de algo que me generó una de estas herramientas, resulta que el problema es mío. Y comprobar qué tan cierto es algo es bastante caro. Tras de que la verdad es costosa, puede ser desagradable, ¿verdad? y difícil de digerir. En cambio, una ficción o una verdad a",
+      "duration": 25.48,
+      "start_time": 226.28,
+      "end_time": 251.76,
+      "metadata": {
+        "topic": "segmento_educativo"
+      }
+    }
+  ]
+}
