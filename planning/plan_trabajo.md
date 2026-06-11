@@ -16,8 +16,8 @@
 ## Objetivo del plan
 Terminar el sistema completo en una semana con:
 - [x] dataset / instancias
-- [/] implementación algorítmica + versión asistida por LLM
-- [/] configuración de LLM reproducible
+- [x] implementación algorítmica + versión asistida por LLM (DP con coherencia dinámica — Paso C)
+- [x] configuración de LLM reproducible (`.env.example`, cliente Gemini, validación con `test_llm.py`)
 - [ ] análisis experimental
 - [ ] informe técnico
 - [ ] instrucciones de ejecución
@@ -51,12 +51,12 @@ Terminar el sistema completo en una semana con:
 - [ ] Guardar el proceso de generación en el informe (Se documentará en el informe final)
 
 ## Día 3 — LLM + prompts + caché
-- [/] Elegir proveedor / modo de desarrollo:
-  - [x] local (Ollama) o API (OpenAI / Anthropic / Gemini) -> Estructura preparada en `src/llm/client.py`
-  - [ ] Integrar el cliente real del proveedor elegido (actualmente `_invoke_model` es un placeholder que retorna `"0.0"`)
-- [/] Crear wrapper de LLM:
-  - [x] env var para modelo y API key
-  - [x] `src/llm/client.py` (Falta integrar la llamada real de API)
+- [x] Elegir proveedor / modo de desarrollo:
+  - [x] local (Ollama) o API (OpenAI / Anthropic / Gemini) -> Elegido **Gemini** (`src/llm/client.py`)
+  - [x] Integrar el cliente real del proveedor elegido (`_invoke_model` llama a `google-generativeai`)
+- [x] Crear wrapper de LLM:
+  - [x] env var para modelo y API key (`GEMINI_API_KEY`, `LLM_MODEL`, `LLM_PROVIDER`)
+  - [x] `src/llm/client.py` (llamada real a Gemini + parseo con regex)
   - [x] `src/llm/prompts.py` (Prompts base definidos)
   - [x] `src/llm/cache.py` (Caché local en disco implementada)
 - [/] Diseñar prompts claros para:
@@ -64,15 +64,22 @@ Terminar el sistema completo en una semana con:
   - [x] puntuar coherencia entre dos fragmentos consecutivos
   - [ ] evaluar la coherencia final del resumen (opcional / refinar)
 - [x] Implementar caché de respuestas para no gastar tokens en cada iteración
+- [x] Validar integración end-to-end:
+  - [x] Script de prueba `src/test_llm.py` (score real: 0.95 con `gemini-2.5-flash`)
+  - [x] Llamadas reales devuelven puntuaciones distintas de `0.0`
+  - [x] Crear `.env.example`
 
 ## Día 4 — Algoritmos y primera integración
 - [x] Implementar algoritmo base sin LLM (ej. DP y greedy en `src/solver/baseline.py`)
 - [x] Implementar solver real:
   - [x] DP exacto / knapsack con orden (`src/solver/baseline.py`)
-- [/] Implementar solver asistido por LLM:
+- [x] Implementar solver asistido por LLM:
   - [x] usar scores de relevancia LLM para cada fragmento
-  - [/] usar score de transición para ordenar / validar (Parcial: se combina relevancia con la transición del fragmento siguiente, pero no soporta transiciones dinámicas entre saltos arbitrarios de fragmentos no consecutivos si se omiten fragmentos intermedios. Se podría refinar el DP para esto)
-- [ ] Probar flujo completo en las instancias reales y sintéticas creadas con el LLM real activo
+  - [x] coherencia dinámica en el DP (`ordered_knapsack_dp_with_coherence`, estado `(index, remaining, last_selected)`)
+  - [x] prueba mock sin API (`src/test_llm_solver.py`)
+- [/] Probar flujo completo en las instancias reales y sintéticas creadas con el LLM real activo
+  - [x] Instancia sintética (`python src/run_example.py --llm`)
+  - [ ] Instancias reales (`video_*.json`) — pendiente por coste de API / rate limits
 
 ## Día 5 — Experimentos y análisis
 - [ ] Ejecutar comparaciones:
@@ -98,8 +105,8 @@ Terminar el sistema completo en una semana con:
   7. resultados y análisis
   8. limitaciones y mejoras
 - [ ] Redactar README / `instructions.md` final con instrucciones detalladas de ejecución
-- [x] Incluir `requirements.txt` (creado, pero requiere agregar paquetes necesarios del LLM elegido, ej: `google-generativeai` u `openai`)
-- [ ] Crear `.env.example`
+- [x] Incluir `requirements.txt` (`google-generativeai`, `python-dotenv`)
+- [x] Crear `.env.example`
 - [ ] Ejemplos de salida
 
 ## Día 7 — Revisión final y cierre
@@ -119,7 +126,7 @@ Terminar el sistema completo en una semana con:
   - [ ] `README.md`
   - [ ] `informe/`
   - [ ] `requirements.txt`
-  - [ ] `.env.example`
+  - [x] `.env.example`
 
 ---
 

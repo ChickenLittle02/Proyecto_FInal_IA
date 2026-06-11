@@ -25,7 +25,7 @@ class LLMClient:
         cache_path: Optional[str] = None,
     ):
         self.provider = provider or os.getenv("LLM_PROVIDER", "gemini")
-        self.model = model or os.getenv("LLM_MODEL", "gemini-1.5-flash")
+        self.model = model or os.getenv("LLM_MODEL", "gemini-2.5-flash")
         
         # Configurar la API de Gemini si corresponde
         if self.provider == "gemini":
@@ -59,16 +59,26 @@ class LLMClient:
         if self.provider == "gemini":
             if not self.api_key:
                 raise ValueError("Error: GEMINI_API_KEY no está configurada en las variables de entorno o archivo .env")
-            try:
-                # Retraso de cortesía para respetar el límite de 15 RPM en el plan gratuito de Gemini
-                time.sleep(1.0)
-                
-                model = genai.GenerativeModel(self.model)
-                response = model.generate_content(prompt)
-                return response.text
-            except Exception as e:
-                print(f"Error llamando a la API de Gemini: {e}")
-                return "0.0"
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    # Retraso de cortesía para respetar el límite de RPM en el plan gratuito de Gemini
+                    time.sleep(1.0)
+
+                    model = genai.GenerativeModel(self.model)
+                    response = model.generate_content(prompt)
+                    return response.text
+                except Exception as e:
+                    error_text = str(e)
+                    if "429" in error_text and attempt < max_retries - 1:
+                        retry_match = re.search(r"retry in (\d+(?:\.\d+)?)s", error_text, re.IGNORECASE)
+                        wait_seconds = float(retry_match.group(1)) + 1 if retry_match else 35
+                        print(f"Rate limit alcanzado, reintentando en {wait_seconds:.0f}s...")
+                        time.sleep(wait_seconds)
+                        continue
+                    print(f"Error llamando a la API de Gemini: {e}")
+                    return "0.0"
+            return "0.0"
         else:
             # Fallback para otros proveedores (por ejemplo, OpenAI)
             return "0.0"

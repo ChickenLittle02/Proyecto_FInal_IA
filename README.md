@@ -35,7 +35,7 @@ Para poder utilizar el solver asistido por LLM, debes configurar tu clave de API
 
 ```env
 GEMINI_API_KEY=tu_clave_api_de_gemini_aqui
-LLM_MODEL=gemini-1.5-flash
+LLM_MODEL=gemini-2.5-flash
 LLM_PROVIDER=gemini
 ```
 
@@ -48,6 +48,17 @@ python src/run_example.py
 Para probar con una instancia real generada a partir de los subtítulos de los videos (por ejemplo, el video 3):
 ```bash
 python src/run_example.py video_3.json
+```
+
+Para ejecutar el solver asistido por LLM (requiere `.env` configurado):
+```bash
+python src/run_example.py --llm
+python src/run_example.py video_3.json --llm
+```
+
+Para verificar la conexión con Gemini y el caché:
+```bash
+python src/test_llm.py
 ```
 
 ## Configuración del entorno
