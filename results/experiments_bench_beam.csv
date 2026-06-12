@@ -1,0 +1,11 @@
+instance,solver,n_fragments,n_selected,max_duration,duration_used,duration_utilization,fragment_coverage,duration_coverage,solver_score,mean_relevance,mean_coherence,objective_score,summary_llm_score,summary_llm_relevance,summary_llm_coherence,selected_indices
+bench_disordered.json,baseline_beam,5.0,4.0,35.0,35.0,1.0,0.8,0.813953488372093,4.5875,0.625,0.3666666666666667,2.15,,,,"[1, 4, 2, 3]"
+bench_disordered.json,llm_beam,5.0,4.0,35.0,35.0,1.0,0.8,0.813953488372093,4.025,0.8500000000000001,0.8333333333333334,3.1750000000000003,0.85,0.8,0.9,"[1, 4, 0, 3]"
+bench_irrelevant_middle.json,baseline_beam,5.0,1.0,10.75,8.0,0.7441860465116279,0.2,0.18604651162790697,1.0,0.8,0.0,0.6000000000000001,,,,[0]
+bench_irrelevant_middle.json,llm_beam,5.0,1.0,10.75,10.0,0.9302325581395349,0.2,0.23255813953488372,0.9,0.9,0.0,0.675,0.85,0.8,0.9,[1]
+bench_static_vs_dynamic.json,baseline_beam,5.0,2.0,8.0,8.0,1.0,0.4,0.4,2.225,0.55,0.8,1.0250000000000001,,,,"[0, 1]"
+bench_static_vs_dynamic.json,llm_beam,5.0,2.0,8.0,8.0,1.0,0.4,0.4,2.0,0.9,0.8,1.55,0.85,0.8,0.9,"[0, 2]"
+example_instance.json,baseline_beam,5.0,5.0,45.0,45.0,1.0,1.0,1.0,5.7875,0.48,0.0,1.7999999999999998,,,,"[0, 1, 2, 3, 4]"
+example_instance.json,llm_beam,5.0,5.0,45.0,45.0,1.0,1.0,1.0,2.9374999999999996,0.48,0.5375,2.3375,0.7,0.8,0.6,"[4, 2, 1, 0, 3]"
+example_instance_overlimit.json,baseline_beam,5.0,3.0,30.0,27.0,0.9,0.6,0.6,3.4,0.4166666666666667,0.0,0.9375,,,,"[2, 3, 4]"
+example_instance_overlimit.json,llm_beam,5.0,3.0,30.0,30.0,1.0,0.6,0.6666666666666666,2.525,0.75,0.55,1.9625,0.75,0.8,0.7,"[2, 1, 4]"

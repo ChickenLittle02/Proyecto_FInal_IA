@@ -1,531 +1,386 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
+
+% ==================================================
+% PAQUETES
+% ==================================================
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
+
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
 \usepackage{hyperref}
-\usepackage{geometry}
 \usepackage{enumitem}
-\usepackage{listings}
-\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
 
-\geometry{margin=2.5cm}
+\geometry{
+left=3cm,
+right=3cm,
+top=3cm,
+bottom=3cm
+}
 
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    urlcolor=blue,
-    citecolor=blue
+colorlinks=true,
+linkcolor=blue,
+citecolor=blue,
+urlcolor=blue
 }
 
-\lstset{
-    basicstyle=\ttfamily\small,
-    breaklines=true,
-    frame=single,
-    backgroundcolor=\color{gray!8}
+% ==================================================
+% DATOS DEL TRABAJO
+% ==================================================
+
+\title{
+\textbf{Trabajo Final de Inteligencia Artificial}[0.5cm]
+Tema 2[0.3cm]
+Construcción de resúmenes como selección óptima de segmentos
 }
 
-\title{Informe técnico --- Selección y ordenación de fragmentos de video educativo}
-\author{Proyecto Final IA · Tema 2}
+\author{
+Rubén Martínez Rojas\
+Grupo C-311
+}
+
 \date{}
+
+% ==================================================
+% DOCUMENTO
+% ==================================================
 
 \begin{document}
 
-\maketitle
+% ==================================================
+% PORTADA
+% ==================================================
 
-%==============================================================================
-\section{Problema inicial}
-%==============================================================================
+\begin{titlepage}
+
+\centering
+
+\vspace*{3cm}
+
+{\Huge \textbf{Trabajo Final de Inteligencia Artificial}\par}
+
+\vspace{1cm}
+
+{\Large Tema 2\par}
+
+\vspace{0.4cm}
+
+{\Large Construcción de resúmenes como selección óptima de segmentos\par}
+
+\vfill
+
+{\Large Autor: Rubén Martínez Rojas\par}
+
+\vspace{0.3cm}
+
+{\Large Grupo C-311\par}
+
+\vfill
+
+{\large Curso 2025--2026\par}
+
+\vspace{0.3cm}
+
+{\large \today\par}
+
+\end{titlepage}
+
+% ==================================================
+% INDICE
+% ==================================================
+
+\tableofcontents
+
+\newpage
+
+% ==================================================
+% 1. INTRODUCCION
+% ==================================================
+
+\section{Introducción}
+
+La generación automática de resúmenes constituye una de las aplicaciones más relevantes del procesamiento del lenguaje natural, especialmente en contextos donde es necesario condensar grandes volúmenes de información para facilitar su consulta y comprensión. En el caso de los contenidos audiovisuales educativos, la duración de los materiales y la cantidad de información presentada dificultan la revisión rápida de los temas abordados, lo que hace necesario disponer de mecanismos capaces de producir versiones resumidas que preserven las ideas principales.
+
+El presente trabajo desarrolla una solución para el Tema 2 del Proyecto Final de la asignatura Inteligencia Artificial, titulado “Construcción de resúmenes como selección óptima de segmentos”. El problema consiste en seleccionar y ordenar un subconjunto de fragmentos extraídos de un video educativo de manera que el resumen resultante represente adecuadamente el contenido original sin exceder una duración máxima establecida. La calidad del resumen depende tanto de la importancia individual de los fragmentos seleccionados como de la coherencia existente entre ellos cuando se presentan de forma consecutiva.
+
+Desde el punto de vista de la optimización, el problema puede interpretarse como una tarea de selección bajo restricciones. Cada fragmento posee una duración asociada que consume parte del presupuesto temporal disponible, mientras que su incorporación al resumen aporta una determinada utilidad relacionada con su relevancia informativa. Adicionalmente, el orden en que los fragmentos son presentados influye en la calidad global del resumen, por lo que la solución debe considerar simultáneamente la selección de fragmentos y su secuencia de reproducción.
+
+Como parte de los requisitos del proyecto, se incorpora un modelo de lenguaje de gran tamaño (LLM) dentro del sistema. En esta propuesta, el modelo de lenguaje se utiliza para evaluar la relevancia de cada fragmento y la coherencia entre pares de fragmentos. Estas valoraciones son posteriormente empleadas por el algoritmo de optimización para construir candidatos de resumen. De esta forma, el LLM aporta conocimiento semántico sobre el contenido textual mientras que el proceso de búsqueda y optimización permanece a cargo de un algoritmo combinatorio independiente.
+
+La solución desarrollada se basa en una arquitectura compuesta por tres etapas principales. En primer lugar, se realiza un precálculo de puntuaciones de relevancia y coherencia mediante el modelo de lenguaje. Posteriormente, un algoritmo de beam search explora distintas combinaciones de fragmentos respetando la restricción de duración y conservando únicamente las alternativas más prometedoras. Finalmente, los mejores candidatos obtenidos son sometidos a una evaluación global para seleccionar la versión final del resumen.
+
+El objetivo del trabajo es diseñar e implementar un sistema capaz de generar resúmenes coherentes y representativos a partir de fragmentos de videos educativos, integrando técnicas de optimización y modelos de lenguaje dentro de un mismo proceso. Asimismo, se estudia el comportamiento de la solución mediante diferentes instancias de prueba y configuraciones experimentales con el fin de analizar sus fortalezas, limitaciones y posibilidades de mejora.
+
+
+% ==================================================
+% 2. DESCRIPCION DEL PROBLEMA
+% ==================================================
+
+\section{Descripción del problema}
 
 \subsection{Contexto}
 
-Un video educativo largo (charla TED, clase grabada, etc.) se divide en \textbf{fragmentos} con transcripción y duración. El usuario necesita un \textbf{resumen en video} --- un subconjunto de esos fragmentos reproducidos en un orden que conserve el sentido pedagógico --- pero con un \textbf{límite de duración} (p.\,ej.\ 45\,s para un teaser, o el 25\,\% del material total).
+Los videos educativos constituyen una fuente importante de información para el aprendizaje en diferentes áreas del conocimiento. Sin embargo, la duración de estos materiales puede dificultar la localización rápida de conceptos específicos o la revisión general de los contenidos tratados. Una alternativa para reducir este problema consiste en generar resúmenes que concentren las ideas más importantes del video y permitan al usuario obtener una visión general de su contenido en un tiempo significativamente menor.
 
-\subsection{Formulación}
+En este trabajo se considera un escenario en el que cada video ha sido previamente segmentado en fragmentos temporales y cada fragmento dispone de una transcripción textual asociada. A partir de estos fragmentos, el sistema debe construir un resumen que represente adecuadamente la información contenida en el material original. Debido a que el resumen debe respetar una duración máxima establecida, no es posible incluir todos los fragmentos disponibles, por lo que resulta necesario decidir cuáles conservar y cuáles descartar.
 
-Dado un conjunto de fragmentos $s_1, \ldots, s_n$, cada uno con:
-\begin{itemize}[noitemsep]
-    \item texto transcrito,
-    \item duración $l_i$,
-    \item posición temporal en el video original (\texttt{start\_time}, \texttt{end\_time}),
-\end{itemize}
-se busca una \textbf{secuencia ordenada} de índices $\pi = (j_1, j_2, \ldots, j_k)$ tal que:
+La generación del resumen no depende únicamente de la importancia individual de cada fragmento. Un resumen compuesto por fragmentos muy relevantes puede resultar difícil de comprender si las transiciones entre ellos son poco naturales o si el orden de presentación rompe la continuidad temática. Por esta razón, además de valorar la información aportada por cada fragmento, es necesario considerar la coherencia existente entre los elementos seleccionados.
 
-\begin{enumerate}
-    \item \textbf{Restricción de capacidad:} $\displaystyle\sum_{t=1}^{k} l_{j_t} \leq L_{\max}$ (knapsack con límite de tiempo).
-    \item \textbf{Objetivo:} maximizar una función de \textbf{relevancia} (¿aporta contenido educativo?) y \textbf{coherencia} (¿encaja narrativamente con el fragmento anterior en el resumen?).
-\end{enumerate}
+\subsection{Definición del problema}
 
-El enunciado del Tema~2 exige un componente \textbf{algorítmico clásico} y el uso del LLM como \textbf{evaluador semántico} (relevancia y coherencia), no como generador único del resumen ni como decisor directo de qué fragmentos incluir. La selección y el orden los resuelve un \textbf{solver de optimización} (programación dinámica o heurística) que consume las puntuaciones del LLM. Detalle en la Sección~\ref{sec:rol-llm}.
+Sea un conjunto de fragmentos extraídos de un video educativo. Cada fragmento está caracterizado por una transcripción textual, una duración y la información temporal correspondiente a su posición dentro del video original. Además, se dispone de un límite de duración que establece la longitud máxima permitida para el resumen final.
 
-\subsection{Por qué no basta un knapsack estándar}
+El problema consiste en seleccionar un subconjunto de fragmentos cuya duración total no exceda dicho límite y determinar un orden de reproducción para los fragmentos seleccionados. El objetivo es obtener un resumen que preserve la mayor cantidad posible de información relevante y que mantenga una secuencia coherente entre sus diferentes partes.
 
-Un knapsack clásico elige objetos sin orden. Aquí el orden importa: la coherencia se define entre \textbf{pares consecutivos en la secuencia de reproducción}, no entre vecinos del array de entrada. Además, el input puede llegar \textbf{desordenado} en el JSON (p.\,ej.\ metadatos permutados); el sistema debe \textbf{reconstruir un orden narrativo}, no solo filtrar fragmentos.
+Para evaluar la calidad de una solución se consideran dos criterios principales. El primero es la relevancia de los fragmentos individuales, entendida como la contribución informativa de cada uno al contenido global del video. El segundo es la coherencia entre fragmentos consecutivos, entendida como el grado en que dos fragmentos pueden aparecer uno después del otro manteniendo continuidad temática y discursiva. Una solución de alta calidad debe equilibrar ambos criterios mientras satisface la restricción de duración impuesta.
 
-Implementación formal: \texttt{src/problem.py} (\texttt{SelectionProblem}, \texttt{Fragment}).
+La naturaleza combinatoria del problema surge del elevado número de posibles subconjuntos y ordenaciones que pueden construirse a partir de los fragmentos disponibles. A medida que aumenta la cantidad de fragmentos, el espacio de búsqueda crece rápidamente, lo que dificulta encontrar soluciones de calidad mediante una exploración exhaustiva. Por esta razón resulta necesario emplear técnicas de búsqueda y optimización que permitan explorar únicamente las alternativas más prometedoras.
 
-%==============================================================================
-\section{Algoritmos implementados y funcionamiento}
-%==============================================================================
+\subsection{Objetivos}
 
-\subsection{Baseline clásico (\texttt{solve\_baseline})}
-\label{sec:baseline}
+El objetivo general del trabajo es desarrollar un sistema capaz de construir resúmenes de videos educativos mediante la selección y ordenación de fragmentos bajo una restricción de duración máxima, incorporando un modelo de lenguaje como parte funcional del proceso de evaluación.
 
-\textbf{Idea:} referencia sin LLM. Todos los fragmentos tienen la misma relevancia (1.0); la coherencia entre pares se aproxima con la \textbf{proximidad temporal} (\texttt{start\_time}).
+Para alcanzar este objetivo se propone representar formalmente el problema como una tarea de optimización en la que cada solución corresponde a una secuencia ordenada de fragmentos. Asimismo, se busca utilizar un modelo de lenguaje para estimar la relevancia de los fragmentos y la coherencia entre pares de fragmentos, aprovechando su capacidad para analizar información textual y capturar relaciones semánticas que resultan difíciles de modelar mediante reglas manuales.
 
-\textbf{Enrutado automático} (Task~E):
+Además, se pretende diseñar e implementar un algoritmo de búsqueda capaz de generar resúmenes de calidad sin necesidad de explorar exhaustivamente todas las combinaciones posibles. Finalmente, se realizará una evaluación experimental sobre diferentes instancias de prueba con el propósito de analizar el comportamiento del sistema, estudiar la influencia del modelo de lenguaje en el proceso de selección y determinar las principales limitaciones de la propuesta desarrollada.
 
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-$n$ fragmentos & Modo & Algoritmo \\
-\midrule
-$\leq 12$ & \texttt{exact\_reorder} & DP con bitmask (\texttt{src/solver/reorder.py}) \\
-$> 12$ & \texttt{heuristic\_reorder} & Subconjunto greedy + inserción greedy por coherencia \\
-\bottomrule
-\end{tabular}
-\end{center}
+% ==================================================
+% 3. MODELADO FORMAL
+% ==================================================
 
-El baseline demuestra que existe un \textbf{solver algorítmico real} independiente del LLM y sirve de contraste en los experimentos.
+\section{Modelado formal}
 
-\subsection{DP con orden fijo --- subsecuencia (\texttt{ordered\_knapsack\_dp})}
+\subsection{Representación de fragmentos}
 
-\textbf{Cuándo:} funciones legacy \texttt{solve\_with\_llm}, \texttt{solve\_with\_llm\_static}; modo experimental \texttt{--static}.
+La entrada del problema está compuesta por un conjunto finito de fragmentos obtenidos a partir de la transcripción de un video educativo. Cada fragmento contiene el texto correspondiente a una porción del video, así como información temporal asociada a su posición dentro del material original.
 
-\textbf{Estado:} $(\text{índice}, \text{duración\_restante})$ o $(\text{índice}, \text{duración\_restante}, \text{último\_seleccionado})$ si hay coherencia dinámica.
+Formalmente, cada fragmento puede representarse mediante una tupla:
 
-\textbf{Transición:} en cada posición del array de entrada, \textbf{incluir u omitir} el fragmento. La salida es siempre una \textbf{subsecuencia} (índices crecientes): se respeta el orden del JSON.
+\[
+f_i = (t_i, d_i, s_i, e_i)
+\]
 
-\textbf{Coherencia dinámica} (\texttt{ordered\_knapsack\_dp\_with\_coherence}): el LLM puntúa coherencia entre pares $(\text{último}, j)$ bajo demanda; el DP, al incluir el fragmento $j$, suma $\text{relevancia}[j] + w \times \text{coherencia}(\text{último}, j)$. Permite \textbf{saltar} fragmentos intermedios manteniendo coherencia entre no vecinos.
+donde $t_i$ representa el texto del fragmento, $d_i$ su duración en segundos, $s_i$ el instante de inicio y $e_i$ el instante de finalización dentro del video original.
+Sea
 
-\textbf{Coherencia estática} (\texttt{solve\_with\_llm\_static}): el LLM puntúa coherencia solo entre vecinos $(i, i+1)$ del input; esos valores se combinan con relevancia \textbf{antes} del DP. Falla en escenarios donde hay que saltar un fragmento puente (\texttt{bench\_static\_vs\_dynamic.json}).
+\[
+F = \{f_1, f_2, \ldots, f_n\}
+\]
 
-Código: \texttt{src/solver/baseline.py}, \texttt{src/solver/llm\_assisted.py}.
+el conjunto de todos los fragmentos disponibles. Además, se dispone de una duración máxima permitida para el resumen, denotada por $D_{max}$.
 
-\subsection{DP con reordenación exacta --- bitmask (\texttt{unordered\_knapsack\_dp\_with\_coherence})}
+Una solución del problema consiste en construir una secuencia ordenada de fragmentos seleccionados:
 
-\textbf{Cuándo:} \texttt{solve()} / \texttt{solve\_baseline()} con $n \leq 12$; flujo de producción en instancias bench.
+\[
+S=(f_{i_1},f_{i_2},\ldots,f_{i_k})
+\]
 
-\textbf{Estado:} $(\text{mask}, \text{last}, \text{remaining})$ --- \texttt{mask} indica qué fragmentos ya están en el resumen; \texttt{last} es el último añadido.
+donde cada fragmento puede aparecer como máximo una vez.
 
-\textbf{Transición:} añadir cualquier $j$ no incluido en \texttt{mask} si cabe en duración; el \textbf{DP} maximiza relevancia + coherencia entre pares consecutivos \textbf{en la permutación elegida} (pesos provistos por el LLM).
+\subsection{Relevancia}
 
-\textbf{Complejidad:} $O(2^n \cdot n \cdot \text{capacidad})$. Óptimo para $n$ pequeño (bench: $n=5$; mini-videos: $n=10$).
+Con el objetivo de estimar la importancia informativa de cada fragmento, se asocia una puntuación de relevancia a cada elemento del conjunto de entrada.
 
-\textbf{Matriz de coherencia:} el \textbf{LLM} puntúa $\text{coherencia}[i,j]$ para todo par $(i, j)$ --- $O(n^2)$ llamadas, cacheadas en \texttt{.llm\_cache.json}; el \textbf{DP} consume esa matriz al explorar permutaciones.
+Sea
 
-Código: \texttt{src/solver/reorder.py}.
+\[
+r_i \in [0,1]
+\]
 
-\subsection{Heurística en dos fases ($n > 12$)}
+la relevancia asignada al fragmento $(f_i)$. Valores cercanos a 1 indican que el fragmento contiene información especialmente útil para la construcción de un resumen educativo, mientras que valores cercanos a 0 representan fragmentos con escasa contribución al contenido principal.
 
-\textbf{Cuándo:} videos completos (\texttt{video\_*.json}, 25--50 fragmentos).
+Estas puntuaciones son obtenidas mediante un modelo de lenguaje, el cual analiza el texto de cada fragmento de manera independiente y devuelve un valor numérico normalizado entre 0 y 1.
 
-\begin{enumerate}
-    \item \texttt{select\_subset\_greedy}: elige fragmentos por ratio relevancia/duración hasta llenar \texttt{max\_duration}.
-    \item \texttt{order\_subset\_greedy}: inserta cada fragmento restante en la posición que maximiza relevancia + coherencia local.
-\end{enumerate}
+\subsection{Coherencia}
 
-\textbf{Complejidad:} $O(n^2)$ por fase --- escalable, pero \textbf{no garantiza optimalidad global}.
+Además de la relevancia individual de los fragmentos, es necesario considerar la relación existente entre fragmentos consecutivos dentro del resumen.
 
-Código: \texttt{src/solver/reorder.py} (\texttt{heuristic\_reorder\_with\_coherence}).
+Para cada par ordenado de fragmentos ($(f_i,f_j)$) se define una puntuación de coherencia:
 
-\subsection{Rol del LLM --- qué hace y qué no hace}
-\label{sec:rol-llm}
+\[
+c_{ij}\in[0,1]
+\]
 
-El LLM es una \textbf{función de evaluación semántica}. No implementa el knapsack ni devuelve la lista final de fragmentos: devuelve \textbf{números} que el solver clásico usa como entrada.
+que representa el grado de continuidad temática y discursiva existente al colocar $(f_j)$ inmediatamente después de $(f_i)$.
 
-\subsubsection{División de responsabilidades}
+Valores elevados de $(c_{ij})$ indican que ambos fragmentos forman una transición natural dentro del resumen, mientras que valores bajos sugieren cambios bruscos de tema o secuencias poco comprensibles para el lector.
 
-\begin{center}
-\begin{tabular}{@{}llc@{}}
-\toprule
-Componente & Responsabilidad & ¿Usa LLM? \\
-\midrule
-\textbf{LLM} (\texttt{score\_fragment}, \texttt{score\_coherence}) &
-Puntuar relevancia de cada texto y coherencia entre dos textos (escala 0,0--1,0) & Sí \\
-\textbf{Solver clásico} (DP, heurística) &
-Decidir \textbf{qué} fragmentos entran y en \textbf{qué orden}, respetando \texttt{max\_duration} & No \\
-\textbf{Baseline} (\texttt{solve\_baseline}) &
-Misma optimización con relevancia uniforme y coherencia proxy por \texttt{start\_time} & No \\
-\textbf{Evaluación post-hoc} (\texttt{--evaluate}) &
-Medir con el \textbf{mismo} LLM la calidad de cualquier selección ya producida (incluido el baseline) & Sí (solo como juez) \\
-\bottomrule
-\end{tabular}
-\end{center}
+Al igual que ocurre con la relevancia, estas puntuaciones son calculadas mediante un modelo de lenguaje a partir del contenido textual de ambos fragmentos.
 
-\subsubsection{Qué hace el LLM}
+\subsection{Restricción de duración}
 
-\begin{enumerate}
-    \item \textbf{Durante la resolución} (solvers \texttt{llm\_dynamic}, \texttt{llm\_static}): por cada fragmento llama a \texttt{score\_fragment(texto)}; para coherencia llama a \texttt{score\_coherence(texto\_a, texto\_b)} entre pares relevantes (vecinos consecutivos en modo estático, o cualquier par en modo dinámico/reordenación). Esas puntuaciones son los \textbf{pesos} de la función objetivo del DP.
-    \item \textbf{Durante la evaluación experimental} (\texttt{evaluate\_selection\_with\_llm}): vuelve a puntuar relevancia y coherencia sobre la selección \textbf{ya generada} por cada solver, para calcular \texttt{mean\_relevance}, \texttt{mean\_coherence} y \texttt{objective\_score} con criterio homogéneo. Así el baseline también se juzga con el mismo estándar semántico.
-\end{enumerate}
+La duración total del resumen no puede exceder el límite establecido para la instancia.
 
-Prompts (solo piden un número, no una selección): \texttt{src/llm/prompts.py}.
+Si la solución seleccionada contiene los fragmentos
 
-\subsubsection{Qué no hace el LLM}
+\[
+S=(f_{i_1},f_{i_2},\ldots,f_{i_k}),
+\]
 
-\begin{itemize}[noitemsep]
-    \item \textbf{No genera} el texto del resumen ni edita vídeo.
-    \item \textbf{No devuelve} directamente índices, permutaciones ni listas de fragmentos.
-    \item \textbf{No sustituye} el algoritmo de optimización: sin DP/heurística, las puntuaciones no producen una selección válida bajo el límite de duración.
-    \item \textbf{No impone} restricciones duras (duración, cardinalidad); eso lo garantiza solo el solver.
-\end{itemize}
+entonces debe cumplirse que
 
-En resumen: el LLM responde preguntas del tipo \emph{«¿qué tan relevante es este fragmento?»} y \emph{«¿encajan estos dos fragmentos seguidos?»}; el \textbf{algoritmo} resuelve el problema combinatorio de knapsack con orden.
+\[
+\sum_{j=1}^{k} d_{i_j}
+\leq
+D_{max}.
+\]
 
-\subsubsection{Flujo con LLM (solver \texttt{llm\_dynamic} / \texttt{solve()})}
+Esta restricción garantiza que el resumen generado respete la longitud máxima especificada para el problema.
 
-\begin{lstlisting}
-Fragmentos + max_duration
-        |
-        v
-  LLM -> relevancia[i] para cada fragmento
-  LLM -> coherencia[i,j] para pares (segun modo)
-        |
-        v
-  DP bitmask o heuristica -> maximiza sum relevancia + w*sum coherencia
-                            sujeto a sum duracion <= max_duration
-        |
-        v
-  Salida: lista ordenada de indices (decision del algoritmo)
-\end{lstlisting}
+\subsection{Función objetivo}
 
-Las respuestas LLM se cachean en \texttt{.llm\_cache.json} para reproducibilidad y ahorro de API.
+El objetivo consiste en encontrar una secuencia de fragmentos que maximice simultáneamente la relevancia del contenido seleccionado y la coherencia entre fragmentos consecutivos.
 
-Código: \texttt{src/llm/client.py}, \texttt{src/llm/prompts.py}, \texttt{src/llm/cache.py}, \texttt{src/experiments/metrics.py}.
+Para una solución
 
-%==============================================================================
-\section{Por qué estos algoritmos encajan en el problema}
-%==============================================================================
+\[
+S=(f_{i_1},f_{i_2},\ldots,f_{i_k}),
+\]
 
-\begin{center}
-\begin{tabular}{@{}ll@{}}
-\toprule
-Requisito del problema & Algoritmo que lo cubre \\
-\midrule
-Límite de duración (knapsack) & DP / heurística (restricción hard, sin LLM) \\
-Maximizar relevancia semántica & LLM puntúa; DP/heurística optimiza con esos pesos \\
-Coherencia entre fragmentos consecutivos del resumen & LLM puntúa pares; DP suma coherencia en transiciones reales \\
-Orden del video original o reconstruido & DP (subsecuencia o bitmask); no lo decide el LLM \\
-Componente algorítmico clásico visible & Baseline + DP siempre presentes; LLM solo evalúa \\
-Escalabilidad a videos largos & Heurística $n > 12$; LLM sigue siendo $O(n^2)$ en coherencia \\
-\bottomrule
-\end{tabular}
-\end{center}
+la calidad puede expresarse mediante una combinación de ambos criterios:
 
-La \textbf{programación dinámica} es la herramienta natural para knapsack con decisiones secuenciales. La extensión con \textbf{bitmask} generaliza a permutaciones cuando el input no está ordenado. La \textbf{heurística} es el compromiso estándar cuando la optimalidad exacta es computacionalmente inviable.
+\begin{equation}
+\mathrm{Score}(S) =
+\sum_{j=1}^{k} r_{i_j}
++
+\lambda
+\sum_{j=1}^{k-1}
+c_{i_j,i_{j+1}}
+\end{equation}
 
-%==============================================================================
-\section{Algoritmos testeados en la suite lite (\texttt{execute.md})}
-%==============================================================================
+donde ($\lambda$) representa el peso asignado a la coherencia dentro de la evaluación total.
 
-Corrida completada el 2026-06-11 (proveedor Groq, modelo \texttt{llama-3.3-70b-versatile}). Detalle por bloque en \texttt{informe/notas\_experimentos.md}.
+En la implementación desarrollada, la búsqueda utiliza un valor de ($\lambda$ = 0.25), lo que permite priorizar la selección de fragmentos relevantes sin ignorar la calidad de las transiciones entre ellos.
+
+Por tanto, el problema consiste en encontrar la secuencia válida de fragmentos que maximice la función objetivo anterior y satisfaga simultáneamente la restricción de duración establecida para el resumen.
+
+
+% ==================================================
+% 4. DISEÑO DE LA SOLUCION
+% ==================================================
+
+\section{Diseño de la solución}
+
+\subsection{Arquitectura general}
+
+La solución desarrollada sigue una arquitectura modular compuesta por tres etapas principales: evaluación semántica mediante un modelo de lenguaje, búsqueda combinatoria de candidatos y evaluación global de los resúmenes generados. Esta separación permite aprovechar las capacidades de comprensión textual de los modelos de lenguaje sin delegar en ellos el proceso de optimización, que permanece completamente controlado por algoritmos deterministas implementados en el sistema.
+
+El flujo de ejecución comienza con la carga de una instancia del problema. Cada instancia contiene un conjunto de fragmentos obtenidos a partir de la transcripción de un video educativo y una duración máxima permitida para el resumen final. Una vez cargada la información, se inicia una fase de precálculo en la que se evalúan todos los fragmentos disponibles mediante el modelo de lenguaje.
+
+Durante esta etapa se obtiene una puntuación de relevancia para cada fragmento y una matriz de coherencia entre todos los pares posibles de fragmentos. La relevancia representa la utilidad informativa de un fragmento dentro de un resumen educativo, mientras que la coherencia mide la calidad de la transición producida al situar un fragmento inmediatamente después de otro. Estas puntuaciones son almacenadas en una estructura de datos que posteriormente será utilizada por el algoritmo de búsqueda.
+
+Una vez completado el precálculo, el sistema ejecuta un algoritmo de beam search encargado de construir soluciones candidatas. A diferencia de otros enfoques en los que el modelo de lenguaje participa directamente durante la exploración, en esta propuesta todas las consultas al LLM se realizan antes de comenzar la búsqueda. De esta forma, el algoritmo puede explorar múltiples combinaciones de fragmentos utilizando únicamente las puntuaciones previamente calculadas, reduciendo significativamente el número de llamadas a la API y mejorando la eficiencia del proceso.
+
+El beam search genera secuencias ordenadas de fragmentos que respetan la restricción de duración máxima y asigna una puntuación local a cada candidato en función de la relevancia acumulada y de la coherencia entre fragmentos consecutivos. Durante la exploración se conservan únicamente las alternativas más prometedoras, limitando así el crecimiento del espacio de búsqueda.
+
+En lugar de seleccionar directamente el candidato con mejor puntuación local, el sistema conserva los mejores resultados obtenidos por el beam search y realiza una etapa adicional de refinamiento. En esta fase, el texto completo de cada resumen candidato es evaluado nuevamente mediante el modelo de lenguaje, que proporciona una valoración global basada en la relevancia del contenido seleccionado y en la coherencia de la secuencia resultante.
+
+Finalmente, el resumen con mayor evaluación global es devuelto como solución del problema. El resultado consiste en una secuencia ordenada de fragmentos cuya duración total no supera el límite establecido y que busca maximizar simultáneamente la representatividad del contenido y la coherencia narrativa del resumen generado.
+
+La Figura X resume el flujo general de funcionamiento del sistema.
 
 \begin{center}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Solver (CSV) & Función & Papel del LLM & Papel del algoritmo \\
-\midrule
-\texttt{baseline} & \texttt{solve\_baseline()} &
-\textbf{Ninguno} en resolución &
-DP/heurística con relevancia uniforme y coherencia temporal \\
-\texttt{llm\_dynamic} & \texttt{solve()} &
-Puntúa relevancia y coherencia (todos los pares necesarios) &
-DP bitmask elige subconjunto \textbf{y} orden óptimos sobre esos scores \\
-\texttt{llm\_static} & \texttt{solve\_with\_llm\_static()} &
-Puntúa relevancia y coherencia solo entre vecinos $(i, i+1)$ &
-DP en subsecuencia fija del JSON sobre scores combinados \\
-\bottomrule
-\end{tabular}
+Entrada de fragmentos
+$\rightarrow$
+Evaluación mediante LLM
+$\rightarrow$
+Beam Search
+$\rightarrow$
+Evaluación global del resumen
+$\rightarrow$
+Resumen final
 \end{center}
 
-En los tres casos, la \textbf{evaluación post-hoc} (\texttt{--evaluate}) usa el mismo LLM como juez externo para medir \texttt{objective\_score}, también en filas \texttt{baseline}.
 
-\textbf{Instancias ($5 \times 3 = 15$ filas):}
+\subsection{Preparación del dataset}
 
-\begin{center}
-\begin{tabular}{@{}ll@{}}
-\toprule
-Instancia & Objetivo del test \\
-\midrule
-\texttt{example\_instance.json} & Caso base: todos caben en el límite \\
-\texttt{example\_instance\_overlimit.json} & Recorte bajo límite estricto (\texttt{max\_duration}=30) \\
-\texttt{bench\_static\_vs\_dynamic.json} & Salto narrativo: estático vs dinámico \\
-\texttt{bench\_irrelevant\_middle.json} & Omisión de fragmento irrelevante (música/anuncio) \\
-\texttt{bench\_disordered.json} & Input permutado $\rightarrow$ reordenación hacia orden narrativo \\
-\bottomrule
-\end{tabular}
-\end{center}
+\subsection{Evaluación mediante LLM}
 
-En todas las instancias bench, $n=5 \rightarrow$ modo \textbf{\texttt{exact\_reorder}} (DP bitmask óptimo).
+\subsection{Beam Search}
 
-\textbf{Artefactos:} \texttt{results/experiments\_bench.csv}, \texttt{results/summary\_bench.md}, \texttt{results/comparison\_bench.png}.
+\subsection{Refinamiento mediante juez macro}
 
-%==============================================================================
-\section{Distinción por tamaño de instancia ($n \leq 12$ vs $n > 12$)}
-%==============================================================================
+% ==================================================
+% 5. IMPLEMENTACION
+% ==================================================
 
-El solver unificado (\texttt{solve}, \texttt{solve\_baseline}) elige la estrategia según \texttt{REORDER\_EXACT\_LIMIT = 12}:
+\section{Implementación}
 
-\begin{lstlisting}
-n <= 12  ->  exact_reorder      (DP bitmask, optimo)
-n >  12  ->  heuristic_reorder (greedy, aproximado)
-\end{lstlisting}
+\subsection{Tecnologías utilizadas}
 
-\subsection{Motivo}
+\subsection{Estructura del proyecto}
 
-La reordenación óptima con bitmask explora hasta $2^n$ estados. Con $n=50$ hay del orden de $10^{15}$ configuraciones --- \textbf{imposible} en tiempo razonable. Con $n=5$ (bench) son 32 --- \textbf{demostrable y reproducible} en el informe.
+\subsection{Configuración del LLM}
 
-\subsection{Consecuencias de no distinguir}
+\subsection{Caché de respuestas}
 
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-Si se usa\ldots & En videos largos & En bench ($n=5$) \\
-\midrule
-Solo DP exacto & Timeout / memoria & Correcto \\
-Solo heurística & Escalable & Subóptimo; pierde rigor experimental \\
-Solo subsecuencia (sin reordenar) & Input ordenado OK &
-\textbf{\texttt{bench\_disordered} falla} --- resumen incoherente \\
-\bottomrule
-\end{tabular}
-\end{center}
+% ==================================================
+% 6. METODOLOGIA EXPERIMENTAL
+% ==================================================
 
-El umbral 12 permite optimalidad en \texttt{mini\_video\_*.json} ($n=10$) y heurística en \texttt{video\_*.json} ($n \approx 25$--50). Los experimentos cuantitativos del informe se limitaron a $n=5$ por \textbf{coste de API} ($O(n^2)$ llamadas de coherencia), no por limitación algorítmica.
+\section{Metodología experimental}
 
-Documentación ampliada: \texttt{README.md} (sección \emph{Por qué se distingue el tamaño}), \texttt{planning/walkthroughE.md}.
+\subsection{Dataset utilizado}
 
-%==============================================================================
+\subsection{Instancias de prueba}
+
+\subsection{Configuración experimental}
+
+\subsection{Métricas}
+
+% ==================================================
+% 7. RESULTADOS Y ANALISIS
+% ==================================================
+
 \section{Resultados y análisis}
-%==============================================================================
 
-\subsection{Metodología de la corrida}
+\subsection{Casos sintéticos}
 
-Se ejecutó la suite lite descrita en la Sección~4 siguiendo el plan manual \texttt{execute.md} (bloques 3--6b, fusión y Fase~8). Condiciones:
+\subsection{Casos benchmark}
 
-\begin{itemize}
-    \item \textbf{Proveedor:} Groq · \textbf{Modelo:} \texttt{llama-3.3-70b-versatile}
-    \item \textbf{Caché LLM} borrada al inicio para scores frescos
-    \item \textbf{Tres solvers por instancia:} \texttt{baseline} (sin LLM al resolver), \texttt{llm\_dynamic} (LLM puntúa $\rightarrow$ DP reordena), \texttt{llm\_static} (LLM puntúa vecinos $\rightarrow$ DP en subsecuencia fija)
-    \item \textbf{Evaluación post-hoc} (\texttt{--evaluate}): el LLM actúa aquí como \textbf{juez imparcial} --- repuntúa relevancia y coherencia de la selección ya producida por cada solver (incluido el baseline) y calcula \texttt{objective\_score} con la misma fórmula y peso 0,25 sobre coherencia. Así se separa \emph{cómo se generó} la solución de \emph{cómo se mide} su calidad semántica.
-    \item \textbf{15 filas} en \texttt{results/experiments\_bench.csv}; tabla agregada en \texttt{results/summary\_bench.md}; gráfico en \texttt{results/comparison\_bench.png}
-\end{itemize}
+\subsection{Escalabilidad}
 
-En todas las instancias, $n = 5 \rightarrow$ modo \texttt{exact\_reorder} (DP bitmask óptimo).
+\subsection{Discusión}
 
-\subsection{Panorama global}
+% ==================================================
+% 8. LIMITACIONES Y MEJORAS FUTURAS
+% ==================================================
 
-\begin{center}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Instancia & Mejor \texttt{objective\_score} & Ganador & vs baseline \\
-\midrule
-\texttt{example\_instance} & 3,625 & \texttt{llm\_dynamic} & +5,8\,\% \\
-\texttt{example\_instance\_overlimit} & 2,325 & \texttt{llm\_dynamic} & +17,7\,\% \\
-\texttt{bench\_static\_vs\_dynamic} & 1,550 & \texttt{llm\_dynamic} / \texttt{llm\_static} (empate) & +51,2\,\% \\
-\texttt{bench\_irrelevant\_middle} & 0,675 & \texttt{llm\_dynamic} & +12,5\,\% \\
-\texttt{bench\_disordered} & 3,175 & \texttt{llm\_dynamic} & +49,4\,\% \\
-\bottomrule
-\end{tabular}
-\end{center}
+\section{Limitaciones y mejoras futuras}
 
-\textbf{\texttt{llm\_dynamic} obtiene el mejor \texttt{objective\_score} en las cinco instancias.} En \texttt{bench\_static\_vs\_dynamic} coincide con \texttt{llm\_static} porque, al saltar el fragmento puente, solo queda una transición y ambos enfoques LLM eligen la misma pareja $[0, 2]$.
+% ==================================================
+% 9. CONCLUSIONES
+% ==================================================
 
-A nivel agregado, el baseline queda sistemáticamente por debajo en calidad semántica post-hoc: \textbf{no usa el LLM al resolver} (relevancia uniforme 1,0 y coherencia proxy por \texttt{start\_time}), por lo que el DP maximiza \textbf{cobertura de duración} más que \textbf{contenido educativo}. En cuatro de cinco casos llena o casi llena el cupo temporal sin discriminar fragmentos de baja relevancia. Los solvers asistidos por LLM obtienen mejores \texttt{objective\_score} porque el \textbf{mismo criterio semántico} que evalúa al final también guió (vía puntuaciones) la optimización del DP.
+\section{Conclusiones}
 
-\subsection{Análisis por instancia}
+% ==================================================
+% ANEXOS (OPCIONAL)
+% ==================================================
 
-\subsubsection{Caso base --- \texttt{example\_instance.json} (\texttt{max\_duration} = 45\,s)}
+\appendix
 
-Los tres solvers seleccionan los \textbf{cinco fragmentos} (utilización 100\,\%). La diferencia está en el \textbf{orden de reproducción}:
+\section{Configuraciones experimentales}
 
-\begin{center}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Solver & Selección & \texttt{objective\_score} & \texttt{mean\_coherence} \\
-\midrule
-\texttt{baseline} & $[0, 1, 2, 3, 4]$ & 3,425 & 0,500 \\
-\texttt{llm\_static} & $[0, 1, 2, 3, 4]$ & 3,425 & 0,500 \\
-\texttt{llm\_dynamic} & $[0, 2, 1, 3, 4]$ & \textbf{3,625} & \textbf{0,700} \\
-\bottomrule
-\end{tabular}
-\end{center}
+\section{Prompts utilizados}
 
-Cuando caben todos los fragmentos, el \textbf{DP asistido por LLM} no elimina contenido: usa las puntuaciones de coherencia entre pares para \textbf{reordenar} (p.\,ej.\ intercambia 1 y 2 $\rightarrow$ $[0, 2, 1, 3, 4]$). El LLM no devuelve ese orden; lo encuentra el DP bitmask al maximizar relevancia + coherencia. El baseline y el estático, sin matriz completa de coherencia y atados al orden del JSON, no explotan esa mejora. Es el efecto más sutil de la suite: la ganancia viene del orden decidido por el algoritmo, no del subconjunto.
+\section{Resultados completos}
 
-\subsubsection{Límite estricto --- \texttt{example\_instance\_overlimit.json} (\texttt{max\_duration} = 30\,s)}
+% ==================================================
+% BIBLIOGRAFIA
+% ==================================================
 
-Con el mismo contenido pero menos tiempo, hay que \textbf{recortar} a tres fragmentos (utilización $\sim$90\,\%):
-
-\begin{center}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Solver & Selección & \texttt{objective\_score} & \texttt{mean\_relevance} \\
-\midrule
-\texttt{baseline} & $[2, 3, 4]$ & 1,975 & 0,767 \\
-\texttt{llm\_static} & $[0, 2, 4]$ & 2,200 & 0,867 \\
-\texttt{llm\_dynamic} & $[0, 2, 1]$ & \textbf{2,325} & \textbf{0,833} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-El baseline, sin señal semántica del LLM, conserva el \textbf{final} del array (índices 2--4). Los solvers asistidos usan \textbf{scores de relevancia del LLM como pesos del DP}, que priorizan fragmentos con mayor puntuación --- incluyendo la introducción (índice 0) ---; el dinámico además optimiza la coherencia entre las transiciones $[0, 2, 1]$. La brecha de +17,7\,\% frente al baseline confirma que, bajo presión de capacidad, las puntuaciones LLM cambian \textbf{qué} entra en el resumen; la decisión final sigue siendo del algoritmo.
-
-\subsubsection{Salto narrativo --- \texttt{bench\_static\_vs\_dynamic.json}}
-
-Escenario diseñado: coherencia alta entre fragmentos 0 y 2, baja en el puente 1. Límite ajustado para forzar exactamente dos fragmentos.
-
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-Solver & Selección & \texttt{objective\_score} \\
-\midrule
-\texttt{baseline} & $[0, 1]$ & 1,025 \\
-\texttt{llm\_static} & $[0, 2]$ & 1,550 \\
-\texttt{llm\_dynamic} & $[0, 2]$ & 1,550 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-El baseline elige el par consecutivo $[0, 1]$ por proximidad temporal (sin LLM). En los solvers asistidos, el \textbf{DP consume scores de coherencia del LLM} y \textbf{salta} el fragmento puente 1, enlazando $0 \rightarrow 2$ --- alineado con el diseño del bench. En esta corrida \textbf{estático y dinámico convergen}: al quedar solo dos fragmentos hay una única transición, así que precalcular coherencia entre vecinos $(i, i+1)$ basta. La lección del caso no es la divergencia estático/dinámico, sino que \textbf{puntuar coherencia semánticamente} (LLM) + \textbf{optimizar} (DP) supera al criterio temporal del baseline (+51\,\%).
-
-\subsubsection{Fragmento irrelevante --- \texttt{bench\_irrelevant\_middle.json}}
-
-Fragmento 2 (música/anuncio) en el centro; límite que impide incluir todo el material útil.
-
-\begin{center}
-\begin{tabular}{@{}llll@{}}
-\toprule
-Solver & Selección & ¿Incluye idx 2? & \texttt{objective\_score} \\
-\midrule
-\texttt{baseline} & $[0]$ & No & 0,600 \\
-\texttt{llm\_static} & $[0]$ & No & 0,600 \\
-\texttt{llm\_dynamic} & $[1]$ & No & \textbf{0,675} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-En el resultado final, los tres solvers \textbf{excluyen el índice 2} del resumen, pero por motivos distintos:
-
-\begin{itemize}
-    \item \textbf{Baseline:} el DP sin LLM elige un solo fragmento $[0]$ por la combinación de duraciones y scores uniformes; \textbf{no} identifica el índice 2 como «música/anuncio».
-    \item \textbf{LLM estático / dinámico:} el LLM asigna \textbf{baja relevancia} al fragmento irrelevante; el DP, al optimizar con esos pesos, lo deja fuera de forma intencional.
-\end{itemize}
-
-El dinámico elige el índice 1 frente al 0 del estático (relevancia 0,90 vs 0,80) y aprovecha mejor el cupo (93\,\% vs 74\,\%). Con un solo fragmento la coherencia media es 0 en todos los casos; la diferencia es de \textbf{relevancia} (puntuada por el LLM) y duración (decidida por el DP).
-
-\subsubsection{Input permutado --- \texttt{bench\_disordered.json}}
-
-Mismos textos que el caso anterior, pero el array JSON está \textbf{desordenado}. Comprueba reordenación automática (Task~E).
-
-\begin{center}
-\begin{tabular}{@{}lllll@{}}
-\toprule
-Solver & Selección & ¿Incluye idx 2? & \texttt{mean\_coherence} & \texttt{objective\_score} \\
-\midrule
-\texttt{baseline} & $[1, 4, 2, 3]$ & \textbf{Sí} & 0,333 & 2,125 \\
-\texttt{llm\_static} & $[0, 1, 3, 4]$ & No & 0,600 & 3,000 \\
-\texttt{llm\_dynamic} & $[1, 4, 0, 3]$ & No & \textbf{0,833} & \textbf{3,175} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-Es el contraste más contundente de la suite:
-
-\begin{enumerate}
-    \item \textbf{Baseline sin LLM:} incluye el fragmento irrelevante (índice 2) en $[1, 4, 2, 3]$ porque el DP solo ve duraciones y coherencia proxy temporal --- no distingue ruido de contenido educativo. Coherencia media post-hoc: 0,33.
-    \item \textbf{LLM estático:} el LLM penaliza el fragmento 2; el DP omite el irrelevante y devuelve subsecuencia $[0, 1, 3, 4]$, limitada al orden del JSON permutado.
-    \item \textbf{LLM dinámico:} mismas puntuaciones semánticas, pero el \textbf{DP bitmask} también \textbf{reordena} $\rightarrow$ $[1, 4, 0, 3]$ (introducción $\rightarrow$ definición $\rightarrow$ ejemplo $\rightarrow$ conclusión), con coherencia media 0,83 y \texttt{objective\_score} un \textbf{49\,\% superior} al baseline.
-\end{enumerate}
-
-El LLM aporta la \textbf{semántica}; el algoritmo aporta la \textbf{decisión combinatoria} (inclusión, exclusión y permutación). Este bloque valida el requisito del Tema~2 de \textbf{seleccionar y ordenar}.
-
-\subsection{Comparación estático vs dinámico}
-
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-Instancia & ¿Coinciden estático y dinámico? & Interpretación \\
-\midrule
-\texttt{example\_instance} & No (solo orden) & Dinámico reordena; estático sigue el JSON \\
-\texttt{example\_instance\_overlimit} & No ($[0,2,4]$ vs $[0,2,1]$) & Dinámico optimiza transiciones al recortar \\
-\texttt{bench\_static\_vs\_dynamic} & Sí ($[0, 2]$) & Una sola transición; ambos aciertan el salto \\
-\texttt{bench\_irrelevant\_middle} & No ($[0]$ vs $[1]$) & Dinámico elige fragmento más relevante \\
-\texttt{bench\_disordered} & No (órdenes distintos) & Dinámico explota matriz completa de coherencia \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-El enfoque \textbf{estático} es útil como baseline experimental legacy (LLM puntúa menos pares; DP restringido a subsecuencia), pero en escenarios de reordenación o recorte agresivo el \textbf{dinámico} (\texttt{solve()}: LLM puntúa todos los pares necesarios + DP bitmask) domina o iguala en todos los casos. La divergencia es mayor cuando importa la coherencia entre fragmentos \textbf{no consecutivos en el input} --- precisamente el caso de uso del proyecto.
-
-\subsection{Lectura de las métricas}
-
-\begin{itemize}
-    \item \textbf{\texttt{solver\_score}:} valor interno que el \textbf{algoritmo} maximizó al resolver (relevancia uniforme en baseline; suma de scores LLM + coherencia en solvers asistidos). No es comparable entre solvers distintos porque cada uno optimiza una función distinta.
-    \item \textbf{\texttt{objective\_score} (post-hoc):} métrica \textbf{común} calculada \textbf{después} por el mismo LLM evaluador sobre la selección ya generada. Separa el rol del LLM-juez del rol del LLM-puntuador-durante-resolución. Es la base justa para comparar filas del CSV.
-    \item \textbf{\texttt{duration\_utilization}:} fracción del límite temporal usada (decisión del DP). Un baseline alto no implica buen resumen si llena con fragmentos irrelevantes (\texttt{bench\_disordered}: 100\,\% utilización pero baja calidad semántica).
-    \item \textbf{\texttt{mean\_relevance} / \texttt{mean\_coherence}:} descomposición del \texttt{objective\_score}; reflejan puntuaciones LLM sobre el resumen final, no decisiones del algoritmo.
-\end{itemize}
-
-\subsection{Conclusiones de la evaluación}
-
-\begin{enumerate}
-    \item \textbf{El LLM como evaluador aporta valor medible:} al \textbf{puntuar} relevancia y coherencia (no al elegir índices), habilita un DP que maximiza calidad semántica bajo límite de duración. \texttt{llm\_dynamic} obtiene el mejor \texttt{objective\_score} post-hoc en las cinco instancias (+5,8\,\% a +49,4\,\% vs baseline).
-    \item \textbf{El baseline cumple su rol de contraste algorítmico:} resuelve el knapsack \textbf{sin LLM en resolución}; demuestra qué aporta la capa semántica cuando el mismo LLM juzga después a todos por igual.
-    \item \textbf{La reordenación automática es del algoritmo, no del LLM:} \texttt{bench\_disordered} muestra que, sin scores semánticos, el DP baseline incluye ruido; con scores LLM + DP bitmask, la selección y el orden narrativo mejoran.
-    \item \textbf{Coherencia dinámica vs estática:} equivalentes cuando la selección reduce el resumen a un salto simple; el dinámico gana cuando el DP debe considerar pares no vecinos en el JSON.
-    \item \textbf{Limitación de alcance:} resultados en instancias sintéticas de 5 fragmentos con un único modelo (Groq). El rol del LLM (puntuar) y del algoritmo (optimizar) se mantiene en $n > 12$, pero la heurística sustituye al DP exacto.
-\end{enumerate}
-
-Gráfico comparativo de \texttt{objective\_score} por instancia y solver: \texttt{results/comparison\_bench.png}.
-
-\begin{figure}[htbp]
-    \centering
-    \IfFileExists{../results/comparison_bench.png}{%
-        \includegraphics[width=0.9\textwidth]{../results/comparison_bench.png}%
-    }{%
-        \fbox{\parbox{0.8\textwidth}{\centering
-            Colocar \texttt{comparison\_bench.png} en \texttt{results/}\\
-            o compilar desde la raíz del proyecto con ruta ajustada.}}%
-    }
-    \caption{Comparación de \texttt{objective\_score} por instancia y solver.}
-    \label{fig:comparison-bench}
-\end{figure}
-
-%==============================================================================
-\section{Limitaciones y trabajo pendiente}
-%==============================================================================
-
-\begin{itemize}
-    \item \textbf{Coste API:} no se ejecutaron \texttt{mini\_video\_*} ni \texttt{video\_*} con LLM; la suite lite (sintéticas, $n=5$) es la base cuantitativa.
-    \item \textbf{Heurística $n>12$:} no evaluada experimentalmente con LLM real en este informe; validada con tests mock ($n=15$).
-    \item \textbf{Modelado formal / capítulos temas-simulacion.pdf:} pendiente de redactar (lógica difusa para grados de relevancia, agente percibe/decide, etc.).
-    \item \textbf{Dataset en informe:} describir pipeline \texttt{prepare\_dataset.py} y generación de \texttt{bench\_*.json}.
-\end{itemize}
-
-%==============================================================================
-\section*{Referencias internas}
-\addcontentsline{toc}{section}{Referencias internas}
-%==============================================================================
-
-\begin{center}
-\begin{tabular}{@{}ll@{}}
-\toprule
-Recurso & Contenido \\
-\midrule
-\texttt{informe/informe\_tecnico.md} §6 & Resultados y análisis (redactado) \\
-\texttt{informe/notas\_experimentos.md} & Observaciones cualitativas y métricas por bloque \\
-\texttt{results/summary\_bench.md} & Tabla agregada \\
-\texttt{results/comparison\_bench.png} & Gráfico \texttt{objective\_score} por instancia \\
-\texttt{execute.md} & Plan manual de ejecución (completado) \\
-\texttt{planning/plan\_trabajo.md} & Estado del proyecto \\
-\texttt{planning/walkthroughD.md} & Diseño experimental Paso D \\
-\texttt{planning/walkthroughE.md} & Solver unificado y enrutado \\
-\bottomrule
-\end{tabular}
-\end{center}
+\bibliographystyle{plain}
+\bibliography{referencias}
 
 \end{document}

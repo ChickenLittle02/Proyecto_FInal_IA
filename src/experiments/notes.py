@@ -53,61 +53,62 @@ def _row_by_solver(rows: Sequence[Dict[str, str]], instance_name: str) -> Dict[s
     return grouped
 
 
+def _solver_row(by_solver: Dict[str, Dict[str, str]], *names: str) -> Dict[str, str]:
+    for name in names:
+        if name in by_solver:
+            return by_solver[name]
+    return {}
+
+
 def infer_qualitative_phrase(instance_name: str, by_solver: Dict[str, Dict[str, str]]) -> str:
-    baseline = _parse_indices(by_solver.get("baseline", {}).get("selected_indices"))
-    dynamic = _parse_indices(by_solver.get("llm_dynamic", {}).get("selected_indices"))
-    static = _parse_indices(by_solver.get("llm_static", {}).get("selected_indices"))
+    baseline = _parse_indices(
+        _solver_row(by_solver, "baseline_beam", "baseline").get("selected_indices")
+    )
+    llm = _parse_indices(
+        _solver_row(by_solver, "llm_beam", "llm_dynamic").get("selected_indices")
+    )
 
     parts: List[str] = []
 
-    if dynamic and 2 not in dynamic and instance_name in {
+    if llm and 2 not in llm and instance_name in {
         "bench_irrelevant_middle.json",
         "bench_disordered.json",
     }:
         parts.append("Omite el fragmento irrelevante (índice 2).")
 
-    if instance_name == "bench_disordered.json" and dynamic:
-        if dynamic != sorted(dynamic):
+    if instance_name == "bench_disordered.json" and llm:
+        if llm != sorted(llm):
             parts.append("Reordena el input permutado hacia un orden narrativo coherente.")
-        elif dynamic == sorted(dynamic):
+        elif llm == sorted(llm):
             parts.append("Selecciona fragmentos pero mantiene orden cronológico por índice.")
 
-    if instance_name == "bench_static_vs_dynamic.json" and static and dynamic:
-        if static != dynamic:
-            parts.append(
-                "El solver dinámico produce una selección distinta al estático "
-                "(coherencia evaluada sobre saltos, no solo vecinos consecutivos)."
-            )
-        else:
-            parts.append("Estático y dinámico coinciden en esta corrida.")
-
-    if baseline and dynamic:
-        if set(baseline) != set(dynamic):
-            omitted = sorted(set(baseline) - set(dynamic))
-            added = sorted(set(dynamic) - set(baseline))
+    if baseline and llm:
+        if set(baseline) != set(llm):
+            omitted = sorted(set(baseline) - set(llm))
+            added = sorted(set(llm) - set(baseline))
             if omitted and not added:
                 parts.append(
-                    f"El LLM dinámico recorta la selección del baseline "
+                    f"llm_beam recorta la selección del baseline "
                     f"(omite índices {omitted})."
                 )
             elif added and not omitted:
                 parts.append(
-                    f"El LLM dinámico incluye fragmentos que el baseline no selecciona "
+                    f"llm_beam incluye fragmentos que el baseline no selecciona "
                     f"(añade índices {added})."
                 )
             else:
-                parts.append("La selección del LLM dinámico difiere del baseline.")
-        elif baseline != dynamic:
+                parts.append("La selección de llm_beam difiere del baseline_beam.")
+        elif baseline != llm:
             parts.append("Mismo subconjunto que el baseline pero en distinto orden de reproducción.")
-        elif len(dynamic) < len(baseline):
+        elif len(llm) < len(baseline):
             parts.append("Selecciona menos fragmentos que el baseline dentro del límite.")
         elif not parts:
             parts.append("Coincide con la selección del baseline en esta corrida.")
 
-    if instance_name == "example_instance_overlimit.json" and dynamic and baseline:
-        if len(dynamic) < len(baseline):
+    if instance_name == "example_instance_overlimit.json" and llm and baseline:
+        if len(llm) < len(baseline):
             parts.append(
-                "Con límite estricto, el LLM prioriza fragmentos más relevantes "
+                "Con límite estricto, llm_beam prioriza fragmentos más relevantes "
                 "frente al baseline que llena duración con scores uniformes."
             )
 
@@ -122,13 +123,11 @@ def format_block_section(
     by_solver: Dict[str, Dict[str, str]],
     block_label: Optional[str] = None,
 ) -> str:
-    baseline_row = by_solver.get("baseline", {})
-    dynamic_row = by_solver.get("llm_dynamic", {})
-    static_row = by_solver.get("llm_static", {})
+    baseline_row = _solver_row(by_solver, "baseline_beam", "baseline")
+    llm_row = _solver_row(by_solver, "llm_beam", "llm_dynamic")
 
     baseline_indices = baseline_row.get("selected_indices", "—")
-    dynamic_indices = dynamic_row.get("selected_indices", "—")
-    static_indices = static_row.get("selected_indices", "—")
+    llm_indices = llm_row.get("selected_indices", "—")
 
     lines = []
     if block_label:
@@ -142,10 +141,9 @@ def format_block_section(
     lines.append("")
     lines.append("**Selección (`selected_indices`):**")
     lines.append("")
-    lines.append(f"- baseline: `{baseline_indices}`")
-    lines.append(f"- llm_dynamic: `{dynamic_indices}`")
-    if static_row:
-        lines.append(f"- llm_static: `{static_indices}`")
+    lines.append(f"- baseline_beam: `{baseline_indices}`")
+    if llm_row:
+        lines.append(f"- llm_beam: `{llm_indices}`")
     lines.append("")
     lines.append(f"**Observación cualitativa:** {infer_qualitative_phrase(instance_name, by_solver)}")
     lines.append("")
@@ -154,12 +152,15 @@ def format_block_section(
     lines.append("| solver | objective_score | duration_utilization |")
     lines.append("| --- | --- | --- |")
 
-    for solver_name in ("baseline", "llm_dynamic", "llm_static"):
+    for solver_name in ("baseline_beam", "llm_beam", "baseline", "llm_dynamic", "llm_static"):
         row = by_solver.get(solver_name)
         if not row:
             continue
+        display_name = solver_name
+        if solver_name in ("baseline", "llm_dynamic", "llm_static"):
+            display_name = f"{solver_name} (legacy)"
         lines.append(
-            f"| {solver_name} | "
+            f"| {display_name} | "
             f"{_format_float(row.get('objective_score'))} | "
             f"{_format_float(row.get('duration_utilization'))} |"
         )

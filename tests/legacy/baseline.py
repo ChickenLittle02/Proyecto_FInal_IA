@@ -1,10 +1,12 @@
 """
-Solver clásico de selección ordenada de fragmentos usando programación dinámica.
+Solver clásico legacy (Task E): DP ordenado y greedy.
+
+No importar desde rutas de producción. Conservado solo para referencia y tests legacy.
 """
 from functools import lru_cache
 from typing import List, Tuple
 
-from ..problem import Fragment
+from src.problem import Fragment
 
 
 def ordered_knapsack_dp(

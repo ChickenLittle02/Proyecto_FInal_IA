@@ -57,7 +57,6 @@ def _run_block(block: LiteBlock, notes_path: Path) -> None:
         "--instances",
         block.instance,
         "--llm",
-        "--static",
         "--evaluate",
         "--output",
         block.output,

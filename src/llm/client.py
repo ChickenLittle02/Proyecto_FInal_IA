@@ -5,16 +5,18 @@ Soporta:
 - gemini: Google Gemini (google-generativeai)
 - openai / groq: APIs compatibles con OpenAI (OpenAI, Groq, etc.)
 """
+import json
 import os
 import re
 import time
+from dataclasses import dataclass
 from typing import Optional
 
 from dotenv import load_dotenv
 import google.generativeai as genai
 from openai import OpenAI, RateLimitError
 
-from .prompts import coherence_prompt, fragment_prompt
+from .prompts import coherence_prompt, fragment_prompt, summary_evaluation_prompt
 from .cache import LLMCache
 
 # Cargar variables de entorno desde el archivo .env
@@ -22,6 +24,15 @@ load_dotenv()
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 OPENAI_COMPATIBLE_PROVIDERS = {"openai", "groq"}
+
+
+@dataclass(frozen=True)
+class SummaryEvaluation:
+    """Puntuaciones macro de un resumen completo (relevancia, coherencia, global)."""
+
+    relevance: float
+    coherence: float
+    overall: float
 
 
 class LLMClient:
@@ -74,6 +85,12 @@ class LLMClient:
         prompt = coherence_prompt(first_fragment.text, second_fragment.text)
         response = self._model_call(prompt)
         return self._parse_score(response)
+
+    def evaluate_summary(self, summary_text: str, max_duration: float) -> SummaryEvaluation:
+        """Evalúa relevancia, coherencia y calidad global de un resumen completo."""
+        prompt = summary_evaluation_prompt(summary_text, max_duration)
+        response = self._model_call(prompt)
+        return self._parse_summary_evaluation(response)
 
     def _model_call(self, prompt: str) -> str:
         cached = self.cache.get(prompt)
@@ -163,3 +180,47 @@ class LLMClient:
             return float(response.strip())
         except ValueError:
             return 0.0
+
+    @staticmethod
+    def _clamp_score(value: float) -> float:
+        return max(0.0, min(1.0, value))
+
+    @staticmethod
+    def _extract_scores_from_numbers(text: str) -> Optional[SummaryEvaluation]:
+        numbers = [float(match) for match in re.findall(r"\b(?:0\.\d+|1(?:\.0+)?|0)\b", text)]
+        if len(numbers) >= 3:
+            return SummaryEvaluation(
+                relevance=LLMClient._clamp_score(numbers[0]),
+                coherence=LLMClient._clamp_score(numbers[1]),
+                overall=LLMClient._clamp_score(numbers[2]),
+            )
+        if len(numbers) == 1:
+            value = LLMClient._clamp_score(numbers[0])
+            return SummaryEvaluation(relevance=value, coherence=value, overall=value)
+        return None
+
+    @classmethod
+    def _parse_summary_evaluation(cls, response: str) -> SummaryEvaluation:
+        text = response.strip()
+        if not text or text == "0.0":
+            return SummaryEvaluation(0.0, 0.0, 0.0)
+
+        json_match = re.search(r"\{[^{}]*\}", text, re.DOTALL)
+        if json_match:
+            try:
+                data = json.loads(json_match.group(0))
+                if isinstance(data, dict):
+                    return SummaryEvaluation(
+                        relevance=cls._clamp_score(float(data.get("relevance", 0.0))),
+                        coherence=cls._clamp_score(float(data.get("coherence", 0.0))),
+                        overall=cls._clamp_score(float(data.get("overall", 0.0))),
+                    )
+            except (json.JSONDecodeError, TypeError, ValueError):
+                pass
+
+        from_numbers = cls._extract_scores_from_numbers(text)
+        if from_numbers is not None:
+            return from_numbers
+
+        overall = cls._parse_score(text)
+        return SummaryEvaluation(relevance=overall, coherence=overall, overall=overall)

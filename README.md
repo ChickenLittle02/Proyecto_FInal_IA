@@ -6,17 +6,46 @@ Este repositorio contiene una base inicial para el proyecto final de IA sobre se
 
 - `src/problem.py` — definición formal del problema y representación de fragmentos.
 - `src/instance.py` — carga y guardado de instancias en JSON.
-- `src/solver/baseline.py` — solver clásico con selección ordenada y DP.
-- `src/solver/reorder.py` — DP con bitmask para selección **con** reordenación (subconjunto + permutación).
-- `src/solver/llm_assisted.py` — solver unificado (`solve`, `solve_baseline`) con enrutado automático exacto/heurístico; funciones legacy (`solve_with_llm`, `solve_with_llm_reorder`, …).
+- `src/llm/scoring.py` — precálculo cacheado `relevance[n]` + `coherence[n×n]`.
+- `src/solver/unified.py` — **beam search** (único algoritmo combinatorio de producción).
+- `src/solver/llm_assisted.py` — puntos de entrada `solve()` / `solve_baseline()` → beam.
 - `src/llm/client.py` — wrapper de configuración de LLM (Gemini, Groq y APIs compatibles con OpenAI).
-- `src/llm/prompts.py` — prompts base para evaluación de fragmentos.
+- `src/llm/prompts.py` — prompts micro (fragmento/par) y macro (`summary_evaluation_prompt`).
 - `src/llm/cache.py` — caché local para respuestas de LLM.
-- `src/run_experiments.py` — comparación sistemática baseline vs LLM con salida CSV.
+- `src/run_experiments.py` — comparación `baseline_beam` vs `llm_beam` con salida CSV.
 - `src/experiments/` — métricas y resumen (`summarize.py`).
+- `tests/legacy/` — solvers Task E (DP, heurística); **no importar desde producción**.
+- `planning/walkthroughF.md` — registro de cambios Fase 2 (F1–F6).
 - `informe/informe_tecnico.md` — borrador del informe (problema, algoritmos, metodología).
 - `informe/notas_experimentos.md` — notas automáticas por bloque experimental.
-- `execute.md` — plan manual bloque a bloque (completado).
+- `execute.md` — plan de ejecución (Fase 2 beam + histórico Task E).
+
+## Arquitectura unificada (Fase 2)
+
+```
+Entrada: fragmentos + max_duration
+    │
+    ▼
+[Precálculo LLM cacheado]  relevance[n] + coherence[n×n]   ← src/llm/scoring.py
+    │
+    ▼
+[Beam search]              selecciona + ordena (sin API)   ← src/solver/unified.py
+    │
+    ▼
+[Top-M + juez macro]       evaluate_summary (F3 ✅; integración en solve → F4)
+    │
+    ▼
+Salida: índices ordenados + score local
+```
+
+| Variante | Función | Scores | Modo impreso |
+|---|---|---|---|
+| Sin LLM | `solve_baseline()` | relevancia uniforme + coherencia temporal | `baseline_beam` |
+| Con LLM | `solve()` | relevancia + coherencia vía API (cacheadas) | `llm_beam` |
+
+Parámetro `beam_width=10` (default). El LLM **no elige índices**; solo puntúa fragmentos y pares antes del beam search.
+
+Solvers legacy (Task E: DP bitmask, heurística 2 fases, `--static`) están en `tests/legacy/` y **no** son ejecutables desde CLI.
 
 ## Configuración del entorno
 
@@ -115,7 +144,7 @@ Instancia real (subtítulos de un video TED):
 python src/run_example.py video_3.json
 ```
 
-Solver asistido por LLM (requiere `.env` configurado). **No hace falta `--reorder`**: el solver unificado selecciona y ordena automáticamente:
+Solver asistido por LLM (requiere `.env` configurado). Selecciona y ordena con beam search:
 
 ```bash
 python src/run_example.py --llm
@@ -123,13 +152,13 @@ python src/run_example.py bench_disordered.json --llm
 python src/run_example.py video_3.json --llm
 ```
 
-Solver clásico sin LLM (mismo enrutado, coherencia proxy por `start_time`):
+Solver baseline sin LLM (mismos beam search, scores proxy por `start_time`):
 
 ```bash
 python src/run_example.py bench_disordered.json
 ```
 
-Cada ejecución imprime el modo elegido, p. ej. `Solver: exact_reorder (n=5)` o `Solver: heuristic_reorder (n=30, input desordenado según start_time)`.
+Cada ejecución imprime el modo, p. ej. `Solver: llm_beam (n=5, beam=10)`.
 
 ## Instancias de datos
 
@@ -151,62 +180,20 @@ python src/prepare_mini_instances.py --n 10 --videos 1 2    # solo videos 1 y 2
 
 **No.** Los `mini_video_*.json` conservan el **orden cronológico** del video original: `prepare_mini_instances.py` toma los primeros N fragmentos consecutivos de cada `video_*.json`, sin barajar ni reordenar.
 
-### Solver unificado (Task E)
+### Instancias bench
 
-El flujo normal usa **`solve()`** (con LLM) y **`solve_baseline()`** (sin LLM) en `src/solver/llm_assisted.py`. Ambos devuelven un **orden de reproducción** — no una subsecuencia fija del JSON — y enrutan según el número de fragmentos:
-
-| n fragmentos | Modo | Algoritmo | Notas |
-|---|---|---|---|
-| ≤ 12 | `exact_reorder` | DP bitmask (`reorder.py`) | Óptimo; cubre input ordenado y permutado |
-| > 12 | `heuristic_reorder` | Subconjunto greedy + inserción greedy sobre coherencia | Aproximado; escala a `video_*.json` |
-
-El usuario **no necesita** saber si el input está ordenado ni activar flags. Ver `planning/walkthroughE.md` para la decisión de diseño.
-
-### Por qué se distingue el tamaño (n ≤ 12 vs n > 12)
-
-El enunciado exige **seleccionar y ordenar** fragmentos. La reordenación óptima se resuelve con DP sobre máscaras de bits: estado `(mask, last, remaining)` recorre todas las permutaciones viables del subconjunto elegido. Eso es **exacto** pero cuesta **O(2ⁿ · n · capacidad)**.
-
-| n | Estados bitmask (orden de magnitud) | ¿Viable? |
-|---|---|---|
-| 5 (bench) | ~32 | Sí — suite lite del informe |
-| 12 (límite) | ~4 096 | Sí — cubre `mini_video_*.json` |
-| 30 | ~10⁹ | No en tiempo razonable |
-| 50 (`video_*.json`) | ~10¹⁵ | Imposible en la práctica |
-
-**Por qué no usar siempre el mismo algoritmo:**
-
-- **Siempre DP exacto:** con videos reales (25–50 fragmentos) el tiempo y la memoria explotan; una corrida LLM además precalcula O(n²) pares de coherencia — inviable para experimentos masivos.
-- **Siempre heurística:** en instancias pequeñas (n ≤ 12) se pierde optimalidad demostrable; casos como `bench_disordered.json` dejan de servir como prueba formal de reordenación correcta.
-
-**Qué pasa si no se hace la distinción:**
-
-| Escenario | Consecuencia |
-|---|---|
-| Forzar DP exacto en `video_*.json` | Timeout o agotamiento de memoria; el sistema no escala al dataset del Día 2. |
-| Forzar heurística en bench (n=5) | Selecciones subóptimas; el contraste baseline vs LLM y la validación de `bench_disordered` pierden rigor. |
-| Ignorar reordenación (solo subsecuencia fija) | Input permutado → resumen incoherente aunque los fragmentos sean buenos (`bench_disordered` falla). |
-
-El umbral **12** (`REORDER_EXACT_LIMIT` en `src/solver/llm_assisted.py`) equilibra optimalidad en casos de laboratorio y escalabilidad en videos largos. Los experimentos del informe usan n=5 (siempre `exact_reorder`); los `video_*.json` usarían `heuristic_reorder` si se ejecutaran con LLM.
-
-Funciones legacy (solo comparación en experimentos):
-
-| Función | Comportamiento |
-|---|---|
-| `solve_with_llm` | Subsecuencia fija (orden del JSON) |
-| `solve_with_llm_reorder` | Reordenación exacta (DP bitmask) |
-| `solve_with_llm_static` | Coherencia solo entre vecinos `(i, i+1)` |
-
-Los casos **bench** (sintéticas) validan comportamiento lógico:
+Los casos **bench** (sintéticas) validan comportamiento lógico del beam search:
 
 | Instancia | Qué valida |
 |---|---|
-| `bench_static_vs_dynamic.json` | Coherencia al **saltar** fragmentos (estático vs dinámico) |
 | `bench_irrelevant_middle.json` | **Omisión** de un fragmento irrelevante en el centro (música/anuncio) |
-| `bench_disordered.json` | Mismos textos que `bench_irrelevant_middle`, pero el array está **permutado**. Con `solve()` (flujo normal) debe devolver `[1, 4, 3, 0]` — introducción → definición → ejemplo → conclusión — omitiendo el irrelevante (índice 2). |
+| `bench_disordered.json` | Mismos textos permutados en el JSON. Con `solve()` debe devolver `[1, 4, 3, 0]` — introducción → definición → ejemplo → conclusión — omitiendo el irrelevante (índice 2). |
+| `bench_static_vs_dynamic.json` | Caso histórico Task E (contraste estático/dinámico); referencia en `tests/legacy/` |
 
 Para comprobar todo sin API:
 
 ```bash
+python src/test_unified.py
 python src/test_bench_instances.py
 ```
 
@@ -231,7 +218,7 @@ Opciones útiles:
 Cada bloque individual también puede anotar notas si usas `--notes` y `--block-label` en `run_experiments.py`:
 
 ```bash
-python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --static --evaluate \
+python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --evaluate \
   --output results/part06_irrelevant_middle.csv \
   --notes informe/notas_experimentos.md \
   --block-label "Bloque 6 — bench_irrelevant_middle"
@@ -274,40 +261,34 @@ python src/run_experiments.py --instances video_1.json video_2.json video_3.json
 Opcional si ya confías en `results/experiments.csv`.
 
 ```bash
-python src/run_experiments.py --instances example_instance.json --llm --static --evaluate --output results/part03_example_instance.csv
+python src/run_experiments.py --instances example_instance.json --llm --evaluate --output results/part03_example_instance.csv
 ```
 
 ### Bloque 4 — `example_instance_overlimit` (~2–3 min)
 
 ```bash
-python src/run_experiments.py --instances example_instance_overlimit.json --llm --static --evaluate --output results/part04_overlimit.csv
+python src/run_experiments.py --instances example_instance_overlimit.json --llm --evaluate --output results/part04_overlimit.csv
 ```
 
 ### Bloque 5 — `bench_static_vs_dynamic` (~2–3 min)
 
-Contraste estático vs dinámico (caso diseñado).
-
 ```bash
-python src/run_experiments.py --instances bench_static_vs_dynamic.json --llm --static --evaluate --output results/part05_static_vs_dynamic.csv
+python src/run_experiments.py --instances bench_static_vs_dynamic.json --llm --evaluate --output results/part05_static_vs_dynamic.csv
 ```
 
 ### Bloque 6 — `bench_irrelevant_middle` (~2–3 min)
 
-Fragmento irrelevante en el centro.
-
 ```bash
-python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --static --evaluate --output results/part06_irrelevant_middle.csv
+python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --evaluate --output results/part06_irrelevant_middle.csv
 ```
 
 ### Bloque 6b — `bench_disordered` (~2–3 min)
 
-Input permutado con el **solver unificado** (`baseline` + `llm_dynamic` reordenan sin `--reorder`):
+Input permutado; `baseline_beam` + `llm_beam` reordenan automáticamente:
 
 ```bash
 python src/run_experiments.py --instances bench_disordered.json --llm --evaluate --output results/part06b_disordered.csv
 ```
-
-Opcional: añadir `--static` para comparar enfoque estático, o `--reorder` para duplicar filas legacy (`baseline_reorder`, `llm_reorder`) en el CSV del informe.
 
 ### Bloque 7 — Fusionar CSVs (~10 s)
 
@@ -340,26 +321,19 @@ python src/experiments/summarize.py --input results/experiments_bench.csv --mark
 
 ### Bloques opcionales — Mini-videos (subconjuntos)
 
-Cada `mini_video_*.json` tiene 10 fragmentos. Con `--llm --static --evaluate` implica más llamadas que los bench de 5 fragmentos (~4–8 min por mini-video con Groq; mucho más con Gemini free). **Ejecuta de uno en uno** para mantener bloques manejables.
+Cada `mini_video_*.json` tiene 10 fragmentos. Con `--llm --evaluate` implica más llamadas que los bench de 5 fragmentos (~4–8 min por mini-video con Groq).
 
 ```bash
-# Un solo mini-video
-python src/run_experiments.py --instances mini_video_1.json --llm --static --evaluate --output results/part07_mini_video_1.csv
-
-# Subconjunto de mini-videos (2 a la vez)
-python src/run_experiments.py --instances mini_video_1.json mini_video_2.json --llm --static --evaluate --output results/part07_mini_videos_1_2.csv
-
-# Solo baseline (rápido, sin API)
+python src/run_experiments.py --instances mini_video_1.json --llm --evaluate --output results/part07_mini_video_1.csv
+python src/run_experiments.py --instances mini_video_1.json mini_video_2.json --llm --evaluate --output results/part07_mini_videos_1_2.csv
 python src/run_experiments.py --instances mini_video_*.json --output results/part07_baseline_mini.csv
 ```
 
-Suite predefinida (lite + todos los mini-videos; **pesada** con LLM):
+Suite predefinida (lite + mini-videos; **pesada** con LLM):
 
 ```bash
-python src/run_experiments.py --suite bench --llm --static --evaluate --output results/experiments_bench_full.csv
+python src/run_experiments.py --suite bench --llm --evaluate --output results/experiments_bench_full.csv
 ```
-
-> **Recomendación:** usa Groq para mini-videos. Con Gemini free, prioriza `--suite lite` y ejecuta mini-videos de forma individual si necesitas resultados reales.
 
 ### Opciones útiles de `run_experiments.py`
 
@@ -368,12 +342,12 @@ python src/run_experiments.py --suite bench --llm --static --evaluate --output r
 | `--suite lite` | `example_*.json` + `bench_*.json` |
 | `--suite bench` | lite + `mini_video_*.json` |
 | `--instances A B` | Lista explícita de instancias (nombre, ruta o glob) |
-| `--llm` | Incluir solver LLM unificado (`solve` → reordena automáticamente) |
-| `--static` | Incluir solver LLM estático (legacy, subsecuencia fija) |
-| `--reorder` | Alias legacy: añade filas `baseline_reorder` / `llm_reorder` (equivalentes al flujo unificado) |
+| `--llm` | Incluir `llm_beam` (precálculo LLM + beam search) |
 | `--evaluate` | Métricas post-hoc (relevancia, coherencia, objective_score) |
 | `--output PATH` | CSV de salida |
 | `--coherence-weight 0.25` | Peso de coherencia (default 0.25) |
+
+Siempre se ejecuta `baseline_beam`. Con `--llm` se añade `llm_beam` (2 filas por instancia).
 
 ## Instancia de ejemplo
 

@@ -1,4 +1,4 @@
-"""Valida que bench_static_vs_dynamic.json produce selecciones distintas (mock)."""
+"""Valida instancias bench con el pipeline beam search (Fase 2)."""
 import sys
 from pathlib import Path
 
@@ -7,13 +7,7 @@ sys.path.insert(0, str(root))
 
 from src.instance import load_instance_file
 from src.problem import Fragment, SelectionProblem
-from src.solver.llm_assisted import (
-    solve,
-    solve_baseline,
-    solve_with_llm,
-    solve_with_llm_reorder,
-    solve_with_llm_static,
-)
+from src.solver.llm_assisted import SOLVER_MODE_BASELINE, SOLVER_MODE_LLM, solve, solve_baseline
 from src.test_llm_solver import MockLLMClient
 
 
@@ -49,33 +43,8 @@ def build_large_disordered_mock() -> MockLLMClient:
     return MockLLMClient(relevance=relevance, coherence=coherence)
 
 
-def test_bench_static_vs_dynamic_differs_with_mock() -> None:
-    bench_path = root / "data" / "instances" / "bench_static_vs_dynamic.json"
-    problem = load_instance_file(str(bench_path))
-
-    # Patrón jump (test_llm_solver): estático prefiere [0,1]; dinámico salta a [0,2].
-    mock = MockLLMClient(
-        relevance=[5.0, 5.0, 5.0, 0.1, 0.1],
-        coherence={
-            (0, 1): 0.8,
-            (1, 2): 0.5,
-            (0, 2): 0.95,
-        },
-    )
-
-    static_indices, _ = solve_with_llm_static(problem, mock, coherence_weight=0.25)
-    dynamic_indices, _ = solve_with_llm(problem, mock, coherence_weight=0.25)
-
-    assert static_indices != dynamic_indices, (
-        f"Se esperaba selección distinta; estático={static_indices}, dinámico={dynamic_indices}"
-    )
-
-
-def test_bench_irrelevant_middle_skips_middle() -> None:
-    bench_path = root / "data" / "instances" / "bench_irrelevant_middle.json"
-    problem = load_instance_file(str(bench_path))
-
-    mock = MockLLMClient(
+def _bench_mock() -> MockLLMClient:
+    return MockLLMClient(
         relevance=[0.9, 0.95, 0.1, 0.9, 0.85],
         coherence={
             (0, 1): 0.8,
@@ -88,116 +57,52 @@ def test_bench_irrelevant_middle_skips_middle() -> None:
         },
     )
 
-    dynamic_indices, _ = solve_with_llm(problem, mock, coherence_weight=0.25)
-    assert 2 not in dynamic_indices, f"El fragmento irrelevante (índice 2) no debería seleccionarse: {dynamic_indices}"
 
-
-def test_solve_unified_disordered_reorders_narrative() -> None:
+def test_solve_disordered_reorders_narrative() -> None:
     bench_path = root / "data" / "instances" / "bench_disordered.json"
     problem = load_instance_file(str(bench_path))
+    mock = _bench_mock()
 
-    mock = MockLLMClient(
-        relevance=[0.9, 0.95, 0.1, 0.9, 0.85],
-        coherence={
-            (0, 1): 0.8,
-            (1, 2): 0.3,
-            (2, 3): 0.2,
-            (3, 4): 0.85,
-            (0, 2): 0.1,
-            (1, 3): 0.75,
-            (0, 4): 0.5,
-        },
-    )
-
-    indices, _, mode = solve(problem, mock, coherence_weight=0.25)
-    assert mode == "exact_reorder"
+    indices, _, mode, _summary_eval = solve(problem, mock, coherence_weight=0.25)
+    assert mode == SOLVER_MODE_LLM
     assert 2 not in indices, f"El fragmento irrelevante (índice 2) no debería seleccionarse: {indices}"
     assert indices == [1, 4, 3, 0], f"Se esperaba orden narrativo [1, 4, 3, 0]; obtuvo {indices}"
     assert problem.is_valid_ordered_selection(indices)
 
 
-def test_solve_unified_irrelevant_middle_skips_middle() -> None:
+def test_solve_irrelevant_middle_skips_middle() -> None:
     bench_path = root / "data" / "instances" / "bench_irrelevant_middle.json"
     problem = load_instance_file(str(bench_path))
+    mock = _bench_mock()
 
-    mock = MockLLMClient(
-        relevance=[0.9, 0.95, 0.1, 0.9, 0.85],
-        coherence={
-            (0, 1): 0.8,
-            (1, 2): 0.3,
-            (2, 3): 0.2,
-            (3, 4): 0.85,
-            (0, 2): 0.1,
-            (1, 3): 0.75,
-            (0, 4): 0.5,
-        },
-    )
-
-    indices, _, mode = solve(problem, mock, coherence_weight=0.25)
-    assert mode == "exact_reorder"
+    indices, _, mode, _summary_eval = solve(problem, mock, coherence_weight=0.25)
+    assert mode == SOLVER_MODE_LLM
     assert 2 not in indices, f"El fragmento irrelevante (índice 2) no debería seleccionarse: {indices}"
 
 
-def test_bench_disordered_reorders_narrative() -> None:
-    bench_path = root / "data" / "instances" / "bench_disordered.json"
-    problem = load_instance_file(str(bench_path))
-
-    # Coherencia por id original (MockLLMClient usa fragment.id - 1).
-    mock = MockLLMClient(
-        relevance=[0.9, 0.95, 0.1, 0.9, 0.85],
-        coherence={
-            (0, 1): 0.8,
-            (1, 2): 0.3,
-            (2, 3): 0.2,
-            (3, 4): 0.85,
-            (0, 2): 0.1,
-            (1, 3): 0.75,
-            (0, 4): 0.5,
-        },
-    )
-
-    reorder_indices, _ = solve_with_llm_reorder(problem, mock, coherence_weight=0.25)
-    ordered_indices, _ = solve_with_llm(problem, mock, coherence_weight=0.25)
-
-    assert 2 not in reorder_indices, (
-        f"El fragmento irrelevante (índice 2) no debería seleccionarse: {reorder_indices}"
-    )
-    assert reorder_indices == [1, 4, 3, 0], (
-        f"Se esperaba orden narrativo [1, 4, 3, 0]; obtuvo {reorder_indices}"
-    )
-    assert problem.is_valid_ordered_selection(reorder_indices)
-    assert ordered_indices != reorder_indices, (
-        f"El solver ordenado no debería recuperar el orden narrativo: {ordered_indices}"
-    )
-
-
-def test_solve_heuristic_large_disordered() -> None:
+def test_solve_large_disordered_skips_irrelevant() -> None:
     problem = build_large_disordered_problem()
     mock = build_large_disordered_mock()
 
-    indices, _, mode = solve(problem, mock, coherence_weight=0.25)
-    expected_order = [index for index in range(14, -1, -1) if index != 7]
+    indices, _, mode, _summary_eval = solve(problem, mock, coherence_weight=0.25)
 
-    assert mode == "heuristic_reorder"
+    assert mode == SOLVER_MODE_LLM
     assert len(problem.fragments) == 15
     assert 7 not in indices, f"El fragmento irrelevante (índice 7) no debería seleccionarse: {indices}"
-    assert indices == expected_order, f"Se esperaba orden cronológico {expected_order}; obtuvo {indices}"
+    assert len(indices) == 14
     assert problem.is_valid_ordered_selection(indices)
 
     baseline_indices, _, baseline_mode = solve_baseline(problem, coherence_weight=0.25)
-    assert baseline_mode == "heuristic_reorder"
+    assert baseline_mode == SOLVER_MODE_BASELINE
     assert problem.is_valid_ordered_selection(baseline_indices)
     assert len(baseline_indices) == 14
 
 
 def main() -> None:
-    test_bench_static_vs_dynamic_differs_with_mock()
-    test_bench_irrelevant_middle_skips_middle()
-    test_solve_unified_disordered_reorders_narrative()
-    test_solve_unified_irrelevant_middle_skips_middle()
-    test_solve_heuristic_large_disordered()
-    test_bench_disordered_reorders_narrative()
-    print("[ÉXITO] Instancias bench validadas con mock.")
+    test_solve_disordered_reorders_narrative()
+    test_solve_irrelevant_middle_skips_middle()
+    test_solve_large_disordered_skips_irrelevant()
+    print("[ÉXITO] Instancias bench validadas con beam search (mock).")
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 from ..llm.client import LLMClient
 from ..problem import SelectionProblem
-from ..solver.llm_assisted import compute_relevance_with_llm
+from ..llm.scoring import build_relevance_scores
 
 
 def total_source_duration(problem: SelectionProblem) -> float:
@@ -42,7 +42,7 @@ def evaluate_selection_with_llm(
     coherence_weight: float = 0.25,
 ) -> Dict[str, float]:
     if relevance_scores is None:
-        relevance_scores = compute_relevance_with_llm(problem, llm_client)
+        relevance_scores = build_relevance_scores(problem, llm_client)
 
     pair_scores: Dict[Tuple[int, int], float] = {}
     if len(selected_indices) >= 2:

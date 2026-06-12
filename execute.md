@@ -1,6 +1,85 @@
 ## Plan manual — bloque a bloque
 
+> **Histórico (Task E, 2026-06-11):** los bloques 3–8 con `--static` generaron `results/experiments_bench.csv` (15 filas, solvers `baseline` / `llm_dynamic` / `llm_static`). Esos resultados siguen en `results/` como referencia.
+>
+> **Fase 2 (2026-06-12):** pipeline único **beam search**. Ver `planning/walkthroughF.md` y la sección **Fase 2 — flujo actual** más abajo.
+
+---
+
+## Fase 2 — flujo actual (beam search)
+
+### Validación sin API
+
+```powershell
+Set-Location "C:\Users\marti\OneDrive\Documents\ia\Proyecto_FInal_IA"
+python src/test_unified.py
+python src/test_bench_instances.py
+python src/test_llm_solver.py
+```
+
+### Ejemplo rápido
+
+```powershell
+python src/run_example.py
+python src/run_example.py bench_disordered.json
+python src/run_example.py bench_disordered.json --llm   # requiere .env
+```
+
+Salida esperada: `Solver: baseline_beam (n=5, beam=10)` o `Solver: llm_beam (n=5, beam=10)`.
+
+### Suite lite (baseline_beam + llm_beam)
+
+```powershell
+python src/run_experiments.py --suite lite --llm --evaluate `
+  --output results/experiments_bench_beam.csv `
+  --notes informe/notas_experimentos.md `
+  --block-label "Suite lite — beam Fase 2"
+```
+
+Cada instancia genera **2 filas** (`baseline_beam`, `llm_beam`). Ya no existen `--static` ni `--reorder`.
+Con `--llm`, `llm_beam` aplica juez macro top-M (default M=3) y escribe `summary_llm_*` en el CSV.
+
+### F5 — Escalado por bloques (Groq)
+
+Registro completo: `planning/f5_bloques_ejecucion.md`.
+
+**Bloque 0 ✅** — sin API:
+
+```powershell
+python src/test_unified.py
+python src/test_bench_instances.py
+python src/prepare_mini_instances.py --target-minutes 5 10 15 20 --source-video 2
+```
+
+**Bloque 1 ✅** — `dur_5min` (~147 llamadas, ~6 min):
+
+```powershell
+python src/run_experiments.py --instances dur_5min.json --llm --evaluate `
+  --output results/unified_scaling.csv `
+  --notes informe/notas_experimentos.md `
+  --block-label "F5 Bloque 1 — escalado dur_5min"
+```
+
+**Bloque 2 ⏳** — `dur_10min` (~532 llamadas, ~15 min): mismo comando con `dur_10min.json`; fusionar CSV después.
+
+**Bloques 3–4 ⏳** — `dur_15min` / `dur_20min` (reanudable vía caché).
+
+**Ablation ⏳** — `--beam-width 3|5|10` en `bench_disordered.json` y `dur_10min.json` (caché caliente).
+
+### Pendiente (F5–F6)
+
+| Task | Descripción |
+|---|---|
+| F5 | Bloques 2–6 + `execute.md` final |
+| F6 | Informe §2–4 solo beam; README final |
+
+---
+
+## Plan manual Task E (obsoleto)
+
 **Estado: completado** (2026-06-11) — Bloques 3–6b, Fase 7 (fusión) y Fase 8 (tabla/gráfico). Entregables en `informe/notas_experimentos.md`, `results/experiments_bench.csv`, `results/summary_bench.md`, `results/comparison_bench.png`.
+
+> ⚠️ Los comandos siguientes usan `--static` y solvers Task E. **No ejecutar** salvo para reproducir resultados históricos.
 
 Misma lógica que `run_lite_suite.py`, pero tú ejecutas cada paso y puedes pausar entre bloques.
 
@@ -23,7 +102,7 @@ python src/test_bench_instances.py
 
 ---
 
-### Bloque 3 — `example_instance` (~3 min)
+### Bloque 3 — `example_instance` (~3 min) — legacy
 
 ```powershell
 python src/run_experiments.py --instances example_instance.json --llm --static --evaluate `
@@ -36,7 +115,7 @@ Comprobar: `Guardado ... (3 filas)` y mensaje `Notas actualizadas en informe/not
 
 ---
 
-### Bloque 4 — `example_instance_overlimit` (~3 min)
+### Bloque 4 — `example_instance_overlimit` (~3 min) — legacy
 
 ```powershell
 python src/run_experiments.py --instances example_instance_overlimit.json --llm --static --evaluate `
@@ -47,7 +126,7 @@ python src/run_experiments.py --instances example_instance_overlimit.json --llm 
 
 ---
 
-### Bloque 5 — `bench_static_vs_dynamic` (~3 min)
+### Bloque 5 — `bench_static_vs_dynamic` (~3 min) — legacy
 
 ```powershell
 python src/run_experiments.py --instances bench_static_vs_dynamic.json --llm --static --evaluate `
@@ -58,7 +137,7 @@ python src/run_experiments.py --instances bench_static_vs_dynamic.json --llm --s
 
 ---
 
-### Bloque 6 — `bench_irrelevant_middle` (~3 min)
+### Bloque 6 — `bench_irrelevant_middle` (~3 min) — legacy
 
 ```powershell
 python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --static --evaluate `
@@ -69,7 +148,7 @@ python src/run_experiments.py --instances bench_irrelevant_middle.json --llm --s
 
 ---
 
-### Bloque 6b — `bench_disordered` (~3 min)
+### Bloque 6b — `bench_disordered` (~3 min) — legacy
 
 ```powershell
 python src/run_experiments.py --instances bench_disordered.json --llm --static --evaluate `
@@ -105,7 +184,7 @@ python -c "from pathlib import Path; import sys; sys.path.insert(0, '.'); from s
 
 ---
 
-## Checklist final
+## Checklist final (Task E legacy)
 
 ```powershell
 (Get-Content results/experiments_bench.csv).Count   # debe ser 16 (15 filas + cabecera)
@@ -116,7 +195,7 @@ Get-Item results/comparison_bench.png
 
 ---
 
-## Si quieres reanudar a mitad
+## Si quieres reanudar a mitad (Task E legacy)
 
 | Situación | Qué hacer |
 |---|---|
@@ -128,13 +207,13 @@ Get-Item results/comparison_bench.png
 
 ---
 
-## Entregables al terminar
+## Entregables Task E (histórico)
 
 | Archivo | Contenido |
 |---|---|
 | `informe/notas_experimentos.md` | Notas por bloque + resumen Fase 8 |
-| `results/experiments_bench.csv` | 15 filas (5 instancias × 3 solvers) |
+| `results/experiments_bench.csv` | 15 filas (5 instancias × 3 solvers legacy) |
 | `results/summary_bench.md` | Tabla resumen |
 | `results/comparison_bench.png` | Gráfico comparativo |
 
-Con eso puedes pasar directamente a redactar la sección **Resultados y análisis** del informe.
+Con eso puedes pasar directamente a redactar la sección **Resultados y análisis** del informe (datos históricos Task E; nueva corrida beam en F5).

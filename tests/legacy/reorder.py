@@ -1,14 +1,12 @@
 """
-DP con máscara de bits para selección y reordenación de fragmentos.
+Solvers legacy (Task E): DP bitmask y heurística 2 fases.
 
-A diferencia del knapsack ordenado (subsecuencia del array de entrada), este solver
-elige un subconjunto y una permutación que maximiza relevancia + coherencia entre
-pares consecutivos en el orden de salida.
+No importar desde rutas de producción. Conservado solo para referencia y tests legacy.
 """
 from functools import lru_cache
 from typing import Callable, List, Tuple
 
-from ..problem import Fragment
+from src.problem import Fragment
 
 
 def score_ordered_path(
@@ -30,7 +28,6 @@ def select_subset_greedy(
     relevance_scores: List[float],
     max_duration: float,
 ) -> List[int]:
-    """Fase 1: elige subconjunto greedy por ratio relevancia/duración (sin orden)."""
     ranked = sorted(
         range(len(fragments)),
         key=lambda index: relevance_scores[index] / max(fragments[index].duration, 1e-6),
@@ -52,7 +49,6 @@ def order_subset_greedy(
     coherence_fn: Callable[[int, int], float],
     coherence_weight: float = 0.25,
 ) -> List[int]:
-    """Fase 2: ordena el subconjunto por inserción greedy sobre coherencia."""
     if not subset:
         return []
     if len(subset) == 1:
@@ -92,7 +88,6 @@ def heuristic_reorder_with_coherence(
     coherence_fn: Callable[[int, int], float],
     coherence_weight: float = 0.25,
 ) -> Tuple[List[int], float]:
-    """Heurística en dos fases para n grande: subconjunto greedy + orden por inserción."""
     subset = select_subset_greedy(fragments, relevance_scores, max_duration)
     order = order_subset_greedy(subset, relevance_scores, coherence_fn, coherence_weight)
     score = score_ordered_path(order, relevance_scores, coherence_fn, coherence_weight)
@@ -106,15 +101,6 @@ def unordered_knapsack_dp_with_coherence(
     coherence_fn: Callable[[int, int], float],
     coherence_weight: float = 0.25,
 ) -> Tuple[List[int], float]:
-    """DP exacto con estado (mask, last, remaining).
-
-    mask: bitmask de fragmentos ya incluidos en el resumen.
-    last: índice del último fragmento añadido (-1 si vacío).
-    remaining: duración disponible.
-
-    Complejidad O(2^n · n · capacidad); viable para n <= 12.
-    Devuelve el orden de reproducción (no necesariamente índices crecientes).
-    """
     n = len(fragments)
     if n == 0:
         return [], 0.0
@@ -158,8 +144,6 @@ def unordered_knapsack_dp_with_coherence(
 def build_temporal_coherence_fn(
     fragments: List[Fragment],
 ) -> Callable[[int, int], float]:
-    """Proxy de coherencia sin LLM: favorece pares en orden cronológico del video."""
-
     def coherence(i: int, j: int) -> float:
         delta = fragments[j].start_time - fragments[i].start_time
         if delta > 0:
@@ -175,7 +159,6 @@ def solve_baseline_reorder(
     max_duration: float,
     coherence_weight: float = 0.25,
 ) -> Tuple[List[int], float]:
-    """Baseline con reordenación usando coherencia temporal (start_time)."""
     coherence_fn = build_temporal_coherence_fn(fragments)
     return unordered_knapsack_dp_with_coherence(
         fragments,
@@ -192,7 +175,6 @@ def solve_baseline_heuristic_reorder(
     max_duration: float,
     coherence_weight: float = 0.25,
 ) -> Tuple[List[int], float]:
-    """Baseline heurístico: subconjunto greedy + orden por coherencia temporal."""
     coherence_fn = build_temporal_coherence_fn(fragments)
     return heuristic_reorder_with_coherence(
         fragments,

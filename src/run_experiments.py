@@ -1,4 +1,4 @@
-"""Comparación sistemática baseline vs solver LLM sobre instancias JSON."""
+"""Comparación sistemática baseline_beam vs llm_beam sobre instancias JSON."""
 import argparse
 import csv
 import sys
@@ -15,12 +15,14 @@ from src.experiments.metrics import (
 )
 from src.experiments.notes import append_block_notes
 from src.instance import load_instance_file
-from src.llm.client import LLMClient
+from src.llm.client import LLMClient, SummaryEvaluation
+from src.llm.scoring import build_relevance_scores
 from src.problem import SelectionProblem
 from src.solver.llm_assisted import (
+    DEFAULT_BEAM_WIDTH,
+    DEFAULT_SUMMARY_REFINE_TOP_M,
     solve,
     solve_baseline,
-    solve_with_llm_static,
 )
 
 CSV_FIELDS = [
@@ -37,12 +39,17 @@ CSV_FIELDS = [
     "mean_relevance",
     "mean_coherence",
     "objective_score",
+    "summary_llm_score",
+    "summary_llm_relevance",
+    "summary_llm_coherence",
     "selected_indices",
 ]
 
-
 LITE_PATTERNS = ["example_*.json", "bench_*.json"]
 BENCH_PATTERNS = LITE_PATTERNS + ["mini_video_*.json"]
+
+SOLVER_BASELINE = "baseline_beam"
+SOLVER_LLM = "llm_beam"
 
 
 def _glob_instances(instances_dir: Path, patterns: Sequence[str]) -> List[Path]:
@@ -78,44 +85,30 @@ def resolve_bench_instances(project_root: Path) -> List[Path]:
     return _glob_instances(project_root / "data" / "instances", BENCH_PATTERNS)
 
 
-def precompute_relevance_scores(
-    problem: SelectionProblem,
-    llm_client: LLMClient,
-) -> List[float]:
-    n_fragments = len(problem.fragments)
-    scores: List[float] = []
-    for index, fragment in enumerate(problem.fragments):
-        print(f"    fragmento {index + 1}/{n_fragments}...", flush=True)
-        scores.append(llm_client.score_fragment(fragment))
-    return scores
-
-
 def run_solver(
     solver_name: str,
     problem: SelectionProblem,
     llm_client: Optional[LLMClient],
     coherence_weight: float,
-) -> tuple[List[int], float]:
-    if solver_name == "baseline":
-        selected_indices, solver_score, _mode = solve_baseline(problem, coherence_weight)
-        return selected_indices, solver_score
-    if solver_name == "llm_dynamic":
+    beam_width: int,
+    summary_refine_top_m: int,
+) -> tuple[List[int], float, Optional[SummaryEvaluation]]:
+    if solver_name == SOLVER_BASELINE:
+        selected_indices, solver_score, _mode = solve_baseline(
+            problem, coherence_weight, beam_width=beam_width
+        )
+        return selected_indices, solver_score, None
+    if solver_name == SOLVER_LLM:
         if llm_client is None:
-            raise ValueError("El solver llm_dynamic requiere un LLMClient configurado.")
-        selected_indices, solver_score, _mode = solve(problem, llm_client, coherence_weight)
-        return selected_indices, solver_score
-    if solver_name == "llm_static":
-        if llm_client is None:
-            raise ValueError("El solver llm_static requiere un LLMClient configurado.")
-        return solve_with_llm_static(problem, llm_client, coherence_weight=coherence_weight)
-    if solver_name == "baseline_reorder":
-        selected_indices, solver_score, _mode = solve_baseline(problem, coherence_weight)
-        return selected_indices, solver_score
-    if solver_name == "llm_reorder":
-        if llm_client is None:
-            raise ValueError("El solver llm_reorder requiere un LLMClient configurado.")
-        selected_indices, solver_score, _mode = solve(problem, llm_client, coherence_weight)
-        return selected_indices, solver_score
+            raise ValueError("El solver llm_beam requiere un LLMClient configurado.")
+        selected_indices, solver_score, _mode, summary_eval = solve(
+            problem,
+            llm_client,
+            coherence_weight,
+            beam_width=beam_width,
+            summary_refine_top_m=summary_refine_top_m,
+        )
+        return selected_indices, solver_score, summary_eval
     raise ValueError(f"Solver desconocido: {solver_name}")
 
 
@@ -129,6 +122,7 @@ def experiment_row(
     evaluate: bool,
     relevance_scores: Optional[List[float]],
     coherence_weight: float,
+    summary_evaluation: Optional[SummaryEvaluation] = None,
 ) -> Dict[str, object]:
     structural = structural_metrics(problem, selected_indices, solver_score)
     llm_metrics = None
@@ -141,6 +135,14 @@ def experiment_row(
             coherence_weight=coherence_weight,
         )
     row = build_result_row(instance_name, solver_name, selected_indices, structural, llm_metrics)
+    if summary_evaluation is not None:
+        row["summary_llm_score"] = summary_evaluation.overall
+        row["summary_llm_relevance"] = summary_evaluation.relevance
+        row["summary_llm_coherence"] = summary_evaluation.coherence
+    else:
+        row["summary_llm_score"] = ""
+        row["summary_llm_relevance"] = ""
+        row["summary_llm_coherence"] = ""
     row["selected_indices"] = str(row["selected_indices"])
     return row
 
@@ -155,7 +157,7 @@ def write_csv(rows: List[Dict[str, object]], output_path: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Ejecuta comparaciones baseline vs LLM y guarda métricas en CSV."
+        description="Ejecuta baseline_beam vs llm_beam y guarda métricas en CSV."
     )
     parser.add_argument(
         "--instances",
@@ -173,17 +175,7 @@ def main() -> None:
     parser.add_argument(
         "--llm",
         action="store_true",
-        help="Incluir solver LLM dinámico (Paso C)",
-    )
-    parser.add_argument(
-        "--static",
-        action="store_true",
-        help="Incluir solver LLM estático (Paso B) para comparación",
-    )
-    parser.add_argument(
-        "--reorder",
-        action="store_true",
-        help="Incluir solvers con reordenación (baseline_reorder + llm_reorder)",
+        help="Incluir solver llm_beam (precálculo LLM + beam search)",
     )
     parser.add_argument(
         "--evaluate",
@@ -195,6 +187,21 @@ def main() -> None:
         type=float,
         default=0.25,
         help="Peso de coherencia en solver y evaluación (default: 0.25)",
+    )
+    parser.add_argument(
+        "--beam-width",
+        type=int,
+        default=DEFAULT_BEAM_WIDTH,
+        help=f"Ancho del beam search (default: {DEFAULT_BEAM_WIDTH})",
+    )
+    parser.add_argument(
+        "--summary-refine-top-m",
+        type=int,
+        default=DEFAULT_SUMMARY_REFINE_TOP_M,
+        help=(
+            "Candidatos top-M del beam a evaluar con juez macro en llm_beam "
+            f"(default: {DEFAULT_SUMMARY_REFINE_TOP_M}; 0 desactiva refinamiento)"
+        ),
     )
     parser.add_argument(
         "--output",
@@ -224,18 +231,12 @@ def main() -> None:
         print("Error: no se encontraron instancias para evaluar.")
         sys.exit(1)
 
-    solvers = ["baseline"]
+    solvers = [SOLVER_BASELINE]
     if args.llm:
-        solvers.append("llm_dynamic")
-    if args.static:
-        solvers.append("llm_static")
-    if args.reorder:
-        solvers.append("baseline_reorder")
-        if args.llm:
-            solvers.append("llm_reorder")
+        solvers.append(SOLVER_LLM)
 
     llm_client: Optional[LLMClient] = None
-    needs_llm = any(name.startswith("llm") for name in solvers) or args.evaluate
+    needs_llm = SOLVER_LLM in solvers or args.evaluate
     if needs_llm:
         llm_client = LLMClient()
         if not llm_client.api_key:
@@ -251,12 +252,17 @@ def main() -> None:
         relevance_scores: Optional[List[float]] = None
         if args.evaluate and llm_client is not None:
             print("  Precomputando relevancia LLM para evaluación post-hoc...")
-            relevance_scores = precompute_relevance_scores(problem, llm_client)
+            relevance_scores = build_relevance_scores(problem, llm_client)
 
         for solver_name in solvers:
             print(f"  Ejecutando {solver_name}...")
-            selected_indices, solver_score = run_solver(
-                solver_name, problem, llm_client, args.coherence_weight
+            selected_indices, solver_score, summary_eval = run_solver(
+                solver_name,
+                problem,
+                llm_client,
+                args.coherence_weight,
+                args.beam_width,
+                args.summary_refine_top_m,
             )
             row = experiment_row(
                 instance_name,
@@ -268,6 +274,7 @@ def main() -> None:
                 args.evaluate,
                 relevance_scores,
                 args.coherence_weight,
+                summary_evaluation=summary_eval,
             )
             rows.append(row)
             print(

@@ -47,6 +47,12 @@ def main() -> None:
         action="store_true",
         help="Usar el solver asistido por LLM (requiere API key en .env)",
     )
+    parser.add_argument(
+        "--summary-refine-top-m",
+        type=int,
+        default=3,
+        help="Candidatos top-M del beam evaluados con juez macro (0 desactiva; default: 3)",
+    )
     args = parser.parse_args()
 
     project_root = Path(__file__).resolve().parent.parent
@@ -76,7 +82,16 @@ def main() -> None:
 
         print(f"- proveedor: {llm_client.provider}")
         print(f"- modelo: {llm_client.model}")
-        selected_indices, total_score, _mode = solve(problem, llm_client)
+        selected_indices, total_score, _mode, summary_eval = solve(
+            problem,
+            llm_client,
+            summary_refine_top_m=args.summary_refine_top_m,
+        )
+        if summary_eval is not None:
+            print(
+                f"- evaluación macro del resumen: overall={summary_eval.overall:.2f}, "
+                f"relevance={summary_eval.relevance:.2f}, coherence={summary_eval.coherence:.2f}"
+            )
         print_selection(problem, selected_indices, total_score, "solver LLM")
     else:
         selected_indices, total_score, _mode = solve_baseline(problem)
