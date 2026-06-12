@@ -154,9 +154,18 @@ python src/test_llm_solver.py
 - Caché: 192 → 339 entradas (+147 llamadas Groq, ~6,3 min)
 - Notas: bloque «F5 Bloque 1 — escalado dur_5min» en `informe/notas_experimentos.md`
 
+### Bloque 2 ⚠️ INTERRUMPIDO (2026-06-12)
+
+- Comando lanzado; detenido manualmente tras **~50 min** (~47 % del bloque)
+- Caché: 339 → **524** (+185 llamadas); **sin CSV** (`part_dur_10min.csv` no generado)
+- Atascado en precálculo coherencia de `llm_beam` (~172/374 pares nuevos)
+- Reporte y causas de la demora: `planning/f5_bloques_ejecucion.md` § Bloque 2
+- Duración revisada al reanudar: **~55–70 min** (no ~15 min)
+
 ### Pendiente
 
-- Bloques 2–4: escalado `dur_10/15/20min`
+- Bloque 2: **reanudar** `dur_10min` (mismo comando)
+- Bloques 3–4: escalado `dur_15/20min` (tiempos revisados en f5_bloques_ejecucion.md)
 - Bloque 5: verificación caché (E2)
 - Bloque 6: ablation `beam_width` ∈ {3, 5, 10}
 - Reescribir `execute.md` con un solo flujo beam

@@ -60,9 +60,20 @@ python src/run_experiments.py --instances dur_5min.json --llm --evaluate `
   --block-label "F5 Bloque 1 — escalado dur_5min"
 ```
 
-**Bloque 2 ⏳** — `dur_10min` (~532 llamadas, ~15 min): mismo comando con `dur_10min.json`; fusionar CSV después.
+**Bloque 2 ⚠️ INTERRUMPIDO (2026-06-12)** — `dur_10min`: ~50 min, **47 %** completado (+185 llamadas API, caché 339→524). Sin CSV. Reporte completo y causas de la demora: `planning/f5_bloques_ejecucion.md` § Bloque 2.
 
-**Bloques 3–4 ⏳** — `dur_15min` / `dur_20min` (reanudable vía caché).
+Reanudar (mismo comando; **~55–70 min** restantes estimados, no ~15 min):
+
+```powershell
+python src/run_experiments.py --instances dur_10min.json --llm --evaluate `
+  --output results/part_dur_10min.csv `
+  --notes informe/notas_experimentos.md `
+  --block-label "F5 Bloque 2 — escalado dur_10min"
+```
+
+Fusionar `part_dur_10min.csv` → `unified_scaling.csv` al terminar.
+
+**Bloques 3–4 ⏳** — `dur_15min` / `dur_20min` (reanudable vía caché; tiempos revisados en `f5_bloques_ejecucion.md`).
 
 **Ablation ⏳** — `--beam-width 3|5|10` en `bench_disordered.json` y `dur_10min.json` (caché caliente).
 

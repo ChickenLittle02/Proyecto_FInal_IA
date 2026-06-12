@@ -304,9 +304,113 @@ Resumen final
 
 \subsection{Preparación del dataset}
 
+El sistema desarrollado trabaja sobre instancias construidas a partir de transcripciones de videos educativos. Con el fin de disponer de datos adecuados para la experimentación, se implementó un proceso de preparación que transforma los archivos de subtítulos originales en instancias estructuradas del problema de optimización.
+
+La generación de las instancias reales se realiza mediante el script \texttt{prepare\_dataset.py}. Como entrada, el programa recibe archivos de subtítulos en formato SRT correspondientes a diferentes videos educativos. Cada bloque de subtítulos contiene un intervalo temporal y el texto pronunciado durante dicho intervalo. El sistema procesa estos archivos eliminando marcas no informativas y convirtiendo los tiempos a segundos para facilitar su tratamiento posterior.
+
+Una vez cargados los subtítulos, los bloques individuales son agrupados en fragmentos de mayor tamaño mediante una estrategia de agregación temporal. El objetivo es obtener segmentos suficientemente largos para contener información con significado semántico completo, evitando al mismo tiempo fragmentos excesivamente extensos. En la implementación utilizada, los subtítulos consecutivos se agrupan hasta alcanzar aproximadamente entre veinte y veinticinco segundos de duración acumulada.
+
+Cada fragmento generado se representa mediante una estructura que almacena el texto concatenado, la duración del segmento y su posición temporal dentro del video original. Formalmente, cada instancia contiene una colección ordenada de fragmentos junto con la duración máxima permitida para el resumen.
+
+Para determinar dicha restricción se calcula primero la duración total del material de entrada:
+
+\[
+D_{total}
+=
+\sum_{i=1}^{n} d_i,
+\]
+
+donde \(d_i\) representa la duración del fragmento \(f_i\). A continuación, la duración máxima del resumen se fija como un veinticinco por ciento de la duración total disponible:
+
+\[
+D_{max}
+=
+0.25 \cdot D_{total}.
+\]
+
+Esta elección permite generar resúmenes significativamente más breves que el contenido original manteniendo un margen suficiente para incluir los fragmentos más representativos.
+
+Las instancias resultantes se almacenan en formato JSON dentro del directorio \texttt{data/instances/}. Cada archivo contiene la lista de fragmentos generados y la restricción temporal asociada. Los videos reales procesados producen instancias denominadas \texttt{video\_1.json}, \texttt{video\_2.json}, \texttt{video\_3.json} y \texttt{video\_4.json}, con tamaños comprendidos aproximadamente entre veinticinco y cincuenta fragmentos.
+
+Además de las instancias completas, se generaron conjuntos derivados destinados a facilitar la experimentación. Por una parte, el script \texttt{prepare\_mini\_instances.py} permite construir versiones reducidas de los videos conservando únicamente los primeros fragmentos consecutivos. Estas instancias, denominadas \texttt{mini\_video\_*}, mantienen la estructura del problema original pero reducen considerablemente el coste computacional asociado a la evaluación mediante modelos de lenguaje.
+
+Por otra parte, se construyeron instancias de escalado basadas en diferentes cantidades de contenido procedente de un mismo video. Estas instancias, identificadas como \texttt{dur\_5min}, \texttt{dur\_10min}, \texttt{dur\_15min} y \texttt{dur\_20min}, permiten analizar cómo evoluciona el comportamiento del sistema a medida que aumenta el número de fragmentos disponibles y, en consecuencia, el tamaño del espacio de búsqueda.
+
+Finalmente, para complementar los datos reales, se diseñaron varias instancias sintéticas de pequeño tamaño. Estas instancias contienen únicamente cinco fragmentos y fueron construidas manualmente con el objetivo de reproducir situaciones específicas de interés experimental, como la presencia de fragmentos irrelevantes o la existencia de diferentes alternativas de ordenación. Su reducido tamaño permite comparar de forma controlada el comportamiento de los distintos solvers y facilita la interpretación de los resultados obtenidos.
+
+La combinación de instancias reales, instancias derivadas e instancias sintéticas proporciona un conjunto de pruebas suficientemente variado para estudiar tanto la calidad de los resúmenes generados como las limitaciones computacionales de la propuesta desarrollada.
+
+
 \subsection{Evaluación mediante LLM}
 
+El modelo de lenguaje constituye el componente encargado de proporcionar las valoraciones semánticas utilizadas posteriormente por el algoritmo de optimización. Su función no consiste en generar directamente el resumen, sino en estimar la calidad informativa de los fragmentos y la coherencia existente entre ellos.
+
+La evaluación se realiza en una fase de precálculo previa a la búsqueda combinatoria. De esta forma, todas las llamadas al modelo de lenguaje se ejecutan una única vez para cada instancia, evitando consultas repetidas durante la exploración del espacio de soluciones.
+
+El sistema calcula dos tipos de puntuaciones.
+
+En primer lugar, para cada fragmento individual se obtiene una puntuación de relevancia. Para ello se construye un prompt que solicita al modelo valorar la utilidad del fragmento dentro de un resumen educativo y devolver exclusivamente un número comprendido entre 0 y 1. Cuanto mayor sea la puntuación obtenida, mayor será la importancia atribuida al fragmento dentro del contenido global del video.
+
+En segundo lugar, se calcula una puntuación de coherencia para cada par ordenado de fragmentos. En este caso el modelo recibe los textos de ambos fragmentos y debe estimar el grado de continuidad temática y discursiva que existe al colocar el segundo inmediatamente después del primero. Al igual que en la evaluación de relevancia, la respuesta esperada es un valor numérico normalizado entre 0 y 1.
+
+Las puntuaciones obtenidas se almacenan en dos estructuras de datos. La primera es un vector de relevancias:
+
+[
+R=(r_1,r_2,\ldots,r_n),
+]
+
+donde (r_i) representa la relevancia del fragmento (f_i).
+
+La segunda es una matriz de coherencia:
+
+[
+C=
+\begin{bmatrix}
+0 & c_{12} & \cdots & c_{1n}\
+c_{21} & 0 & \cdots & c_{2n}\
+\vdots & \vdots & \ddots & \vdots\
+c_{n1} & c_{n2} & \cdots & 0
+\end{bmatrix},
+]
+
+donde cada elemento (c_{ij}) expresa la coherencia obtenida al situar el fragmento (f_j) después del fragmento (f_i).
+
+Con el objetivo de reducir el número de llamadas a la API y acelerar los experimentos, el sistema incorpora un mecanismo de caché persistente. Cada prompt enviado al modelo se almacena junto con su respuesta, de manera que futuras ejecuciones pueden reutilizar automáticamente los resultados ya calculados.
+
+La implementación permite utilizar diferentes proveedores de modelos de lenguaje mediante una interfaz común. Actualmente se soportan Google Gemini y APIs compatibles con OpenAI, incluyendo Groq. Esta abstracción facilita la comparación entre modelos sin necesidad de modificar el resto del sistema.
+
+El resultado final de esta etapa es una matriz completa de puntuaciones de relevancia y coherencia que será utilizada posteriormente por el algoritmo de beam search para construir los resúmenes candidatos.
+
+
 \subsection{Beam Search}
+
+Una vez calculadas las puntuaciones de relevancia y coherencia mediante el modelo de lenguaje, el sistema debe determinar qué fragmentos incluir en el resumen final. Dado que el número de posibles combinaciones crece rápidamente con la cantidad de fragmentos disponibles, una búsqueda exhaustiva resulta poco práctica incluso para instancias de tamaño moderado. Por esta razón se emplea un algoritmo de \textit{beam search}, capaz de explorar únicamente las alternativas más prometedoras del espacio de búsqueda.
+
+El objetivo del algoritmo es construir progresivamente secuencias ordenadas de fragmentos que respeten la restricción de duración máxima y maximicen la función objetivo definida en la Sección 3. Cada estado de búsqueda representa una solución parcial formada por una secuencia de fragmentos ya seleccionados, la puntuación acumulada obtenida hasta el momento y la duración total consumida.
+
+Inicialmente el algoritmo parte de una solución vacía. En cada iteración se generan nuevas alternativas añadiendo un fragmento no utilizado a cada una de las secuencias parciales presentes en el beam. Una expansión únicamente se considera válida cuando la duración total resultante no supera el límite establecido para la instancia.
+
+La puntuación de una solución parcial se calcula de forma incremental. Cuando se añade un nuevo fragmento (f_j), la puntuación aumenta en función de su relevancia individual y, si existe un fragmento anterior en la secuencia, también incorpora la contribución de la coherencia entre ambos elementos:
+
+[
+\Delta =
+r_j
++
+\lambda , c_{ij},
+]
+
+donde (f_i) representa el último fragmento de la secuencia actual y (\lambda) es el peso asignado a la coherencia.
+
+Tras generar todas las expansiones posibles, los candidatos se ordenan según su puntuación acumulada y únicamente se conservan los mejores. Este conjunto reducido constituye el nuevo beam que será expandido en la siguiente iteración. El parámetro que controla el número máximo de candidatos conservados recibe el nombre de \textit{beam width}.
+
+La principal ventaja de este enfoque es que permite explorar múltiples alternativas simultáneamente sin necesidad de mantener todas las combinaciones posibles. Mientras que una búsqueda exhaustiva tendría un crecimiento exponencial, el beam search limita deliberadamente el número de estados activos, logrando tiempos de ejecución mucho más reducidos a costa de renunciar a la garantía de optimalidad global.
+
+Además de devolver el mejor candidato encontrado, la implementación desarrollada permite conservar varios resúmenes de alta calidad. Para ello se mantiene una lista de los (M) candidatos con mayor puntuación local obtenidos durante la exploración. Esta característica resulta especialmente útil porque posibilita una fase posterior de refinamiento mediante un juez global basado en LLM.
+
+En la configuración utilizada durante los experimentos se emplea un ancho de beam de diez candidatos (\textit{beam width} = 10). Este valor proporciona un equilibrio adecuado entre calidad de las soluciones y coste computacional, permitiendo explorar diferentes alternativas sin que el tiempo de ejecución aumente de forma significativa.
+
+El resultado de esta etapa es un conjunto reducido de resúmenes candidatos que cumplen la restricción de duración y presentan una combinación favorable de relevancia y coherencia. Estos candidatos son posteriormente evaluados mediante un análisis global para seleccionar la versión final del resumen.
+
 
 \subsection{Refinamiento mediante juez macro}
 
