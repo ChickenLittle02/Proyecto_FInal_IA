@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{orientacion2025}
+{Docencia de Inteligencia Artificial}.
+\newblock Orientaci{\'o}n del proyecto final inteligencia artificial
+  2025--2026.
+\newblock Material docente del curso, 2025.
+\newblock Tema 2: Construcci{\'o}n de res{\'u}menes como selecci{\'o}n
+  {\'o}ptima de segmentos.
+
+\bibitem{groq2024}
+{Groq Inc.}
+\newblock Groq cloud documentation, 2024.
+
+\bibitem{meta2024llama33}
+{Meta AI}.
+\newblock Llama 3.3 model card, 2024.
+
+\bibitem{nenkova2011}
+Ani Nenkova and Kathleen McKeown.
+\newblock Automatic summarization.
+\newblock In {\em Foundations and Trends in Information Retrieval}, volume~5,
+  pages 103--233. Now Publishers, 2011.
+
+\bibitem{russell2020aima}
+Stuart Russell and Peter Norvig.
+\newblock {\em Artificial Intelligence: A Modern Approach}.
+\newblock Pearson, 4th edition, 2020.
+
+\end{thebibliography}
