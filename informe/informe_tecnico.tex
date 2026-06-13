@@ -89,9 +89,6 @@ Grupo C-311
 
 {\large Curso 2025--2026\par}
 
-\vspace{0.3cm}
-
-{\large \today\par}
 
 \end{titlepage}
 
@@ -355,25 +352,25 @@ En segundo lugar, se calcula una puntuación de coherencia para cada par ordenad
 
 Las puntuaciones obtenidas se almacenan en dos estructuras de datos. La primera es un vector de relevancias:
 
-[
+\[
 R=(r_1,r_2,\ldots,r_n),
-]
+\]
 
-donde (r_i) representa la relevancia del fragmento (f_i).
+donde $(r_i)$ representa la relevancia del fragmento $(f_i)$.
 
 La segunda es una matriz de coherencia:
 
-[
+\[
 C=
 \begin{bmatrix}
-0 & c_{12} & \cdots & c_{1n}\
-c_{21} & 0 & \cdots & c_{2n}\
-\vdots & \vdots & \ddots & \vdots\
+0 & c_{12} & \cdots & c_{1n} \\
+c_{21} & 0 & \cdots & c_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
 c_{n1} & c_{n2} & \cdots & 0
-\end{bmatrix},
-]
+\end{bmatrix}
+\]
 
-donde cada elemento (c_{ij}) expresa la coherencia obtenida al situar el fragmento (f_j) después del fragmento (f_i).
+donde cada elemento $(c_{ij})$ expresa la coherencia obtenida al situar el fragmento $(f_j)$ después del fragmento $(f_i)$.
 
 Con el objetivo de reducir el número de llamadas a la API y acelerar los experimentos, el sistema incorpora un mecanismo de caché persistente. Cada prompt enviado al modelo se almacena junto con su respuesta, de manera que futuras ejecuciones pueden reutilizar automáticamente los resultados ya calculados.
 
@@ -390,16 +387,16 @@ El objetivo del algoritmo es construir progresivamente secuencias ordenadas de f
 
 Inicialmente el algoritmo parte de una solución vacía. En cada iteración se generan nuevas alternativas añadiendo un fragmento no utilizado a cada una de las secuencias parciales presentes en el beam. Una expansión únicamente se considera válida cuando la duración total resultante no supera el límite establecido para la instancia.
 
-La puntuación de una solución parcial se calcula de forma incremental. Cuando se añade un nuevo fragmento (f_j), la puntuación aumenta en función de su relevancia individual y, si existe un fragmento anterior en la secuencia, también incorpora la contribución de la coherencia entre ambos elementos:
+La puntuación de una solución parcial se calcula de forma incremental. Cuando se añade un nuevo fragmento $(f_j)$, la puntuación aumenta en función de su relevancia individual y, si existe un fragmento anterior en la secuencia, también incorpora la contribución de la coherencia entre ambos elementos:
 
-[
+\[
 \Delta =
 r_j
 +
 \lambda , c_{ij},
-]
+\]
 
-donde (f_i) representa el último fragmento de la secuencia actual y (\lambda) es el peso asignado a la coherencia.
+donde $(f_i)$ representa el último fragmento de la secuencia actual y $(\lambda)$ es el peso asignado a la coherencia.
 
 Tras generar todas las expansiones posibles, los candidatos se ordenan según su puntuación acumulada y únicamente se conservan los mejores. Este conjunto reducido constituye el nuevo beam que será expandido en la siguiente iteración. El parámetro que controla el número máximo de candidatos conservados recibe el nombre de \textit{beam width}.
 
@@ -414,6 +411,31 @@ El resultado de esta etapa es un conjunto reducido de resúmenes candidatos que 
 
 \subsection{Refinamiento mediante juez macro}
 
+Aunque las puntuaciones de relevancia y coherencia calculadas durante la fase de precálculo permiten estimar la calidad de una solución, estas valoraciones se obtienen a partir de fragmentos individuales o pares de fragmentos. Como consecuencia, la función objetivo utilizada durante el beam search proporciona una medida local de calidad que no siempre refleja adecuadamente el comportamiento global del resumen completo.
+
+Con el fin de incorporar una evaluación a nivel de resumen, la solución desarrollada incluye una etapa adicional de refinamiento basada en un modelo de lenguaje. Esta fase se ejecuta una vez finalizado el beam search y utiliza el propio LLM como juez global de los candidatos generados.
+
+En lugar de considerar únicamente la mejor solución obtenida por la búsqueda, el sistema conserva los (M) candidatos con mayor puntuación local. Cada uno de estos candidatos se transforma en un texto continuo mediante la concatenación de los fragmentos seleccionados siguiendo el orden determinado durante la búsqueda. El resultado es un conjunto reducido de resúmenes completos que serán analizados individualmente.
+
+Para cada resumen candidato se construye un prompt específico que solicita al modelo de lenguaje una evaluación global del contenido. El modelo debe analizar el resumen completo teniendo en cuenta la representatividad de la información seleccionada, la coherencia de la secuencia de fragmentos y la calidad general del resultado obtenido. Como respuesta, el sistema solicita un objeto JSON con tres puntuaciones normalizadas entre 0 y 1:
+
+\begin{itemize}
+\item \textbf{Relevance}: medida de la relevancia global del contenido seleccionado.
+\item \textbf{Coherence}: valoración de la continuidad y coherencia entre los fragmentos del resumen.
+\item \textbf{Overall}: evaluación global del resumen completo.
+\end{itemize}
+
+Estas puntuaciones se encapsulan en una estructura de datos denominada \texttt{SummaryEvaluation}, que almacena las tres valoraciones devueltas por el modelo.
+
+Una vez evaluados todos los candidatos, el sistema selecciona como solución final aquel resumen que obtiene la mayor puntuación \textit{overall}. De esta forma, la decisión final no depende exclusivamente de la función objetivo utilizada durante el beam search, sino también de una valoración semántica global realizada sobre el resumen completo.
+
+Este mecanismo puede interpretarse como una estrategia de reordenamiento o \textit{reranking} de candidatos. El beam search actúa como un generador eficiente de posibles soluciones, mientras que el juez macro introduce una segunda etapa de selección basada en una comprensión más amplia del contenido textual. Gracias a esta combinación, el sistema puede corregir situaciones en las que una solución presenta una puntuación local elevada pero genera un resumen menos satisfactorio cuando se analiza de forma conjunta.
+
+La implementación permite controlar el número de candidatos sometidos a esta evaluación mediante el parámetro \verb|summary_refine_top_m|. Cuando este valor es mayor que cero, se activa automáticamente la fase de refinamiento. En los experimentos realizados se emplea un valor por defecto de tres candidatos, lo que proporciona un equilibrio razonable entre calidad de la selección final y coste computacional adicional.
+
+El resultado de esta etapa es el resumen definitivo devuelto por el sistema, acompañado de las puntuaciones globales estimadas por el modelo de lenguaje para facilitar su posterior análisis experimental.
+
+
 % ==================================================
 % 5. IMPLEMENTACION
 % ==================================================
@@ -422,11 +444,90 @@ El resultado de esta etapa es un conjunto reducido de resúmenes candidatos que 
 
 \subsection{Tecnologías utilizadas}
 
+La implementación del sistema se realizó íntegramente en Python, aprovechando su amplio ecosistema de bibliotecas para procesamiento de datos, interacción con modelos de lenguaje y desarrollo de algoritmos de optimización. La elección de este lenguaje permite combinar de forma sencilla componentes de inteligencia artificial con estructuras de búsqueda y evaluación experimental.
+
+El núcleo del sistema se encuentra organizado en módulos independientes encargados de la representación del problema, la evaluación mediante modelos de lenguaje, la búsqueda de soluciones y la ejecución de experimentos. Esta estructura modular facilita el mantenimiento del código y permite sustituir componentes concretos sin afectar al resto de la aplicación.
+
+Para la integración con modelos de lenguaje se utilizaron dos familias de APIs. La primera corresponde a Google Gemini mediante la biblioteca oficial \texttt{google-generativeai}. La segunda utiliza la biblioteca \texttt{OpenAI}, que proporciona compatibilidad tanto con los modelos de OpenAI como con otros proveedores que implementan la misma interfaz, entre ellos Groq.
+
+La gestión de credenciales y parámetros de configuración se realiza mediante variables de entorno cargadas con la biblioteca \texttt{python-dotenv}. Este mecanismo evita almacenar claves de acceso directamente en el código fuente y permite cambiar fácilmente de proveedor o modelo durante la ejecución de experimentos.
+
+Las instancias del problema se almacenan utilizando el formato JSON, que ofrece una representación sencilla y fácilmente intercambiable de los fragmentos, sus transcripciones y las restricciones de duración asociadas. Asimismo, los resultados experimentales se exportan en formato CSV para facilitar su posterior análisis y comparación.
+
+Por último, la implementación incorpora un sistema de caché persistente basado en archivos JSON. Este mecanismo permite reutilizar respuestas obtenidas previamente del modelo de lenguaje, reduciendo el número de llamadas a la API y acelerando significativamente la ejecución de experimentos repetidos.
+
+En conjunto, estas tecnologías proporcionan una infraestructura flexible que permite evaluar diferentes modelos de lenguaje, ejecutar algoritmos de búsqueda combinatoria y realizar análisis experimentales de manera reproducible.
+
+
 \subsection{Estructura del proyecto}
+
+La implementación se organizó siguiendo una estructura modular con el objetivo de separar claramente las distintas responsabilidades del sistema. Esta organización facilita el mantenimiento del código, la reutilización de componentes y la incorporación de nuevas funcionalidades sin modificar el resto de la arquitectura.
+
+El proyecto se encuentra dividido en varios módulos principales, cada uno encargado de una fase específica del proceso de construcción de resúmenes.
+
+El módulo \texttt{llm} contiene toda la funcionalidad relacionada con la interacción con modelos de lenguaje. Dentro de este módulo se implementan los prompts utilizados para evaluar fragmentos y resúmenes, la gestión de llamadas a las distintas APIs compatibles y un sistema de caché destinado a evitar consultas repetidas durante los experimentos.
+
+El módulo \texttt{solver} implementa los algoritmos de optimización. En esta parte se encuentra el beam search unificado encargado de construir candidatos de resumen utilizando las puntuaciones de relevancia y coherencia previamente calculadas. También incluye la lógica de refinamiento basada en la evaluación global de los candidatos generados.
+
+El archivo \texttt{problem.py} contiene la definición formal de las estructuras de datos principales empleadas por el sistema. En particular, define las clases \texttt{Fragment} y \texttt{SelectionProblem}, utilizadas para representar los fragmentos de entrada y las instancias completas del problema.
+
+El módulo \texttt{experiments} reúne las herramientas necesarias para la ejecución y evaluación de experimentos. Entre sus funciones se incluyen el cálculo de métricas estructurales, la comparación entre diferentes configuraciones del sistema y la generación de tablas de resultados.
+
+Por su parte, el script \texttt{run\_experiments.py} actúa como punto de entrada principal para la ejecución de pruebas experimentales. Este programa permite seleccionar conjuntos de instancias, configurar parámetros del beam search, activar o desactivar el uso del modelo de lenguaje y almacenar los resultados obtenidos en archivos CSV para su posterior análisis.
+
+La Figura X muestra de forma esquemática la organización general del proyecto.
+
+\begin{center}
+Instancias
+$\rightarrow$
+LLM
+$\rightarrow$
+Precálculo de puntuaciones
+$\rightarrow$
+Beam Search
+$\rightarrow$
+Refinamiento
+$\rightarrow$
+Resultados
+\end{center}
+
+Esta estructura modular permitió desarrollar y evaluar cada componente de manera independiente, simplificando tanto las tareas de depuración como la comparación entre diferentes versiones del sistema.
 
 \subsection{Configuración del LLM}
 
+La componente basada en modelos de lenguaje se implementa mediante una capa de abstracción que permite utilizar distintos proveedores de manera transparente para el resto del sistema. Esta decisión facilita la experimentación con diferentes modelos sin necesidad de modificar el algoritmo de búsqueda ni el resto de los módulos encargados de la optimización.
+
+La configuración del modelo se centraliza en la clase \texttt{LLMClient}, responsable de gestionar la comunicación con los servicios externos, construir las consultas y procesar las respuestas obtenidas. Durante la inicialización, el cliente determina automáticamente qué proveedor debe utilizarse a partir de los parámetros recibidos o de las variables definidas en el archivo de configuración del proyecto.
+
+La implementación soporta actualmente tres modos de funcionamiento. El primero utiliza Google Gemini mediante la biblioteca oficial \texttt{google-generativeai}. El segundo emplea la API de OpenAI. El tercero permite utilizar Groq, aprovechando su compatibilidad con la interfaz de OpenAI. Esta arquitectura permite sustituir un proveedor por otro sin alterar el resto del sistema.
+
+La selección del proveedor y del modelo se realiza mediante variables de entorno definidas en el archivo \texttt{.env}. Entre los parámetros configurables se encuentran el proveedor utilizado, el nombre del modelo y las credenciales necesarias para acceder al servicio correspondiente. Esta aproximación evita almacenar claves de acceso directamente en el código fuente y facilita la reproducción de los experimentos en distintos entornos de ejecución.
+
+Cuando se utiliza Gemini, el sistema configura automáticamente la clave de acceso mediante la variable \texttt{GEMINI\_API\_KEY}. Por defecto se emplea el modelo \texttt{gemini-2.5-flash}, aunque cualquier modelo compatible puede especificarse a través de la configuración. En el caso de OpenAI o Groq, las llamadas se realizan mediante el cliente oficial de OpenAI, utilizando la URL base y la clave de autenticación definidas por el usuario.
+
+Todas las consultas realizadas durante los experimentos utilizan una temperatura igual a cero. Esta configuración reduce la variabilidad de las respuestas generadas y favorece la reproducibilidad de las puntuaciones obtenidas para relevancia y coherencia. Dado que estas puntuaciones se utilizan posteriormente como entrada del algoritmo de optimización, resulta deseable minimizar el componente aleatorio asociado a la generación de texto.
+
+La implementación incorpora además mecanismos básicos de tolerancia a fallos. Cuando se produce un error temporal o una limitación de cuota por parte del proveedor, el sistema realiza varios intentos antes de abandonar la consulta. En particular, se gestionan explícitamente los errores de tipo \textit{rate limit}, introduciendo pausas de espera antes de volver a enviar la petición. Esta estrategia permite completar experimentos largos de manera más robusta cuando el número de consultas al modelo es elevado.
+
+Con el fin de reducir la carga sobre las APIs externas, todas las respuestas obtenidas son almacenadas localmente mediante un sistema de caché persistente. De esta forma, si una consulta ya ha sido realizada anteriormente, el sistema recupera directamente la respuesta almacenada sin necesidad de generar una nueva llamada al modelo. Esta optimización resulta especialmente importante durante el desarrollo y la repetición de experimentos, ya que disminuye significativamente tanto el tiempo de ejecución como el consumo de recursos asociados al uso del LLM.
+
+Gracias a esta capa de abstracción, el resto de los componentes del sistema opera de forma completamente independiente del proveedor utilizado. El algoritmo de búsqueda únicamente consume las puntuaciones generadas por el cliente LLM, mientras que todos los detalles relacionados con autenticación, comunicación y procesamiento de respuestas permanecen encapsulados dentro de esta interfaz.
+
 \subsection{Caché de respuestas}
+
+La evaluación mediante modelos de lenguaje constituye la parte más costosa del sistema desde el punto de vista temporal y computacional. Durante la ejecución de los experimentos es frecuente que una misma consulta sea realizada múltiples veces, especialmente cuando se repiten pruebas sobre las mismas instancias o se modifican parámetros del algoritmo de búsqueda. Para evitar llamadas redundantes a la API y reducir significativamente el tiempo de ejecución, se incorporó un mecanismo de almacenamiento local de respuestas.
+
+La implementación utiliza una caché persistente basada en archivos JSON. Cada consulta enviada al modelo de lenguaje se emplea como clave de acceso, mientras que la respuesta generada por el modelo se almacena como valor asociado. De esta forma, cuando el sistema necesita realizar una evaluación, primero verifica si existe una respuesta previamente almacenada para el mismo prompt. Si la entrada ya está disponible en la caché, el resultado se recupera directamente desde el almacenamiento local sin necesidad de contactar nuevamente con el proveedor del modelo.
+
+El mecanismo de caché se encuentra encapsulado en la clase \texttt{LLMCache}, ubicada dentro del módulo \texttt{src/llm/cache.py}. Durante la inicialización del sistema, esta clase intenta cargar el contenido de un archivo JSON persistente. Si el archivo no existe o contiene información inválida, se crea automáticamente una estructura vacía para comenzar el almacenamiento de nuevas respuestas.
+
+Cuando se produce una consulta al modelo, el cliente LLM verifica primero la existencia de una entrada correspondiente en la caché. En caso de encontrar una coincidencia, la respuesta almacenada se devuelve inmediatamente. Si no existe una respuesta previa, el sistema realiza la llamada al proveedor configurado, obtiene el resultado y lo incorpora automáticamente a la caché antes de devolverlo al resto de componentes.
+
+Este enfoque ofrece varias ventajas prácticas durante el desarrollo y la experimentación. En primer lugar, reduce considerablemente el número total de llamadas realizadas a las APIs externas, disminuyendo tanto los tiempos de ejecución como el consumo de cuota asociado a los servicios de inferencia. En segundo lugar, mejora la reproducibilidad de los experimentos, ya que una vez almacenada una respuesta, las ejecuciones posteriores utilizarán exactamente los mismos valores sin depender de posibles variaciones producidas por nuevas consultas al modelo.
+
+La caché se utiliza de forma transparente para todas las evaluaciones realizadas por el sistema. Esto incluye las puntuaciones de relevancia asignadas a fragmentos individuales, las evaluaciones de coherencia entre pares de fragmentos y las valoraciones globales efectuadas durante la fase de refinamiento de candidatos. Como consecuencia, los experimentos repetidos sobre las mismas instancias pueden ejecutarse con una velocidad significativamente superior a la de la primera ejecución.
+
+Gracias a esta estrategia, la integración de modelos de lenguaje resulta mucho más eficiente y viable para la realización de múltiples experimentos, manteniendo al mismo tiempo la simplicidad de la arquitectura general del sistema.
 
 % ==================================================
 % 6. METODOLOGIA EXPERIMENTAL
@@ -440,7 +541,136 @@ El resultado de esta etapa es un conjunto reducido de resúmenes candidatos que 
 
 \subsection{Configuración experimental}
 
+La evaluación del sistema se realiza mediante un conjunto de experimentos ejecutados sobre distintas instancias del problema. Cada experimento consiste en cargar una instancia, generar un resumen utilizando uno de los modos de resolución disponibles y registrar posteriormente diversas métricas asociadas a la calidad de la solución obtenida.
+
+La ejecución de los experimentos se centraliza en el script \texttt{run\_experiments.py}, que permite automatizar la comparación entre diferentes configuraciones del sistema. Este componente se encarga de cargar las instancias seleccionadas, ejecutar los algoritmos correspondientes, recopilar las métricas calculadas y almacenar los resultados finales en formato CSV para su posterior análisis.
+
+La implementación contempla dos modos principales de resolución. El primero, denominado \texttt{baseline\_beam}, utiliza puntuaciones de relevancia uniformes y una medida de coherencia basada únicamente en la proximidad temporal de los fragmentos dentro del video original. Este modo sirve como referencia para evaluar la contribución real de los modelos de lenguaje al proceso de construcción de resúmenes.
+
+El segundo modo, denominado \texttt{llm\_beam}, incorpora las puntuaciones de relevancia y coherencia calculadas mediante el modelo de lenguaje. En este caso, la búsqueda utiliza directamente la información semántica proporcionada por el LLM para guiar la selección y ordenación de fragmentos. Opcionalmente, este modo puede activar una etapa adicional de refinamiento global mediante evaluación completa de los mejores candidatos generados por el algoritmo de búsqueda.
+
+El algoritmo de exploración utilizado en ambos modos corresponde a una variante de beam search. Durante los experimentos se emplea un ancho de haz configurable mediante el parámetro \texttt{beam\_width}. El valor utilizado por defecto en la implementación es:
+
+\[
+\texttt{beam\_width}=10.
+\]
+
+Este parámetro determina el número máximo de candidatos parciales que se conservan en cada nivel de expansión del espacio de búsqueda. Valores mayores permiten explorar más alternativas, aunque incrementan el coste computacional asociado al proceso de optimización.
+
+La función objetivo utilizada por el algoritmo combina relevancia y coherencia mediante un parámetro de ponderación denominado \texttt{coherence\_weight}. En los experimentos desarrollados se emplea el valor:
+
+\[
+\lambda = 0.25.
+\]
+
+Este valor coincide con el utilizado durante la implementación del solver y refleja una estrategia orientada a priorizar la relevancia de los fragmentos seleccionados sin ignorar completamente la calidad de las transiciones entre ellos.
+
+Cuando se utiliza el modo \texttt{llm\_beam}, el sistema puede activar una fase adicional de refinamiento global. Para ello se conserva un conjunto de los mejores candidatos producidos por el beam search y posteriormente se evalúan mediante una consulta adicional al modelo de lenguaje. El número de candidatos sometidos a esta evaluación se controla mediante el parámetro \texttt{summary\_refine\_top\_m}. El valor por defecto utilizado en la implementación es:
+
+\[
+\texttt{summary\_refine\_top\_m}=3.
+\]
+
+Esto implica que los tres mejores resúmenes obtenidos según la puntuación local son reevaluados por el modelo de lenguaje antes de seleccionar la solución final.
+
+La infraestructura experimental permite además activar o desactivar la evaluación posterior de las soluciones mediante el argumento \texttt{--evaluate}. Cuando esta opción está habilitada, se calculan métricas adicionales de relevancia y coherencia utilizando nuevamente el modelo de lenguaje con el objetivo de analizar la calidad de las soluciones obtenidas.
+
+Finalmente, todos los resultados generados durante la ejecución son almacenados automáticamente en archivos CSV. Cada fila contiene información sobre la instancia evaluada, el solver utilizado, la selección producida y las métricas calculadas. Esta información constituye la base para el análisis comparativo presentado posteriormente en la sección de resultados.
+
 \subsection{Métricas}
+
+Con el objetivo de analizar el comportamiento de los distintos métodos de resolución, el sistema calcula un conjunto de métricas estructurales y semánticas para cada resumen generado. Estas métricas permiten evaluar tanto el grado de utilización del presupuesto temporal disponible como la calidad de los fragmentos seleccionados y de la secuencia resultante.
+
+Las métricas implementadas se calculan automáticamente al finalizar cada experimento y son almacenadas junto con el resto de los resultados en archivos CSV para su posterior análisis.
+
+\subsubsection{Métricas estructurales}
+
+Las métricas estructurales describen propiedades cuantitativas de la solución obtenida sin recurrir a evaluaciones semánticas adicionales.
+
+La primera métrica registrada es el número total de fragmentos disponibles en la instancia, denotado por \texttt{n\_fragments}. Asimismo, se almacena el número de fragmentos finalmente seleccionados para construir el resumen, representado mediante \texttt{n\_selected}.
+
+También se registra la duración máxima permitida para la instancia (\texttt{max\_duration}) y la duración total consumida por la solución obtenida (\texttt{duration\_used}).
+
+A partir de estos valores se calcula el grado de utilización del presupuesto temporal disponible:
+
+\[
+\text{duration\_utilization}
+=
+\frac{\text{duration\_used}}
+{\text{max\_duration}}.
+\]
+
+Esta métrica indica qué proporción de la duración máxima permitida ha sido realmente utilizada por el resumen generado.
+
+Otra medida relevante es la cobertura de fragmentos:
+
+\[
+\text{fragment\_coverage}
+=
+\frac{\text{n\_selected}}
+{\text{n\_fragments}}.
+\]
+
+Esta cantidad representa la fracción de fragmentos originales que han sido incorporados a la solución final.
+
+Además, se calcula la cobertura temporal respecto al contenido fuente:
+
+\[
+\text{duration\_coverage}
+=
+\frac{\text{duration\_used}}
+{\text{source\_duration}},
+\]
+
+donde \texttt{source\_duration} corresponde a la suma de las duraciones de todos los fragmentos disponibles en la instancia.
+
+Finalmente, se registra la puntuación obtenida por la función objetivo utilizada durante la búsqueda, almacenada mediante la métrica \texttt{solver\_score}.
+
+\subsubsection{Métricas basadas en LLM}
+
+Cuando la evaluación semántica está habilitada, el sistema calcula métricas adicionales utilizando nuevamente el modelo de lenguaje.
+
+La primera de ellas es la relevancia media de los fragmentos seleccionados:
+
+\[
+\text{mean\_relevance}
+=
+\frac{1}{k}
+\sum_{i \in S}
+r_i,
+\]
+
+donde \(S\) representa el conjunto de fragmentos seleccionados y \(k\) su cardinalidad.
+
+De forma análoga, se calcula la coherencia media entre fragmentos consecutivos presentes en la solución:
+
+\[
+\text{mean\_coherence}
+=
+\frac{1}{k-1}
+\sum_{j=1}^{k-1}
+c_{i_j,i_{j+1}}.
+\]
+
+Esta métrica proporciona una estimación de la calidad de las transiciones producidas dentro del resumen.
+
+A partir de las puntuaciones de relevancia y coherencia también se calcula una medida agregada denominada \texttt{objective\_score}, que reproduce la función objetivo utilizada durante la evaluación de la solución.
+
+\subsubsection{Evaluación global del resumen}
+
+Cuando se activa la fase de refinamiento mediante juez macro, el modelo de lenguaje genera una valoración adicional del resumen completo.
+
+Para cada candidato evaluado se obtienen tres puntuaciones normalizadas entre 0 y 1:
+
+\begin{itemize}
+\item \texttt{summary\_llm\_relevance}: relevancia global del contenido seleccionado.
+\item \texttt{summary\_llm\_coherence}: coherencia global de la secuencia de fragmentos.
+\item \texttt{summary\_llm\_score}: valoración global del resumen completo.
+\end{itemize}
+
+Estas puntuaciones son producidas por una consulta específica al modelo de lenguaje en la que se proporciona el texto completo del resumen generado. El modelo devuelve una evaluación global en formato JSON que posteriormente es procesada por el sistema.
+
+Las métricas obtenidas permiten analizar el comportamiento de los distintos métodos de resolución desde perspectivas complementarias. Mientras que las métricas estructurales describen el uso de los recursos disponibles y las características de la selección realizada, las métricas basadas en el modelo de lenguaje ofrecen una estimación semántica de la calidad de los resúmenes producidos.
 
 % ==================================================
 % 7. RESULTADOS Y ANALISIS
