@@ -2,6 +2,8 @@
 
 Este repositorio contiene una base inicial para el proyecto final de IA sobre selección de fragmentos de video educativo.
 
+**¿Quieres usarlo con un video real (no experimentación)?** → [Uso en producción](#uso-en-producción): qué JSON necesita el sistema, dónde colocar el `.srt` / la instancia y cómo ejecutar `run_example.py`.
+
 ## Estructura creada
 
 - `src/problem.py` — definición formal del problema y representación de fragmentos.
@@ -129,6 +131,129 @@ python src/test_llm.py
 4. Ejecuta los experimentos con la nueva API (mismos comandos, distinto proveedor).
 
 > **Nota:** no hace falta cambiar código. Solo `.env` + borrar caché al cambiar de proveedor o modelo.
+
+## Uso en producción
+
+Esta sección describe cómo **poner el sistema a funcionar** con un video real: qué datos necesita, dónde colocarlos y cómo obtener la selección final. No es el flujo de experimentación (`run_experiments.py`, suites, CSVs).
+
+### Qué debe recibir el sistema
+
+El solver trabaja sobre un **archivo JSON de instancia** con dos campos principales:
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `max_duration` | número (segundos) | Duración máxima del resumen (restricción dura del problema). |
+| `fragments` | lista | Fragmentos candidatos del video, en **cualquier orden** en el JSON; el solver los selecciona y reordena. |
+
+Cada fragmento debe incluir:
+
+| Campo | Obligatorio | Descripción |
+|---|---|---|
+| `id` | sí | Identificador del fragmento (string). |
+| `text` | sí | Transcripción o texto del segmento. |
+| `duration` | sí | Duración en segundos. |
+| `start_time` | recomendado | Inicio en el video original (segundos). |
+| `end_time` | recomendado | Fin en el video original (segundos). |
+| `metadata` | no | Metadatos libres (p. ej. `topic`). |
+
+Ejemplo mínimo en `data/instances/mi_video.json`:
+
+```json
+{
+  "max_duration": 120.0,
+  "fragments": [
+    {
+      "id": "1",
+      "text": "Texto del primer segmento...",
+      "duration": 18.5,
+      "start_time": 0.0,
+      "end_time": 18.5
+    }
+  ]
+}
+```
+
+### Dónde colocar cada cosa
+
+| Qué | Dónde | Notas |
+|---|---|---|
+| Claves de API LLM | `.env` en la **raíz del proyecto** | Copiar desde `.env.example`. Obligatorio solo si usas `--llm`. |
+| Instancia JSON lista para el solver | `data/instances/` (recomendado) o cualquier ruta | `run_example.py` busca por nombre en `data/instances/` si no encuentras la ruta completa. |
+| Subtítulos `.srt` del video (entrada bruta) | `videos/<carpeta>/` | Una carpeta por video; un archivo `.srt` dentro (p. ej. `videos/mi_charla/titulo.srt`). |
+| Caché de respuestas LLM | `.llm_cache.json` (raíz, se crea solo) | Acelera re-ejecuciones; borrar al cambiar de modelo o proveedor. |
+
+### Flujo completo: de un video a la selección
+
+**1. Preparar la instancia** (elige una opción):
+
+- **Desde subtítulos SRT** — coloca el `.srt` en `videos/<nombre>/` y genera el JSON:
+
+```bash
+python src/prepare_dataset.py
+```
+
+Esto lee cada subcarpeta de `videos/`, agrupa subtítulos en fragmentos (~20 s) y guarda `data/instances/video_<nombre>.json`. El `max_duration` se fija automáticamente al **25 %** de la duración total del video.
+
+- **Manual** — crea o edita un JSON en `data/instances/` con tus fragmentos y el `max_duration` deseado (p. ej. 5 min → `300.0`).
+
+**2. Configurar el entorno** (si vas a usar LLM):
+
+```bash
+copy .env.example .env    # Windows
+pip install -r requirements.txt
+```
+
+Edita `.env` con tu proveedor y clave (ver sección [Configuración de APIs LLM](#configuración-de-apis-llm)).
+
+**3. Ejecutar el solver** sobre tu instancia:
+
+Con LLM (recomendado para calidad de selección y orden):
+
+```bash
+python src/run_example.py mi_video.json --llm
+```
+
+Sin LLM (sin API; scores proxy por orden temporal, útil como fallback):
+
+```bash
+python src/run_example.py mi_video.json
+```
+
+También puedes pasar ruta absoluta o relativa: `python src/run_example.py data/instances/video_3.json --llm`.
+
+**4. Leer la salida** — el script imprime:
+
+- Modo usado (`llm_beam` o `baseline_beam`).
+- **Índices** de los fragmentos elegidos, en el **orden del resumen** (no el orden del JSON de entrada).
+- Duración total y puntuación del beam search.
+- Texto de cada fragmento seleccionado (para montar el resumen o cortar el video con `start_time` / `end_time`).
+
+Con `--llm`, además aparece la evaluación macro del resumen (`overall`, `relevance`, `coherence`) si el refinamiento top-M está activo (por defecto, 3 candidatos).
+
+### Parámetros útiles en producción
+
+```bash
+python src/run_example.py mi_video.json --llm --summary-refine-top-m 3
+```
+
+| Flag | Efecto |
+|---|---|
+| `--llm` | Activa puntuación por API + beam search (`solve()`). |
+| `--summary-refine-top-m N` | Los N mejores candidatos del beam se re-evalúan con el juez macro; `0` desactiva ese paso. |
+
+### Resumen rápido
+
+```
+videos/mi_charla/subtitulos.srt
+        │
+        ▼  python src/prepare_dataset.py
+data/instances/video_mi_charla.json   ← max_duration + fragments
+        │
+        ▼  python src/run_example.py video_mi_charla.json --llm
+Salida en consola: índices ordenados + textos del resumen
+```
+
+Para integrar en otro sistema (sin CLI), importa `load_instance_file`, `LLMClient` y `solve` / `solve_baseline` desde `src/` — el mismo flujo que usa `run_example.py`.
 
 ## Ejecución de ejemplos
 
