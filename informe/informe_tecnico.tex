@@ -7,7 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
-
+\usepackage{tabularx}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -314,7 +314,7 @@ La Figura~\ref{fig:pipeline} resume el flujo general de funcionamiento del siste
 
 El sistema desarrollado trabaja sobre instancias construidas a partir de transcripciones de videos educativos. Con el fin de disponer de datos adecuados para la experimentación, se implementó un proceso de preparación que transforma los archivos de subtítulos originales en instancias estructuradas del problema de optimización.
 
-La generación de las instancias reales se realiza mediante el script \texttt{prepare\_dataset.py}. Como entrada, el programa recibe archivos de subtítulos en formato SRT correspondientes a diferentes videos educativos. Cada bloque de subtítulos contiene un intervalo temporal y el texto pronunciado durante dicho intervalo. El sistema procesa estos archivos eliminando marcas no informativas y convirtiendo los tiempos a segundos para facilitar su tratamiento posterior.
+La generación de las instancias reales se realiza mediante el script \linebreak \texttt{prepare\_dataset.py}. Como entrada, el programa recibe archivos de subtítulos en formato SRT correspondientes a diferentes videos educativos. Cada bloque de subtítulos contiene un intervalo temporal y el texto pronunciado durante dicho intervalo. El sistema procesa estos archivos eliminando marcas no informativas y convirtiendo los tiempos a segundos para facilitar su tratamiento posterior.
 
 Una vez cargados los subtítulos, los bloques individuales son agrupados en fragmentos de mayor tamaño mediante una estrategia de agregación temporal. El objetivo es obtener segmentos suficientemente largos para contener información con significado semántico completo, evitando al mismo tiempo fragmentos excesivamente extensos. En la implementación utilizada, los subtítulos consecutivos se agrupan hasta alcanzar aproximadamente entre veinte y veinticinco segundos de duración acumulada.
 
@@ -436,7 +436,7 @@ Para cada resumen candidato se construye un prompt específico que solicita al m
 \item \textbf{Overall}: evaluación global del resumen completo.
 \end{itemize}
 
-Estas puntuaciones se encapsulan en una estructura de datos denominada \texttt{SummaryEvaluation}, que almacena las tres valoraciones devueltas por el modelo.
+Estas puntuaciones se encapsulan en una estructura de datos denominada\linebreak \texttt{SummaryEvaluation}, que almacena las tres valoraciones devueltas por el modelo.
 
 Una vez evaluados todos los candidatos, el sistema selecciona como solución final aquel resumen que obtiene la mayor puntuación \textit{overall}. De esta forma, la decisión final no depende exclusivamente de la función objetivo utilizada durante el beam search, sino también de una valoración semántica global realizada sobre el resumen completo.
 
@@ -459,7 +459,7 @@ La implementación del sistema se realizó íntegramente en Python, aprovechando
 
 El núcleo del sistema se encuentra organizado en módulos independientes encargados de la representación del problema, la evaluación mediante modelos de lenguaje, la búsqueda de soluciones y la ejecución de experimentos. Esta estructura modular facilita el mantenimiento del código y permite sustituir componentes concretos sin afectar al resto de la aplicación.
 
-Para la integración con modelos de lenguaje se utilizaron dos familias de APIs. La primera corresponde a Google Gemini mediante la biblioteca oficial \texttt{google-generativeai}. La segunda utiliza la biblioteca \texttt{OpenAI}, que proporciona compatibilidad tanto con los modelos de OpenAI como con otros proveedores que implementan la misma interfaz, entre ellos Groq.
+Para la integración con modelos de lenguaje se utilizaron dos familias de APIs. La primera corresponde a Google Gemini mediante la biblioteca oficial\linebreak \texttt{google-generativeai}. La segunda utiliza la biblioteca \texttt{OpenAI}, que proporciona compatibilidad tanto con los modelos de OpenAI como con otros proveedores que implementan la misma interfaz, entre ellos Groq.
 
 La gestión de credenciales y parámetros de configuración se realiza mediante variables de entorno cargadas con la biblioteca \texttt{python-dotenv}. Este mecanismo evita almacenar claves de acceso directamente en el código fuente y permite cambiar fácilmente de proveedor o modelo durante la ejecución de experimentos.
 
@@ -575,7 +575,8 @@ La Tabla~\ref{tab:instancias} resume las instancias disponibles, agrupadas segú
 \centering
 \caption{Resumen de instancias de prueba disponibles.}
 \label{tab:instancias}
-\begin{tabular}{@{}llll@{}}
+
+\begin{tabularx}{\textwidth}{@{}l l c X@{}}
 \toprule
 \textbf{Grupo} & \textbf{Archivos} & \textbf{Fragmentos} & \textbf{Finalidad} \\
 \midrule
@@ -583,20 +584,23 @@ Videos reales
 & \texttt{video\_1}--\texttt{4}
 & 25--50
 & Corpus principal de subtítulos reales \\
+
 Mini videos
 & \texttt{mini\_video\_1}--\texttt{4}
 & 10
 & Recortes para pruebas de menor coste \\
+
 Escalado
 & \texttt{dur\_5min}--\texttt{dur\_20min}
 & 12--47
 & Crecimiento de \(n\) y del espacio de búsqueda \\
+
 Sintéticas / bench
 & 5 archivos
 & 5
 & Escenarios controlados de validación \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsubsection{Instancias sintéticas y de \textit{benchmark}}
@@ -611,9 +615,9 @@ La instancia \texttt{bench\_static\_vs\_dynamic.json} modela un escenario de ``s
 
 En \texttt{bench\_irrelevant\_middle.json}, el fragmento central simula contenido no educativo (por ejemplo, música o anuncio) intercalado entre segmentos útiles. Se espera que un resumen de calidad omita dicho fragmento y priorice material informativo.
 
-Por último, \texttt{bench\_disordered.json} contiene los mismos textos que \texttt{bench\_irrelevant\_middle.json}, pero con el array de fragmentos deliberadamente permutado en el JSON. Valida que el sistema no depende del orden de lectura del fichero y que puede reconstruir una secuencia narrativa coherente a partir de puntuaciones semánticas y búsqueda combinatoria.
+Por último, \texttt{bench\_disordered.json} contiene los mismos textos que\linebreak \texttt{bench\_irrelevant\_middle.json}, pero con el array de fragmentos deliberadamente permutado en el JSON. Valida que el sistema no depende del orden de lectura del fichero y que puede reconstruir una secuencia narrativa coherente a partir de puntuaciones semánticas y búsqueda combinatoria.
 
-Estas cinco instancias fueron ejecutadas en la suite experimental principal (\texttt{baseline\_beam} frente a \texttt{llm\_beam}) con evaluación post-hoc activada; los resultados correspondientes se analizan en la Sección~7.
+Estas cinco instancias fueron ejecutadas en la suite experimental principal \linebreak (\texttt{baseline\_beam} frente a \texttt{llm\_beam}) con evaluación post-hoc activada; los resultados correspondientes se analizan en la Sección~7.
 
 \subsubsection{Instancias de escalado}
 
@@ -653,7 +657,7 @@ La implementación contempla dos modos principales de resolución. El primero, d
 
 El segundo modo, denominado \texttt{llm\_beam}, incorpora las puntuaciones de relevancia y coherencia calculadas mediante el modelo de lenguaje. En este caso, la búsqueda utiliza directamente la información semántica proporcionada por el LLM para guiar la selección y ordenación de fragmentos. Opcionalmente, este modo puede activar una etapa adicional de refinamiento global mediante evaluación completa de los mejores candidatos generados por el algoritmo de búsqueda.
 
-El algoritmo de exploración utilizado en ambos modos corresponde a una variante de beam search. Durante los experimentos se emplea un ancho de haz configurable mediante el parámetro \texttt{beam\_width}. El valor utilizado por defecto en la implementación es:
+El algoritmo de exploración utilizado en ambos modos corresponde a una variante de beam search. Durante los experimentos se emplea un ancho de conjunto configurable mediante el parámetro \texttt{beam\_width}. El valor utilizado por defecto en la implementación es:
 
 \[
 \texttt{beam\_width}=10.
@@ -693,7 +697,7 @@ Las métricas estructurales describen propiedades cuantitativas de la solución 
 
 La primera métrica registrada es el número total de fragmentos disponibles en la instancia, denotado por \texttt{n\_fragments}. Asimismo, se almacena el número de fragmentos finalmente seleccionados para construir el resumen, representado mediante \texttt{n\_selected}.
 
-También se registra la duración máxima permitida para la instancia (\texttt{max\_duration}) y la duración total consumida por la solución obtenida (\texttt{duration\_used}).
+También se registra la duración máxima permitida para la instancia \linebreak (\texttt{max\_duration}) y la duración total consumida por la solución obtenida \linebreak (\texttt{duration\_used}).
 
 A partir de estos valores se calcula el grado de utilización del presupuesto temporal disponible:
 
@@ -807,16 +811,16 @@ La Tabla~\ref{tab:resultados_sinteticos} recoge las métricas principales. Para 
 \end{tabular}
 \end{table}
 
-En \texttt{example\_instance}, ambos modos incluyen los cinco fragmentos disponibles y agotan el presupuesto temporal (\texttt{duration\_utilization} = 1{,}00). La diferencia aparece en el \textbf{orden} de reproducción: el baseline conserva el orden cronológico del JSON ([0,1,2,3,4]), mientras que \texttt{llm\_beam} produce la secuencia [4,2,1,0,3]. Esta reordenación eleva la coherencia media entre fragmentos consecutivos de 0{,}00 a 0{,}54 y aumenta el \texttt{objective\_score} de 1{,}80 a 2{,}34 (+30\,\%), pese a mantener la misma relevancia media (0{,}48). El resultado confirma que, incluso cuando no es necesario descartar fragmentos, las puntuaciones semánticas permiten al beam search construir una secuencia más coherente que la mera proximidad temporal.
+En \texttt{example\_instance}, ambos modos incluyen los cinco fragmentos disponibles y agotan el presupuesto temporal (\texttt{duration\_utilization} = 1{,}00). La diferencia aparece en el orden de reproducción: el baseline conserva el orden cronológico del JSON ([0,1,2,3,4]), mientras que \texttt{llm\_beam} produce la secuencia [4,2,1,0,3]. Esta reordenación eleva la coherencia media entre fragmentos consecutivos de 0{,}00 a 0{,}54 y aumenta el \texttt{objective\_score} de 1{,}80 a 2{,}34 (+30\,\%), pese a mantener la misma relevancia media (0{,}48). El resultado confirma que, incluso cuando no es necesario descartar fragmentos, las puntuaciones semánticas permiten al beam search construir una secuencia más coherente que la mera proximidad temporal.
 
 En \texttt{example\_instance\_overlimit}, el límite más estricto obliga a seleccionar un subconjunto de tres fragmentos. El baseline elige [2,3,4] ---los tres últimos en orden cronológico--- y utiliza el 90\,\% del presupuesto (27~s de 30~s). \texttt{llm\_beam} selecciona [2,1,4], reordena respecto al input y consume el 100\,\% del límite (30~s). La mejora en \texttt{objective\_score} (0{,}94 $\rightarrow$ 1{,}96, +109\,\%) combina una mayor relevancia media (0{,}42 $\rightarrow$ 0{,}75) con coherencia entre pares (0{,}00 $\rightarrow$ 0{,}55). Además, el juez macro asigna al resumen de \texttt{llm\_beam} una puntuación global \texttt{summary\_llm\_score} = 0{,}75 frente a la ausencia de refinamiento en el baseline.
 
-En conjunto, estos dos casos muestran que el modo asistido por LLM mejora tanto la \textbf{ordenación} (cuando caben todos los fragmentos) como la \textbf{selección bajo recorte} (cuando el límite temporal es más estricto), utilizando de forma más eficiente el presupuesto disponible.
+En conjunto, estos dos casos muestran que el modo asistido por LLM mejora tanto la ordenación (cuando caben todos los fragmentos) como la selección bajo recorte (cuando el límite temporal es más estricto), utilizando de forma más eficiente el presupuesto disponible.
 
 
 \subsection{Casos benchmark}
 
-Las instancias de \textit{benchmark} evalúan comportamientos semánticos que no pueden resolverse únicamente con duraciones y proximidad temporal. Se analizan \texttt{bench\_static\_vs\_dynamic.json}, \texttt{bench\_irrelevant\_middle.json} y \texttt{bench\_disordered.json}. La Tabla~\ref{tab:resultados_bench} resume los resultados; la Figura~\ref{fig:comparison_bench} ofrece una visión comparativa del \texttt{objective\_score} post-hoc en las cinco instancias de la suite (incluidas las sintéticas base).
+Las instancias de \textit{benchmark} evalúan comportamientos semánticos que no pueden resolverse únicamente con duraciones y proximidad temporal. Se analizan \linebreak \texttt{bench\_static\_vs\_dynamic.json}, \texttt{bench\_irrelevant\_middle.json} y \linebreak \texttt{bench\_disordered.json}. La Tabla~\ref{tab:resultados_bench} resume los resultados; la Figura~\ref{fig:comparison_bench} ofrece una visión comparativa del \texttt{objective\_score} post-hoc en las cinco instancias de la suite (incluidas las sintéticas base).
 
 \begin{table}[H]
 \centering
@@ -850,7 +854,7 @@ Las instancias de \textit{benchmark} evalúan comportamientos semánticos que no
 
 \subsubsection{Salto de coherencia (\texttt{bench\_static\_vs\_dynamic})}
 
-Esta instancia modela un escenario en el que la transición directa entre los fragmentos 0 y 2 es semánticamente preferible a la secuencia 0$\rightarrow$1$\rightarrow$2, porque el fragmento 1 actúa como puente débil. El baseline temporal selecciona [0,1], siguiendo la contigüidad del orden de entrada, con \texttt{objective\_score} = 1{,}03. \texttt{llm\_beam} elige [0,2], evitando el puente intermedio y alcanzando \texttt{objective\_score} = 1{,}55 (+51\,\%). Ambas soluciones utilizan el presupuesto completo (8~s). El juez macro confirma la calidad del resumen LLM (\texttt{summary\_llm\_score} = 0{,}85). Este caso demuestra que las puntuaciones de coherencia precalculadas guían correctamente el beam search hacia transiciones globalmente más favorables.
+Esta instancia modela un escenario en el que la transición directa entre los fragmentos 0 y 2 es semánticamente preferible a la secuencia 0$\rightarrow$1$\rightarrow$2, porque el fragmento 1 actúa como puente débil. El baseline temporal selecciona [0,1], siguiendo la contigüidad del orden de entrada, con \texttt{objective\_score} = 1{,}03. \texttt{llm\_beam} elige [0,2], evitando el puente intermedio y alcanzando \texttt{objective\_score} = 1{,}55. Ambas soluciones utilizan el presupuesto completo de 8~s. El juez macro confirma la calidad del resumen LLM (\texttt{summary\_llm\_score} = 0{,}85). Este caso demuestra que las puntuaciones de coherencia precalculadas guían correctamente el beam search hacia transiciones globalmente más favorables.
 
 \subsubsection{Fragmento irrelevante (\texttt{bench\_irrelevant\_middle})}
 
@@ -858,7 +862,7 @@ Aquí el fragmento central (índice~2) simula contenido no educativo intercalado
 
 \subsubsection{Input permutado (\texttt{bench\_disordered})}
 
-Este es el contraste más contundente de la suite. Los textos coinciden con \texttt{bench\_irrelevant\_middle}, pero el array de fragmentos aparece permutado en el JSON. El baseline incluye el fragmento irrelevante (índice~2) en la selección [1,4,2,3], obteniendo coherencia media 0{,}37 y \texttt{objective\_score} = 2{,}15. \texttt{llm\_beam} omite el fragmento irrelevante y reconstruye la secuencia [1,4,0,3], equivalente a introducción $\rightarrow$ definición $\rightarrow$ ejemplo $\rightarrow$ conclusión. La coherencia media asciende a 0{,}83 y el \texttt{objective\_score} a 3{,}18 (+48\,\%). La relevancia media mejora de 0{,}63 a 0{,}85. Este resultado valida el requisito central del Tema~2: el sistema debe \textbf{seleccionar y ordenar} fragmentos, no limitarse a recortar una subsecuencia del orden de lectura del fichero.
+Este es el contraste más contundente de la suite. Los textos coinciden con \texttt{bench\_irrelevant\_middle}, pero el array de fragmentos aparece permutado en el JSON. El baseline incluye el fragmento irrelevante (índice~2) en la selección [1,4,2,3], obteniendo coherencia media 0{,}37 y \texttt{objective\_score} = 2{,}15. \texttt{llm\_beam} omite el fragmento irrelevante y reconstruye la secuencia [1,4,0,3], equivalente a introducción $\rightarrow$ definición $\rightarrow$ ejemplo $\rightarrow$ conclusión. La coherencia media asciende a 0{,}83 y el \texttt{objective\_score} a 3{,}18 (+48\,\%). La relevancia media mejora de 0{,}63 a 0{,}85. Este resultado valida el requisito central del Tema~2: el sistema debe seleccionar y ordenar fragmentos, no limitarse a recortar una subsecuencia del orden de lectura del fichero.
 
 \subsubsection{Síntesis de la suite \textit{benchmark}}
 
@@ -887,12 +891,10 @@ llm\_beam      & 3 & 0{,}99 & 2{,}85 & 2{,}25 & 0{,}90 & 0{,}75 & [8,9,10] \\
 
 Desde el punto de vista estructural, \texttt{llm\_beam} utiliza el 99{,}0\,\% del presupuesto temporal (78{,}44~s de 79{,}24~s) frente al 96{,}1\,\% del baseline (76{,}16~s). La relevancia media de los fragmentos seleccionados coincide en ambos casos (0{,}80), mientras que la coherencia media mejora ligeramente con el LLM (0{,}85 $\rightarrow$ 0{,}90). Medido con el evaluador post-hoc común, el \texttt{objective\_score} asciende de 2{,}23 a 2{,}25 (+0{,}9\,\%), una diferencia modesta respecto a la suite de cinco fragmentos. Cabe señalar que el \texttt{solver\_score} local del baseline (3{,}21) supera al de \texttt{llm\_beam} (2{,}85), porque aquel emplea coherencia temporal durante la búsqueda, mientras que la comparación post-hoc utiliza las puntuaciones semánticas del LLM sobre la selección ya generada.
 
-El juez macro asigna a la solución de \texttt{llm\_beam} una puntuación global \texttt{summary\_llm\_score} = 0{,}75 (\texttt{summary\_llm\_relevance} = 0{,}80, \texttt{summary\_llm\_coherence} = 0{,}70), coherente con la valoración obtenida en otros escenarios del informe.
+El juez macro asigna a la solución de \texttt{llm\_beam} una puntuación global \linebreak \texttt{summary\_llm\_score} = 0{,}75 (\texttt{summary\_llm\_relevance} = 0{,}80, \linebreak \texttt{summary\_llm\_coherence} = 0{,}70), coherente con la valoración obtenida en otros escenarios del informe.
 
-\paragraph{Coste computacional.}
-El precálculo semántico sobre doce fragmentos requiere evaluar la relevancia de cada fragmento y la coherencia de todos los pares ordenados (\(n + n(n-1) = 144\) consultas en la fórmula de precálculo), más tres evaluaciones del juez macro. En la ejecución documentada (Bloque~1, 2026-06-12) se realizaron \textbf{147 llamadas nuevas} a la API de Groq, con una duración de pared de aproximadamente \textbf{6{,}3~min} (380~s), partiendo de una caché parcialmente poblada por experimentos previos.
+El precálculo semántico sobre doce fragmentos requiere evaluar la relevancia de cada fragmento y la coherencia de todos los pares ordenados (\(n + n(n-1) = 144\) consultas en la fórmula de precálculo), más tres evaluaciones del juez macro. En la ejecución se realizaron 147 llamadas nuevas a la API de Groq, con una duración de pared de aproximadamente 6{,}3~min, partiendo de una caché parcialmente poblada por experimentos previos.
 
-\paragraph{Alcance incompleto del escalado.}
 Existen instancias adicionales (\texttt{dur\_10min.json} con \(n=23\), \texttt{dur\_15min.json} con \(n=34\) y \texttt{dur\_20min.json} con \(n=47\)), descritas en la Tabla~\ref{tab:escalado}, pero no se incluyen resultados cuantitativos para ellas en este informe. Un intento de evaluación sobre \texttt{dur\_10min.json} fue interrumpido manualmente tras unos 50~min de ejecución, habiendo completado aproximadamente el 46\,\% del precálculo de coherencia (\(\sim\)185 llamadas API adicionales sobre las 524 entradas acumuladas en caché); no se generó CSV ni resultados de \texttt{llm\_beam} para esa instancia. El crecimiento cuadrático del número de pares de coherencia (\(n(n-1)\)) y los retrasos de cortesía, la persistencia de caché en disco y los posibles \textit{rate limits} del proveedor explican que el tiempo real de pared crezca de forma mucho más rápida que en instancias con \(n \leq 12\). Por ello, la presente sección se limita a un único punto de la curva de escalado; las implicaciones de este alcance se desarrollan en la Sección~8.
 
 
@@ -900,22 +902,16 @@ Existen instancias adicionales (\texttt{dur\_10min.json} con \(n=23\), \texttt{d
 
 Los resultados de las Secciones~7.1 a 7.3 permiten extraer varias conclusiones transversales sobre el comportamiento del sistema desarrollado, sin repetir el detalle tabular de cada instancia.
 
-\paragraph{Contribución del LLM frente al baseline temporal.}
-En las cinco instancias de la suite principal (\texttt{example\_instance}, \texttt{example\_instance\_overlimit} y los tres \textit{benchmarks}), el modo \texttt{llm\_beam} supera a \texttt{baseline\_beam} en \texttt{objective\_score} post-hoc en todos los casos. Las mejoras relativas van desde incrementos moderados en escenarios de recorte simple (\texttt{bench\_irrelevant\_middle}: 0{,}60 $\rightarrow$ 0{,}68, +12{,}5\,\%) hasta aumentos más pronunciados cuando intervienen simultáneamente selección semántica y reordenación (\texttt{bench\_disordered}: 2{,}15 $\rightarrow$ 3{,}18, +48\,\%; \texttt{example\_instance\_overlimit}: 0{,}94 $\rightarrow$ 1{,}96, +109\,\%). Este patrón confirma que las puntuaciones de relevancia y coherencia precalculadas aportan información que la proximidad temporal no captura, especialmente cuando el orden del fichero de entrada no refleja un orden narrativo deseable.
+En las cinco instancias de la suite principal (\texttt{example\_instance}, \linebreak \texttt{example\_instance\_overlimit} y los tres \textit{benchmarks}), el modo \texttt{llm\_beam} supera a \texttt{baseline\_beam} en \texttt{objective\_score} post-hoc en todos los casos. Las mejoras relativas van desde incrementos moderados en escenarios de recorte simple \linebreak (\texttt{bench\_irrelevant\_middle}: 0{,}60 $\rightarrow$ 0{,}68) hasta aumentos más pronunciados cuando intervienen simultáneamente selección semántica y reordenación \linebreak (\texttt{bench\_disordered}: 2{,}15 $\rightarrow$ 3{,}18; \texttt{example\_instance\_overlimit}: 0{,}94 $\rightarrow$ 1{,}96). Este patrón confirma que las puntuaciones de relevancia y coherencia precalculadas aportan información que la proximidad temporal no captura, especialmente cuando el orden del fichero de entrada no refleja un orden narrativo deseable.
 
-\paragraph{Selección, ordenación y uso del presupuesto temporal.}
-El baseline tiende a conservar subsecuencias contiguas del orden de lectura o, en su defecto, los fragmentos finales cronológicos (\texttt{example\_instance\_overlimit}: [2,3,4]; \texttt{dur\_5min}: [7,8,9]). \texttt{llm\_beam}, en cambio, puede omitir fragmentos irrelevantes (\texttt{bench\_disordered}), evitar puentes débiles (\texttt{bench\_static\_vs\_dynamic}: [0,2] en lugar de [0,1]), reordenar el contenido (\texttt{example\_instance}: [4,2,1,0,3]) y aprovechar mejor el límite de duración cuando el recorte es necesario (\texttt{example\_instance\_overlimit}: utilización 1{,}00 frente a 0{,}90). Estas diferencias son compatibles con el planteamiento del Tema~2: el problema exige decidir \textbf{qué} fragmentos incluir y \textbf{en qué orden} presentarlos, no limitarse a truncar el video original.
+El baseline tiende a conservar subsecuencias contiguas del orden de lectura o, en su defecto, los fragmentos finales cronológicos (\texttt{example\_instance\_overlimit}: [2,3,4]; \texttt{dur\_5min}: [7,8,9]). \texttt{llm\_beam}, en cambio, puede omitir fragmentos irrelevantes (\texttt{bench\_disordered}), evitar puentes débiles (\texttt{bench\_static\_vs\_dynamic}: [0,2] en lugar de [0,1]), reordenar el contenido (\texttt{example\_instance}: [4,2,1,0,3]) y aprovechar mejor el límite de duración cuando el recorte es necesario \linebreak (\texttt{example\_instance\_overlimit}: utilización 1{,}00 frente a 0{,}90).
 
-\paragraph{Coherencia entre métricas locales y juez macro.}
-Cuando está activa la fase de refinamiento, el juez macro proporciona una segunda valoración sobre el resumen completo. En los tres \textit{benchmarks}, \texttt{llm\_beam} obtiene \texttt{summary\_llm\_score} = 0{,}85. En \texttt{example\_instance\_overlimit} y \texttt{dur\_5min} la puntuación global es 0{,}75; en \texttt{example\_instance} es 0{,}70. En conjunto, las valoraciones globales respaldan las decisiones tomadas por el beam search asistido por LLM, aunque en algún caso (\texttt{example\_instance}) la puntuación local post-hoc ya era alta y el juez macro resulta más conservador. La divergencia ocasional entre \texttt{solver\_score} (función objetivo empleada durante la búsqueda) y \texttt{objective\_score} post-hoc (evaluación homogénea con puntuaciones LLM) ilustra que la métrica de búsqueda y la de evaluación final no coinciden necesariamente; el refinamiento global mitiga parcialmente esta discrepancia al elegir entre los candidatos del haz.
+Cuando está activa la fase de refinamiento, el juez macro proporciona una segunda valoración sobre el resumen completo. En los tres \textit{benchmarks}, \texttt{llm\_beam} obtiene \texttt{summary\_llm\_score} = 0{,}85. En \texttt{example\_instance\_overlimit} y \texttt{dur\_5min} la puntuación global es 0{,}75; en \texttt{example\_instance} es 0{,}70. En conjunto, las valoraciones globales respaldan las decisiones tomadas por el beam search asistido por LLM, aunque en algún caso (\texttt{example\_instance}) la puntuación local post-hoc ya era alta y el juez macro resulta más conservador. La divergencia ocasional entre \texttt{solver\_score} (función objetivo empleada durante la búsqueda) y \texttt{objective\_score} post-hoc (evaluación homogénea con puntuaciones LLM) ilustra que la métrica de búsqueda y la de evaluación final no coinciden necesariamente; el refinamiento global mitiga parcialmente esta discrepancia al elegir entre los candidatos del conjunto.
 
-\paragraph{Utilidad del baseline como contraste.}
-\texttt{baseline\_beam} cumple una función metodológica clara: aísla el efecto de incorporar evaluación semántica, manteniendo idéntico algoritmo de búsqueda y mismos parámetros (\texttt{beam\_width}, \(\lambda\)). Sus limitaciones ---coherencia nula o baja cuando el orden cronológico no es narrativamente adecuado, inclusión de fragmentos irrelevantes cuando el input está permutado--- hacen visible el valor añadido del LLM sin necesidad de comparar con métodos externos.
+\texttt{Baseline\_beam} cumple una función metodológica clara: aísla el efecto de incorporar evaluación semántica, manteniendo idéntico algoritmo de búsqueda y mismos parámetros (\texttt{beam\_width}, \(\lambda\)). Sus limitaciones ---coherencia nula o baja cuando el orden cronológico no es narrativamente adecuado, inclusión de fragmentos irrelevantes cuando el input está permutado--- hacen visible el valor añadido del LLM sin necesidad de comparar con métodos externos.
 
-\paragraph{Escalabilidad y límites del alcance experimental.}
 La suite de cinco fragmentos permite interpretar con detalle cada decisión de selección y ordenación, pero no representa el régimen de tamaño previsto para videos educativos completos (25--50 fragmentos en \texttt{video\_*}). El único punto de escalado evaluado (\texttt{dur\_5min}, \(n=12\)) muestra una ventaja modesta del LLM en \texttt{objective\_score} (+0{,}9\,\%) con selecciones muy similares (ventanas contiguas desplazadas). No es posible, con los datos disponibles, trazar una curva tiempo--calidad versus \(n\) ni afirmar cómo se comportaría el sistema en \texttt{dur\_20min} (\(n=47\)). La interrupción del experimento sobre \texttt{dur\_10min} evidencia además que el coste del precálculo semántico puede convertirse en el cuello de botella principal antes que el propio beam search.
 
-\paragraph{Síntesis.}
 El pipeline precálculo LLM $\rightarrow$ beam search $\rightarrow$ juez macro funciona de extremo a extremo y mejora la calidad semántica medida post-hoc respecto al baseline temporal en todos los escenarios evaluados cuantitativamente. La ganancia es mayor cuando el problema exige razonamiento sobre coherencia no adyacente, filtrado de ruido o reconstrucción de orden narrativo. En régimen de escalado, los resultados son preliminares y están condicionados por el coste cuadrático de la matriz de coherencia; completar la evaluación sobre instancias de mayor tamaño constituye trabajo pendiente, como se detalla en las secciones siguientes.
 
 % ==================================================
@@ -928,22 +924,16 @@ A pesar de los resultados positivos descritos en la Sección~7, la propuesta pre
 
 \subsection{Limitaciones}
 
-\paragraph{Dependencia del modelo de lenguaje y del proveedor externo.}
-La evaluación semántica del sistema descansa por completo en consultas a un LLM alojado en un servicio externo. En los experimentos documentados se empleó Groq con el modelo \texttt{llama-3.3-70b-versatile} y temperatura cero, con el fin de favorecer la reproducibilidad (Sección~5.3). No obstante, persisten factores fuera del control del desarrollador: variaciones entre modelos o versiones, límites de cuota (\textit{rate limits}), latencia de red y posibles interrupciones del servicio. Un intento de escalado sobre \texttt{dur\_10min.json} fue detenido tras unos 50~min de ejecución, habiendo consumido aproximadamente 185 llamadas API adicionales sin completar el precálculo. Además, las métricas de calidad utilizadas en la evaluación (relevancia, coherencia, puntuación global) son estimaciones producidas por el mismo tipo de modelo que guía la búsqueda, lo que introduce un componente de circularidad en la valoración.
+La evaluación semántica del sistema descansa por completo en consultas a un LLM alojado en un servicio externo. En los experimentos documentados se empleó Groq con el modelo \texttt{llama-3.3-70b-versatile} y temperatura cero, con el fin de favorecer la reproducibilidad (Sección~5.3). No obstante, persisten factores fuera del control del desarrollador: variaciones entre modelos o versiones, límites de cuota (\textit{rate limits}), latencia de red y posibles interrupciones del servicio. Un intento de escalado sobre \texttt{dur\_10min.json} fue detenido tras unos 50~min de ejecución, habiendo consumido aproximadamente 185 llamadas API adicionales sin completar el precálculo.
 
-\paragraph{Coste cuadrático del precálculo de coherencia.}
-El diseño adoptado calcula una puntuación de coherencia para \textbf{cada par ordenado} de fragmentos, lo que implica \(n(n-1)\) consultas además de las \(n\) de relevancia. Para \(n=12\) (\texttt{dur\_5min}) el precálculo requirió 147 llamadas nuevas y unos 6{,}3~min de pared; para \(n=23\) (\texttt{dur\_10min}) la fórmula de precálculo en frío ascendería a 552 consultas solo en la fase de puntuaciones, sin contar el juez macro ni la evaluación post-hoc. El crecimiento cuadrático convierte el precálculo semántico en el principal cuello de botella del sistema para instancias de tamaño moderado, antes incluso que el propio beam search, cuyo coste combinatorio queda acotado por el parámetro \texttt{beam\_width}. Factores de implementación ---reescritura completa del fichero de caché en cada respuesta nueva, retrasos de cortesía entre llamadas y esperas ante HTTP~429--- agravan aún más el tiempo real de ejecución respecto a estimaciones lineales basadas únicamente en la latencia de la API.
+El diseño adoptado calcula una puntuación de coherencia para cada par ordenado de fragmentos, lo que implica \(n(n-1)\) consultas además de las \(n\) de relevancia. Para \(n=12\) (\texttt{dur\_5min}) el precálculo requirió 147 llamadas nuevas y unos 6{,}3~min de pared; para \(n=23\) (\texttt{dur\_10min}) la fórmula de precálculo en frío ascendería a 552 consultas solo en la fase de puntuaciones, sin contar el juez macro ni la evaluación post-hoc. El crecimiento cuadrático convierte el precálculo semántico en el principal cuello de botella del sistema para instancias de tamaño moderado, antes incluso que el propio beam search, cuyo coste combinatorio queda acotado por el parámetro \texttt{beam\_width}. Factores de implementación ---reescritura completa del fichero de caché en cada respuesta nueva, retrasos de cortesía entre llamadas y esperas ante HTTP~429--- agravan aún más el tiempo real de ejecución respecto a estimaciones lineales basadas únicamente en la latencia de la API.
 
-\paragraph{Alcance experimental incompleto.}
-La suite cuantitativa principal se limitó a cinco instancias de cinco fragmentos y a un único punto de escalado (\texttt{dur\_5min}, \(n=12\)). Las instancias \texttt{dur\_10min}, \texttt{dur\_15min} y \texttt{dur\_20min} están generadas y documentadas (Tabla~\ref{tab:escalado}), pero carecen de resultados en este informe. Los cuatro videos educativos completos (\texttt{video\_1.json}--\texttt{video\_4.json}, entre 25 y 50 fragmentos) y sus versiones recortadas \texttt{mini\_video\_*} no formaron parte de la evaluación con LLM, precisamente por el coste asociado a la matriz de coherencia. Por tanto, no es posible afirmar cómo se comportaría el sistema en el caso de uso previsto ---resumir material real de duración significativa--- más allá de inferencias cualitativas derivadas de los \textit{benchmarks} sintéticos y del punto de escalado disponible.
+La suite cuantitativa principal se limitó a cinco instancias de cinco fragmentos y a un único punto de escalado (\texttt{dur\_5min}, \(n=12\)). Las instancias \texttt{dur\_10min}, \texttt{dur\_15min} y \texttt{dur\_20min} están generadas y documentadas (Tabla~\ref{tab:escalado}), pero carecen de resultados en este informe. Los cuatro videos educativos completos (\texttt{video\_1.json}--\texttt{video\_4.json}, entre 25 y 50 fragmentos) y sus versiones recortadas \texttt{mini\_video\_*} no formaron parte de la evaluación con LLM, precisamente por el coste asociado a la matriz de coherencia.
 
-\paragraph{Limitaciones del algoritmo de búsqueda.}
-El beam search empleado (\texttt{beam\_width}=10) explora de forma heurística el espacio de secuencias válidas y no garantiza la optimalidad global de la solución. Podrían existir combinaciones no alcanzadas por el haz que obtengan mayor \texttt{solver\_score}. Asimismo, la función objetivo pondera relevancia y coherencia pairwise con un \(\lambda\) fijo (0{,}25), sin adaptación al tipo de instancia ni validación sistemática de sensibilidad de ese hiperparámetro (un estudio de ablation sobre \texttt{beam\_width} está planificado pero no ejecutado).
+El beam search empleado (\texttt{beam\_width}=10) explora de forma heurística el espacio de secuencias válidas y no garantiza la optimalidad global de la solución. Podrían existir combinaciones no alcanzadas por el conjunto que obtengan mayor \texttt{solver\_score}. Asimismo, la función objetivo pondera relevancia y coherencia pairwise con un \(\lambda\) fijo (0{,}25), sin adaptación al tipo de instancia ni validación sistemática de sensibilidad de ese hiperparámetro.
 
-\paragraph{Fragmentación y representación del contenido.}
 Los fragmentos de entrada se obtienen agrupando subtítulos consecutivos hasta alcanzar aproximadamente veinte a veinticinco segundos de duración acumulada (Sección~4.2). Esta regla fija puede dividir ideas a mitad de exposición o fusionar temas distintos en un mismo segmento, condicionando tanto las puntuaciones del LLM como las decisiones del solver. No se ha evaluado el impacto de otras estrategias de segmentación ni la cobertura temática del resumen respecto al video completo.
 
-\paragraph{Validación de la calidad percibida.}
 Todas las métricas semánticas del informe provienen de evaluaciones automáticas mediante LLM. No se realizó evaluación humana (juicios de expertos o usuarios), ni se emplearon métricas clásicas de resumen extractivo como ROUGE o BERTScore, que habrían permitido contrastar la salida con referencias textuales. La calidad reportada refleja, por tanto, criterios definidos en los \textit{prompts} del sistema, no un juicio independiente sobre la utilidad educativa del resumen.
 
 
@@ -951,13 +941,9 @@ Todas las métricas semánticas del informe provienen de evaluaciones automátic
 
 Varias líneas de trabajo pueden abordar las limitaciones anteriores sin modificar la arquitectura general del pipeline.
 
-\paragraph{Optimización del precálculo y de la caché.}
-Completar la evaluación de escalado reanudando el experimento sobre \texttt{dur\_10min.json} ---la caché parcial acumulada permite continuar sin repetir consultas ya realizadas--- y, progresivamente, las instancias \texttt{dur\_15min} y \texttt{dur\_20min}. Paralelamente, mejorar la persistencia de la caché (escrituras incrementales en lugar de reserializar el fichero completo en cada llamada) y revisar la política de retrasos entre peticiones reduciría el tiempo de pared observado en instancias con \(n \geq 23\). Para tamaños mayores, explorar matrices de coherencia dispersas ---evaluando únicamente pares prometedores según proximidad temporal o similitud léxica--- podría mantener la calidad semántica con un coste subcuadrático.
 
-\paragraph{Evaluación en corpus real y estudios de ablation.}
-Ejecutar el pipeline completo sobre \texttt{mini\_video\_*} como paso intermedio hacia los \texttt{video\_*} completos permitiría validar el comportamiento con transcripciones reales de mayor longitud sin alcanzar de inmediato el coste de cincuenta fragmentos. Un estudio de ablation sobre \texttt{beam\_width} (valores 3, 5 y 10) en instancias representativas cuantificaría el compromiso entre calidad y tiempo de búsqueda. La infraestructura ya soporta proveedores alternativos (Gemini, OpenAI); comparar modelos distintos sobre las mismas instancias ayudaría a separar el efecto del algoritmo del efecto del evaluador.
+Completar la evaluación de escalado reanudando el experimento sobre \linebreak\texttt{dur\_10min.json} ---la caché parcial acumulada permite continuar sin repetir consultas ya realizadas--- y, progresivamente, las instancias \texttt{dur\_15min} y \texttt{dur\_20min}. Paralelamente, mejorar la persistencia de la caché y revisar la política de retrasos entre peticiones reduciría el tiempo de pared observado en instancias con \(n \geq 23\). Para tamaños mayores, explorar matrices de coherencia dispersas ---evaluando únicamente pares prometedores según proximidad temporal o similitud léxica--- podría mantener la calidad semántica con un coste subcuadrático.
 
-\paragraph{Refinamiento metodológico.}
 Incorporar evaluación humana sobre un subconjunto de resúmenes generados, complementada con métricas automáticas independientes del LLM utilizado en el solver, fortalecería la validez externa de los resultados. Ajustar la estrategia de fragmentación o permitir que el límite \(D_{max}\) se configure por instancia ---en lugar de fijarlo siempre al 25\,\% de la duración total--- ampliaría la flexibilidad del sistema en escenarios de uso distintos al experimentado en este trabajo.
 
 
@@ -1068,39 +1054,6 @@ Respuesta esperada: solo el JSON, sin texto adicional.
 \end{verbatim}
 \end{small}
 
-
-\section{Resultados completos}
-
-La Tabla~\ref{tab:anexo_resultados} recoge las doce filas exportadas por los experimentos cuantitativos: diez filas de \texttt{results/experiments\_bench\_beam.csv} (cinco instancias $\times$ dos solvers) y dos filas de \texttt{results/unified\_scaling.csv} (\texttt{dur\_5min}). Los guiones (---) indican campos vacíos en el CSV original (p.\,ej.\ juez macro no aplicado al baseline).
-
-\begin{landscape}
-\scriptsize
-\begin{longtable}{@{}llrrrrrrrrrrrrrrl@{}}
-\caption{Resultados experimentales completos (suite bench + escalado \texttt{dur\_5min}).}
-\label{tab:anexo_resultados} \\
-\toprule
-\textbf{Inst.} & \textbf{Solver} & \textbf{n} & \textbf{k} & \textbf{\(D_{max}\)} & \textbf{\(D_{used}\)} & \textbf{Util.} & \textbf{Fcov.} & \textbf{Dcov.} & \textbf{Sscr.} & \textbf{Rel.} & \textbf{Coh.} & \textbf{Obj.} & \textbf{Sum.} & \textbf{SRel.} & \textbf{SCoh.} & \textbf{Selección} \\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Inst.} & \textbf{Solver} & \textbf{n} & \textbf{k} & \textbf{\(D_{max}\)} & \textbf{\(D_{used}\)} & \textbf{Util.} & \textbf{Fcov.} & \textbf{Dcov.} & \textbf{Sscr.} & \textbf{Rel.} & \textbf{Coh.} & \textbf{Obj.} & \textbf{Sum.} & \textbf{SRel.} & \textbf{SCoh.} & \textbf{Selección} \\
-\midrule
-\endhead
-bench\_disordered & baseline\_beam & 5 & 4 & 35{,}0 & 35{,}0 & 1{,}00 & 0{,}80 & 0{,}81 & 4{,}59 & 0{,}62 & 0{,}37 & 2{,}15 & --- & --- & --- & {1, 4, 2, 3} \\
-bench\_disordered & llm\_beam & 5 & 4 & 35{,}0 & 35{,}0 & 1{,}00 & 0{,}80 & 0{,}81 & 4{,}03 & 0{,}85 & 0{,}83 & 3{,}18 & 0{,}85 & 0{,}80 & 0{,}90 & {1, 4, 0, 3} \\
-bench\_irrelevant\_middle & baseline\_beam & 5 & 1 & 10{,}8 & 8{,}0 & 0{,}74 & 0{,}20 & 0{,}19 & 1{,}00 & 0{,}80 & 0{,}00 & 0{,}60 & --- & --- & --- & {0} \\
-bench\_irrelevant\_middle & llm\_beam & 5 & 1 & 10{,}8 & 10{,}0 & 0{,}93 & 0{,}20 & 0{,}23 & 0{,}90 & 0{,}90 & 0{,}00 & 0{,}68 & 0{,}85 & 0{,}80 & 0{,}90 & {1} \\
-bench\_static\_vs\_dynamic & baseline\_beam & 5 & 2 & 8{,}0 & 8{,}0 & 1{,}00 & 0{,}40 & 0{,}40 & 2{,}23 & 0{,}55 & 0{,}80 & 1{,}03 & --- & --- & --- & {0, 1} \\
-bench\_static\_vs\_dynamic & llm\_beam & 5 & 2 & 8{,}0 & 8{,}0 & 1{,}00 & 0{,}40 & 0{,}40 & 2{,}00 & 0{,}90 & 0{,}80 & 1{,}55 & 0{,}85 & 0{,}80 & 0{,}90 & {0, 2} \\
-example\_instance & baseline\_beam & 5 & 5 & 45{,}0 & 45{,}0 & 1{,}00 & 1{,}00 & 1{,}00 & 5{,}79 & 0{,}48 & 0{,}00 & 1{,}80 & --- & --- & --- & {0, 1, 2, 3, 4} \\
-example\_instance & llm\_beam & 5 & 5 & 45{,}0 & 45{,}0 & 1{,}00 & 1{,}00 & 1{,}00 & 2{,}94 & 0{,}48 & 0{,}54 & 2{,}34 & 0{,}70 & 0{,}80 & 0{,}60 & {4, 2, 1, 0, 3} \\
-example\_instance\_overlimit & baseline\_beam & 5 & 3 & 30{,}0 & 27{,}0 & 0{,}90 & 0{,}60 & 0{,}60 & 3{,}40 & 0{,}42 & 0{,}00 & 0{,}94 & --- & --- & --- & {2, 3, 4} \\
-example\_instance\_overlimit & llm\_beam & 5 & 3 & 30{,}0 & 30{,}0 & 1{,}00 & 0{,}60 & 0{,}67 & 2{,}52 & 0{,}75 & 0{,}55 & 1{,}96 & 0{,}75 & 0{,}80 & 0{,}70 & {2, 1, 4} \\
-dur\_5min & baseline\_beam & 12 & 3 & 79{,}2 & 76{,}2 & 0{,}96 & 0{,}25 & 0{,}24 & 3{,}21 & 0{,}80 & 0{,}85 & 2{,}23 & --- & --- & --- & {7, 8, 9} \\
-dur\_5min & llm\_beam & 12 & 3 & 79{,}2 & 78{,}4 & 0{,}99 & 0{,}25 & 0{,}25 & 2{,}85 & 0{,}80 & 0{,}90 & 2{,}25 & 0{,}75 & 0{,}80 & 0{,}70 & {8, 9, 10} \\
-\bottomrule
-\end{longtable}
-\end{landscape}
 
 % ==================================================
 % BIBLIOGRAFIA
